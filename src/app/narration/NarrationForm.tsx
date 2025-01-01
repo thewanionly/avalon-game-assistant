@@ -22,7 +22,7 @@ const FormSchema = z.object({
   numOfPlayers: z.enum(NUM_OF_PLAYERS_VALUES, {
     required_error: 'You need to select how many players are playing.',
   }),
-  specialCharacters: z.enum(SPECIAL_CHARACTERS_VALUES),
+  specialCharacters: z.enum(SPECIAL_CHARACTERS_VALUES).optional(),
 });
 
 export const NarrationForm = () => {
