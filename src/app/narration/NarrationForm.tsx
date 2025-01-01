@@ -16,13 +16,13 @@ import {
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 const NUM_OF_PLAYERS_VALUES = ['5', '6', '7', '8', '9', '10'] as const;
-const SPECIAL_CHARACTERS_VALUES = ['Percival', 'Mordred', 'Morgana', 'Oberon'] as const;
+const SPECIAL_CHARACTERS_VALUES = ['Percival', 'Mordred', 'Morgana', 'Oberon', 'None'] as const;
 
 const FormSchema = z.object({
   numOfPlayers: z.enum(NUM_OF_PLAYERS_VALUES, {
     required_error: 'You need to select how many players are playing.',
   }),
-  specialCharacters: z.enum(SPECIAL_CHARACTERS_VALUES).optional(),
+  specialCharacters: z.enum(SPECIAL_CHARACTERS_VALUES),
 });
 
 export const NarrationForm = () => {
