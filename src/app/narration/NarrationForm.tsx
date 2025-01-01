@@ -14,6 +14,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { BASIC_SCRIPT } from './Narration.constants';
 
 const NUM_OF_PLAYERS_VALUES = ['5', '6', '7', '8', '9', '10'] as const;
 const SPECIAL_CHARACTERS_VALUES = ['Percival', 'Mordred', 'Morgana', 'Oberon', 'None'] as const;
@@ -25,15 +26,18 @@ const FormSchema = z.object({
   specialCharacters: z.enum(SPECIAL_CHARACTERS_VALUES),
 });
 
-export const NarrationForm = () => {
+interface NarrationFormProps {
+  onFormSubmit: (narrationScript: string) => void;
+}
+
+export const NarrationForm = ({ onFormSubmit }: NarrationFormProps) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
 
   function onSubmit(values: z.infer<typeof FormSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     console.log(values);
+    return onFormSubmit(BASIC_SCRIPT);
   }
 
   return (
