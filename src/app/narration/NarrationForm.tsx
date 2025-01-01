@@ -16,11 +16,13 @@ import {
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 const NUM_OF_PLAYERS_VALUES = ['5', '6', '7', '8', '9', '10'] as const;
+const SPECIAL_CHARACTERS_VALUES = ['Percival', 'Mordred', 'Morgana', 'Oberon'] as const;
 
 const FormSchema = z.object({
   numOfPlayers: z.enum(NUM_OF_PLAYERS_VALUES, {
     required_error: 'You need to select how many players are playing.',
   }),
+  specialCharacters: z.enum(SPECIAL_CHARACTERS_VALUES),
 });
 
 export const NarrationForm = () => {
@@ -53,6 +55,32 @@ export const NarrationForm = () => {
                   className="flex flex-wrap space-y-1"
                 >
                   {NUM_OF_PLAYERS_VALUES.map((value) => (
+                    <FormItem key={value} className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value={value} />
+                      </FormControl>
+                      <FormLabel className="font-normal">{value}</FormLabel>
+                    </FormItem>
+                  ))}
+                </RadioGroup>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="specialCharacters"
+          render={({ field }) => (
+            <FormItem className="space-y-3">
+              <FormLabel>Which of these special characters are included in your game?</FormLabel>
+              <FormControl>
+                <RadioGroup
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                  className="flex flex-wrap space-y-1"
+                >
+                  {SPECIAL_CHARACTERS_VALUES.map((value) => (
                     <FormItem key={value} className="flex items-center space-x-3 space-y-0">
                       <FormControl>
                         <RadioGroupItem value={value} />
