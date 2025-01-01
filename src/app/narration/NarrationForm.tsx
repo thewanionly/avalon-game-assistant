@@ -38,7 +38,7 @@ export const NarrationForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex w-2/3 flex-col justify-between space-y-6"
+        className="flex flex-col justify-between space-y-6"
       >
         <FormField
           control={form.control}
@@ -66,7 +66,7 @@ export const NarrationForm = () => {
             </FormItem>
           )}
         />
-        <Button className="self-start" type="submit">
+        <Button className="md:self-start" type="submit">
           Submit
         </Button>
       </form>
