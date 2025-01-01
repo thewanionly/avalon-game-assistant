@@ -35,6 +35,7 @@ export const NarrationForm = ({ onFormSubmit }: NarrationFormProps) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
+      numOfPlayers: '5',
       specialCharacters: [],
     },
   });
