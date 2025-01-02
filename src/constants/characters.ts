@@ -1,3 +1,14 @@
+export enum AvalonCharacterName {
+  Merlin = 'Merlin',
+  Percival = 'Percival',
+  LoyalServantOfArthur = 'Loyal Servant of Arthur',
+  Mordred = 'Mordred',
+  Morgana = 'Morgana',
+  Oberon = 'Oberon',
+  Assassin = 'Assassin',
+  MinionOfMordred = 'MinionOfMordred',
+}
+
 enum AvalonCharacterLoyalty {
   Good = 'good',
   Evil = 'evil',
@@ -8,50 +19,53 @@ interface AvalonCharacter {
   loyalty: AvalonCharacterLoyalty;
   count: number;
   isAdditional?: boolean;
+  isRequired?: boolean;
 }
 
 export const AVALON_CHARACTERS: AvalonCharacter[] = [
   {
-    name: 'Merlin',
+    name: AvalonCharacterName.Merlin,
     loyalty: AvalonCharacterLoyalty.Good,
     count: 1,
+    isRequired: true,
   },
   {
-    name: 'Percival',
+    name: AvalonCharacterName.Percival,
     loyalty: AvalonCharacterLoyalty.Good,
     count: 1,
     isAdditional: true,
   },
   {
-    name: 'Loyal Servant of Arthur',
+    name: AvalonCharacterName.LoyalServantOfArthur,
     loyalty: AvalonCharacterLoyalty.Good,
     count: 5,
   },
   {
-    name: 'Mordred',
+    name: AvalonCharacterName.Mordred,
     loyalty: AvalonCharacterLoyalty.Evil,
     count: 1,
     isAdditional: true,
   },
   {
-    name: 'Morgana',
+    name: AvalonCharacterName.Morgana,
     loyalty: AvalonCharacterLoyalty.Evil,
     count: 1,
     isAdditional: true,
   },
   {
-    name: 'Oberon',
+    name: AvalonCharacterName.Oberon,
     loyalty: AvalonCharacterLoyalty.Evil,
     count: 1,
     isAdditional: true,
   },
   {
-    name: 'Assassin',
+    name: AvalonCharacterName.Assassin,
     loyalty: AvalonCharacterLoyalty.Evil,
     count: 1,
+    isRequired: true,
   },
   {
-    name: 'Minion of Mordred',
+    name: AvalonCharacterName.MinionOfMordred,
     loyalty: AvalonCharacterLoyalty.Evil,
     count: 3,
   },
@@ -69,3 +83,7 @@ const groupCharacters = (loyalty: AvalonCharacterLoyalty) =>
 
 export const GOOD_AVALON_CHARACTERS = groupCharacters(AvalonCharacterLoyalty.Good);
 export const EVIL_AVALON_CHARACTERS = groupCharacters(AvalonCharacterLoyalty.Evil);
+
+export const REQUIRED_CHARACTERS = AVALON_CHARACTERS.filter(({ isRequired }) => isRequired).map(
+  ({ name }) => name
+);

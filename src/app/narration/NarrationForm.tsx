@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -16,8 +17,16 @@ import {
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Checkbox } from '@/components/ui/checkbox';
 import { CharacterCard } from '@/components/CharacterCard';
-import { EVIL_AVALON_CHARACTERS, GOOD_AVALON_CHARACTERS } from '@/constants/characters';
+import {
+  AvalonCharacterName,
+  EVIL_AVALON_CHARACTERS,
+  GOOD_AVALON_CHARACTERS,
+  REQUIRED_CHARACTERS,
+} from '@/constants/characters';
 
+const CHARACTERS_VALUES = [...GOOD_AVALON_CHARACTERS, ...EVIL_AVALON_CHARACTERS].map(
+  ({ name }) => name
+);
 const NUM_OF_PLAYERS_VALUES = ['5', '6', '7', '8', '9', '10'] as const;
 const SPECIAL_CHARACTERS_VALUES = ['Percival', 'Mordred', 'Morgana', 'Oberon'] as const;
 
@@ -26,6 +35,13 @@ const FormSchema = z.object({
     required_error: 'You need to select how many players are playing.',
   }),
   specialCharacters: z.array(z.string()).optional(),
+  characters: z
+    .array(z.string())
+    .min(5, 'You must select at least 5 characters.')
+    .max(10, 'You cannot select more than 10 characters.')
+    .refine((values) => REQUIRED_CHARACTERS.every((item) => values.includes(item)), {
+      message: `You must include the following required characters: ${REQUIRED_CHARACTERS.join(', ')}`,
+    }),
 });
 
 interface NarrationFormProps {
@@ -40,6 +56,13 @@ export const NarrationForm = ({ onFormSubmit }: NarrationFormProps) => {
     defaultValues: {
       numOfPlayers: '5',
       specialCharacters: [],
+      characters: [
+        AvalonCharacterName.Merlin,
+        `${AvalonCharacterName.LoyalServantOfArthur} 1`,
+        `${AvalonCharacterName.LoyalServantOfArthur} 2`,
+        AvalonCharacterName.Assassin,
+        `${AvalonCharacterName.MinionOfMordred} 1`,
+      ],
     },
   });
 
@@ -153,6 +176,47 @@ export const NarrationForm = ({ onFormSubmit }: NarrationFormProps) => {
                 />
               ))}
               <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="specialCharacters"
+          render={() => (
+            <FormItem className="space-y-3">
+              <FormLabel>Pick characters</FormLabel>
+              <FormDescription>
+                Minimum is 5, Maximum is 10. Merlin and Assassin should be included.
+              </FormDescription>
+
+              {CHARACTERS_VALUES.map((value, index) => (
+                <FormField
+                  key={value + index}
+                  control={form.control}
+                  name="characters"
+                  render={({ field }) => {
+                    return (
+                      <FormItem
+                        key={value + index}
+                        className="flex flex-wrap items-start space-x-3 space-y-0"
+                      >
+                        <FormControl>
+                          <Checkbox
+                            checked={field.value?.includes(value)}
+                            onCheckedChange={(checked) => {
+                              return checked
+                                ? field.onChange([...(field.value ?? []), value])
+                                : field.onChange(field.value?.filter((v) => v !== value));
+                            }}
+                          />
+                        </FormControl>
+                        <FormLabel className="text-sm font-normal">{value}</FormLabel>
+                      </FormItem>
+                    );
+                  }}
+                />
+              ))}
+              <FormMessage>{form.formState.errors.characters?.message}</FormMessage>
             </FormItem>
           )}
         />
