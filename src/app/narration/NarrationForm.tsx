@@ -86,7 +86,7 @@ export const NarrationForm = ({ onFormSubmit }: NarrationFormProps) => {
       Minions of Mordred close your eyes.
       All players should have their eyes closed and hands in a fist in front of them.
       Minions of Mordred, ${conditionalString(hasMordred, `not Mordred himself,`)} extend your thumb so that Merlin will know of you.
-      Merlin, open your eyes and see the agents of .
+      Merlin, open your eyes and see the agents of Evil.
       Minions of Mordred, put your thumbs down and re-form your hand into a fist.
       Merlin, close your eyes.
       All players should have their eyes closed and hands in a fist in front of them.
