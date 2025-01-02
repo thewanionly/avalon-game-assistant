@@ -57,22 +57,15 @@ export const AVALON_CHARACTERS: AvalonCharacter[] = [
   },
 ];
 
-export const GOOD_AVALON_CHARACTERS = AVALON_CHARACTERS.filter(
-  ({ loyalty }) => loyalty === AvalonCharacterLoyalty.Good
-).flatMap((character) =>
-  Array.from({ length: character.count }, () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { count, ...rest } = character; // Exclude `count` if not needed in the resulting objects
-    return rest;
-  })
-);
+const groupCharacters = (loyalty: AvalonCharacterLoyalty) =>
+  AVALON_CHARACTERS.filter((character) => character.loyalty === loyalty).flatMap((character) =>
+    Array.from({ length: character.count }, (_, index) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { count, ...rest } = character; // Exclude `count` if not needed in the resulting objects
+      const uniqueName = character.count > 1 ? `${character.name} ${index + 1}` : character.name; // Append numbers if needed
+      return { ...rest, name: uniqueName }; // Return the updated object
+    })
+  );
 
-export const EVIL_AVALON_CHARACTERS = AVALON_CHARACTERS.filter(
-  ({ loyalty }) => loyalty === AvalonCharacterLoyalty.Evil
-).flatMap((character) =>
-  Array.from({ length: character.count }, () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { count, ...rest } = character; // Exclude `count` if not needed in the resulting objects
-    return rest;
-  })
-);
+export const GOOD_AVALON_CHARACTERS = groupCharacters(AvalonCharacterLoyalty.Good);
+export const EVIL_AVALON_CHARACTERS = groupCharacters(AvalonCharacterLoyalty.Evil);
