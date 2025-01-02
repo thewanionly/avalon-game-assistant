@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NarrationForm } from './NarrationForm';
 
 export const NarrationArea = () => {
@@ -9,6 +9,19 @@ export const NarrationArea = () => {
   const handleFormSubmit = (value: string) => {
     setNarrationScript(value);
   };
+
+  useEffect(() => {
+    if (!narrationScript) return;
+
+    if ('speechSynthesis' in window) {
+      const utterance = new SpeechSynthesisUtterance(narrationScript);
+
+      // Speak the text
+      window.speechSynthesis.speak(utterance);
+    } else {
+      alert('Sorry, your browser does not support the Web Speech API.');
+    }
+  }, [narrationScript]);
 
   return (
     <div>
