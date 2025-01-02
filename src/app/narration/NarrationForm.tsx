@@ -15,6 +15,8 @@ import {
 } from '@/components/ui/form';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Checkbox } from '@/components/ui/checkbox';
+import { CharacterCard } from '@/components/CharacterCard';
+import { EVIL_AVALON_CHARACTERS, GOOD_AVALON_CHARACTERS } from '@/constants/characters';
 
 const NUM_OF_PLAYERS_VALUES = ['5', '6', '7', '8', '9', '10'] as const;
 const SPECIAL_CHARACTERS_VALUES = ['Percival', 'Mordred', 'Morgana', 'Oberon'] as const;
@@ -72,6 +74,20 @@ export const NarrationForm = ({ onFormSubmit }: NarrationFormProps) => {
 
   return (
     <Form {...form}>
+      <p>Good</p>
+      <div className="flex flex-wrap gap-4">
+        {GOOD_AVALON_CHARACTERS.map(({ name }, index) => (
+          <CharacterCard key={name + index} name={name} />
+        ))}
+      </div>
+
+      <p>Evil</p>
+      <div className="flex flex-wrap gap-4">
+        {EVIL_AVALON_CHARACTERS.map(({ name }, index) => (
+          <CharacterCard key={name + index} name={name} isEvil />
+        ))}
+      </div>
+
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col justify-between space-y-6"
