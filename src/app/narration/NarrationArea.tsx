@@ -21,7 +21,19 @@ export const NarrationArea = () => {
     } else {
       alert('Sorry, your browser does not support the Web Speech API.');
     }
+
+    return () => {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    };
   }, [narrationScript]);
+
+  useEffect(() => {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+    }
+  }, []);
 
   return (
     <div>
