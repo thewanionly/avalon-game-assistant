@@ -38,7 +38,7 @@ export const NarrationArea = () => {
   return (
     <div>
       <NarrationForm onFormSubmit={handleFormSubmit} />
-      {narrationScript}
+      <p className="pt-8">{narrationScript}</p>
     </div>
   );
 };
