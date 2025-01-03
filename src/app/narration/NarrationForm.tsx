@@ -60,7 +60,7 @@ export const NarrationForm = ({ onFormSubmit }: NarrationFormProps) => {
     },
   });
 
-  function onSubmit({ specialCharacters = [] }: z.infer<typeof FormSchema>) {
+  const onSubmit = ({ specialCharacters = [] }: z.infer<typeof FormSchema>) => {
     const hasPercival = specialCharacters.includes('Percival');
     const hasMordred = specialCharacters.includes('Mordred');
     const hasMorgana = specialCharacters.includes('Morgana');
@@ -87,7 +87,7 @@ export const NarrationForm = ({ onFormSubmit }: NarrationFormProps) => {
       ${conditionalString(hasPercival, percivalScript)}
       Everyone, open your eyes.
     `);
-  }
+  };
 
   return (
     <Form {...form}>
