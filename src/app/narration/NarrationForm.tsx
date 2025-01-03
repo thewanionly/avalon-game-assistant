@@ -26,10 +26,8 @@ import {
 const CHARACTERS_VALUES = [...GOOD_AVALON_CHARACTERS, ...EVIL_AVALON_CHARACTERS].map(
   ({ name }) => name
 );
-const SPECIAL_CHARACTERS_VALUES = ['Percival', 'Mordred', 'Morgana', 'Oberon'] as const;
 
 const FormSchema = z.object({
-  specialCharacters: z.array(z.string()).optional(),
   characters: z
     .array(z.string())
     .min(5, 'You must select at least 5 characters.')
@@ -49,7 +47,6 @@ export const NarrationForm = ({ onFormSubmit }: NarrationFormProps) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      specialCharacters: [],
       characters: [
         AvalonCharacterName.Merlin,
         `${AvalonCharacterName.LoyalServantOfArthur} 1`,
@@ -111,45 +108,7 @@ export const NarrationForm = ({ onFormSubmit }: NarrationFormProps) => {
       >
         <FormField
           control={form.control}
-          name="specialCharacters"
-          render={() => (
-            <FormItem className="space-y-3">
-              <FormLabel>Which of these special characters are included in your game?</FormLabel>
-
-              {SPECIAL_CHARACTERS_VALUES.map((value) => (
-                <FormField
-                  key={value}
-                  control={form.control}
-                  name="specialCharacters"
-                  render={({ field }) => {
-                    return (
-                      <FormItem
-                        key={value}
-                        className="flex flex-row items-start space-x-3 space-y-0"
-                      >
-                        <FormControl>
-                          <Checkbox
-                            checked={field.value?.includes(value)}
-                            onCheckedChange={(checked) => {
-                              return checked
-                                ? field.onChange([...(field.value ?? []), value])
-                                : field.onChange(field.value?.filter((v) => v !== value));
-                            }}
-                          />
-                        </FormControl>
-                        <FormLabel className="text-sm font-normal">{value}</FormLabel>
-                      </FormItem>
-                    );
-                  }}
-                />
-              ))}
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="specialCharacters"
+          name="characters"
           render={() => (
             <FormItem className="space-y-3">
               <FormLabel>Pick characters</FormLabel>
