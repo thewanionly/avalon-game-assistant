@@ -15,7 +15,6 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Checkbox } from '@/components/ui/checkbox';
-import { CharacterCard } from '@/components/CharacterCard';
 import {
   AvalonCharacterName,
   EVIL_AVALON_CHARACTERS,
@@ -88,20 +87,6 @@ export const NarrationForm = ({ onFormSubmit }: NarrationFormProps) => {
 
   return (
     <Form {...form}>
-      <p>Good</p>
-      <div className="flex flex-wrap gap-4">
-        {GOOD_AVALON_CHARACTERS.map(({ name }, index) => (
-          <CharacterCard key={name + index} name={name} />
-        ))}
-      </div>
-
-      <p>Evil</p>
-      <div className="flex flex-wrap gap-4">
-        {EVIL_AVALON_CHARACTERS.map(({ name }, index) => (
-          <CharacterCard key={name + index} name={name} isEvil />
-        ))}
-      </div>
-
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col justify-between space-y-6"
