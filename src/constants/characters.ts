@@ -6,7 +6,7 @@ export enum AvalonCharacterName {
   Morgana = 'Morgana',
   Oberon = 'Oberon',
   Assassin = 'Assassin',
-  MinionOfMordred = 'MinionOfMordred',
+  MinionOfMordred = 'Minion of Mordred',
 }
 
 enum AvalonCharacterLoyalty {
