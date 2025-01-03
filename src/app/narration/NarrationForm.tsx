@@ -56,11 +56,11 @@ export const NarrationForm = ({ onFormSubmit }: NarrationFormProps) => {
     },
   });
 
-  const onSubmit = ({ specialCharacters = [] }: z.infer<typeof FormSchema>) => {
-    const hasPercival = specialCharacters.includes('Percival');
-    const hasMordred = specialCharacters.includes('Mordred');
-    const hasMorgana = specialCharacters.includes('Morgana');
-    const hasOberon = specialCharacters.includes('Oberon');
+  const onSubmit = ({ characters = [] }: z.infer<typeof FormSchema>) => {
+    const hasPercival = characters.includes(AvalonCharacterName.Percival);
+    const hasMordred = characters.includes(AvalonCharacterName.Mordred);
+    const hasMorgana = characters.includes(AvalonCharacterName.Morgana);
+    const hasOberon = characters.includes(AvalonCharacterName.Oberon);
 
     const percivalScript = `
       Merlin ${conditionalString(hasMorgana, `and Morgana`)}, extend your thumb so that Percival may know of you.
