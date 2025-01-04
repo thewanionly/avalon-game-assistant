@@ -2,12 +2,20 @@
 
 import { useEffect, useState } from 'react';
 import { NarrationForm } from './NarrationForm';
+import { Button } from '@/components/ui/button';
 
 export const NarrationArea = () => {
   const [narrationScript, setNarrationScript] = useState('');
+  const [isSpeaking, setIsSpeaking] = useState(false);
 
   const handleFormSubmit = (value: string) => {
     setNarrationScript(value);
+  };
+
+  const handleStopNarration = () => {
+    window.speechSynthesis.cancel();
+    setIsSpeaking(false);
+    setNarrationScript('');
   };
 
   useEffect(() => {
@@ -18,6 +26,8 @@ export const NarrationArea = () => {
 
       // Speak the text
       window.speechSynthesis.speak(utterance);
+
+      setIsSpeaking(true);
     } else {
       alert('Sorry, your browser does not support the Web Speech API.');
     }
@@ -25,6 +35,7 @@ export const NarrationArea = () => {
     return () => {
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
+        setIsSpeaking(false);
       }
     };
   }, [narrationScript]);
@@ -32,13 +43,19 @@ export const NarrationArea = () => {
   useEffect(() => {
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel();
+      setIsSpeaking(false);
     }
   }, []);
 
   return (
     <div>
       <NarrationForm onFormSubmit={handleFormSubmit} />
-      <p className="pt-8">{narrationScript}</p>
+      <p className="mt-8">{narrationScript}</p>
+      {isSpeaking && (
+        <Button className="mt-4" variant="destructive" onClick={handleStopNarration}>
+          Stop
+        </Button>
+      )}
     </div>
   );
 };
