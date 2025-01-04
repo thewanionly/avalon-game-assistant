@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 export const NarrationArea = () => {
   const [narrationScript, setNarrationScript] = useState('');
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
 
   const handleFormSubmit = (value: string) => {
     setNarrationScript(value);
@@ -16,6 +17,16 @@ export const NarrationArea = () => {
     window.speechSynthesis.cancel();
     setIsSpeaking(false);
     setNarrationScript('');
+  };
+
+  const handlePauseNarration = () => {
+    if (!isPaused) {
+      window.speechSynthesis.pause();
+      setIsPaused(true);
+    } else {
+      window.speechSynthesis.resume();
+      setIsPaused(false);
+    }
   };
 
   useEffect(() => {
@@ -52,9 +63,14 @@ export const NarrationArea = () => {
       <NarrationForm onFormSubmit={handleFormSubmit} />
       <p className="mt-8">{narrationScript}</p>
       {isSpeaking && (
-        <Button className="mt-4" variant="destructive" onClick={handleStopNarration}>
-          Stop
-        </Button>
+        <div className="flex flex-wrap gap-4">
+          <Button className="mt-4" variant="destructive" onClick={handleStopNarration}>
+            Stop
+          </Button>
+          <Button className="mt-4" variant="outline" onClick={handlePauseNarration}>
+            {isPaused ? 'Resume' : 'Pause'}
+          </Button>
+        </div>
       )}
     </div>
   );
