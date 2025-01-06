@@ -16,24 +16,44 @@ import {
 } from '@/components/ui/form';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
+  AvalonCharacterLoyalty,
   AvalonCharacterName,
   EVIL_AVALON_CHARACTERS,
   GOOD_AVALON_CHARACTERS,
   REQUIRED_CHARACTERS,
 } from '@/constants/characters';
 
-const CHARACTERS_VALUES = [...GOOD_AVALON_CHARACTERS, ...EVIL_AVALON_CHARACTERS].map(
-  ({ name }) => name
-);
-
 const FormSchema = z.object({
-  characters: z
+  goodCharacters: z
     .array(z.string())
-    .min(5, 'You must select at least 5 characters.')
-    .max(10, 'You cannot select more than 10 characters.')
-    .refine((values) => REQUIRED_CHARACTERS.every((item) => values.includes(item)), {
-      message: `You must include the following required characters: ${REQUIRED_CHARACTERS.join(', ')}`,
-    }),
+    .refine(
+      (values) =>
+        REQUIRED_CHARACTERS.filter(({ loyalty }) => loyalty === AvalonCharacterLoyalty.Good).every(
+          ({ name }) => values.includes(name)
+        ),
+      {
+        message: `You must include the following required characters: ${REQUIRED_CHARACTERS.filter(
+          ({ loyalty }) => loyalty === AvalonCharacterLoyalty.Good
+        )
+          .map(({ name }) => name)
+          .join(', ')}`,
+      }
+    ),
+  evilCharacters: z
+    .array(z.string())
+    .refine(
+      (values) =>
+        REQUIRED_CHARACTERS.filter(({ loyalty }) => loyalty === AvalonCharacterLoyalty.Evil).every(
+          ({ name }) => values.includes(name)
+        ),
+      {
+        message: `You must include the following required characters: ${REQUIRED_CHARACTERS.filter(
+          ({ loyalty }) => loyalty === AvalonCharacterLoyalty.Evil
+        )
+          .map(({ name }) => name)
+          .join(', ')}`,
+      }
+    ),
 });
 
 interface NarrationFormProps {
@@ -46,21 +66,20 @@ export const NarrationForm = ({ onFormSubmit }: NarrationFormProps) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      characters: [
+      goodCharacters: [
         AvalonCharacterName.Merlin,
         `${AvalonCharacterName.LoyalServantOfArthur} 1`,
         `${AvalonCharacterName.LoyalServantOfArthur} 2`,
-        AvalonCharacterName.Assassin,
-        `${AvalonCharacterName.MinionOfMordred} 1`,
       ],
+      evilCharacters: [AvalonCharacterName.Assassin, `${AvalonCharacterName.MinionOfMordred} 1`],
     },
   });
 
-  const onSubmit = ({ characters = [] }: z.infer<typeof FormSchema>) => {
-    const hasPercival = characters.includes(AvalonCharacterName.Percival);
-    const hasMordred = characters.includes(AvalonCharacterName.Mordred);
-    const hasMorgana = characters.includes(AvalonCharacterName.Morgana);
-    const hasOberon = characters.includes(AvalonCharacterName.Oberon);
+  const onSubmit = ({ goodCharacters = [], evilCharacters = [] }: z.infer<typeof FormSchema>) => {
+    const hasPercival = goodCharacters.includes(AvalonCharacterName.Percival);
+    const hasMordred = evilCharacters.includes(AvalonCharacterName.Mordred);
+    const hasMorgana = evilCharacters.includes(AvalonCharacterName.Morgana);
+    const hasOberon = evilCharacters.includes(AvalonCharacterName.Oberon);
 
     const percivalScript = `
       Merlin ${conditionalString(hasMorgana, `and Morgana`)}, extend your thumb so that Percival may know of you.
@@ -93,19 +112,16 @@ export const NarrationForm = ({ onFormSubmit }: NarrationFormProps) => {
       >
         <FormField
           control={form.control}
-          name="characters"
+          name="goodCharacters"
           render={() => (
             <FormItem className="space-y-3">
-              <FormLabel>Pick characters</FormLabel>
-              <FormDescription>
-                Minimum is 5, Maximum is 10. Merlin and Assassin should be included.
-              </FormDescription>
-
-              {CHARACTERS_VALUES.map((value, index) => (
+              <FormLabel>Good characters</FormLabel>
+              <FormDescription>Merlin should be included.</FormDescription>
+              {GOOD_AVALON_CHARACTERS.map(({ name }) => name).map((value, index) => (
                 <FormField
                   key={value + index}
                   control={form.control}
-                  name="characters"
+                  name="goodCharacters"
                   render={({ field }) => {
                     return (
                       <FormItem
@@ -128,10 +144,50 @@ export const NarrationForm = ({ onFormSubmit }: NarrationFormProps) => {
                   }}
                 />
               ))}
-              <FormMessage>{form.formState.errors.characters?.message}</FormMessage>
+              <FormMessage>{form.formState.errors.goodCharacters?.message}</FormMessage>
             </FormItem>
           )}
         />
+
+        <FormField
+          control={form.control}
+          name="evilCharacters"
+          render={() => (
+            <FormItem className="space-y-3">
+              <FormLabel>Evil characters</FormLabel>
+              <FormDescription>Assassin should be included.</FormDescription>
+              {EVIL_AVALON_CHARACTERS.map(({ name }) => name).map((value, index) => (
+                <FormField
+                  key={value + index}
+                  control={form.control}
+                  name="evilCharacters"
+                  render={({ field }) => {
+                    return (
+                      <FormItem
+                        key={value + index}
+                        className="flex flex-wrap items-start space-x-3 space-y-0"
+                      >
+                        <FormControl>
+                          <Checkbox
+                            checked={field.value?.includes(value)}
+                            onCheckedChange={(checked) => {
+                              return checked
+                                ? field.onChange([...(field.value ?? []), value])
+                                : field.onChange(field.value?.filter((v) => v !== value));
+                            }}
+                          />
+                        </FormControl>
+                        <FormLabel className="text-sm font-normal">{value}</FormLabel>
+                      </FormItem>
+                    );
+                  }}
+                />
+              ))}
+              <FormMessage>{form.formState.errors.evilCharacters?.message}</FormMessage>
+            </FormItem>
+          )}
+        />
+
         <Button className="md:self-start" type="submit">
           Submit
         </Button>

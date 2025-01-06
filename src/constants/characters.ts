@@ -9,7 +9,7 @@ export enum AvalonCharacterName {
   MinionOfMordred = 'Minion of Mordred',
 }
 
-enum AvalonCharacterLoyalty {
+export enum AvalonCharacterLoyalty {
   Good = 'good',
   Evil = 'evil',
 }
@@ -84,6 +84,4 @@ const groupCharacters = (loyalty: AvalonCharacterLoyalty) =>
 export const GOOD_AVALON_CHARACTERS = groupCharacters(AvalonCharacterLoyalty.Good);
 export const EVIL_AVALON_CHARACTERS = groupCharacters(AvalonCharacterLoyalty.Evil);
 
-export const REQUIRED_CHARACTERS = AVALON_CHARACTERS.filter(({ isRequired }) => isRequired).map(
-  ({ name }) => name
-);
+export const REQUIRED_CHARACTERS = AVALON_CHARACTERS.filter(({ isRequired }) => isRequired);
