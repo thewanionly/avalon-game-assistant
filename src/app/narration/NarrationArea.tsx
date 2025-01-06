@@ -59,9 +59,9 @@ export const NarrationArea = () => {
   }, []);
 
   return (
-    <div>
+    <>
       <NarrationForm onFormSubmit={handleFormSubmit} />
-      <p className="mt-8">{narrationScript}</p>
+      {narrationScript && <p className="mt-8">{narrationScript}</p>}
       {isSpeaking && (
         <div className="flex flex-wrap gap-4">
           <Button className="mt-4" variant="destructive" onClick={handleStopNarration}>
@@ -72,6 +72,6 @@ export const NarrationArea = () => {
           </Button>
         </div>
       )}
-    </div>
+    </>
   );
 };
