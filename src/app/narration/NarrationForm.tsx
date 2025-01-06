@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { z } from 'zod';
 
 import { Button } from '@/components/ui/button';
@@ -74,6 +74,12 @@ export const NarrationForm = ({ onFormSubmit }: NarrationFormProps) => {
       evilCharacters: [AvalonCharacterName.Assassin, `${AvalonCharacterName.MinionOfMordred} 1`],
     },
   });
+
+  // Watching the fields for dynamic state calculation
+  const goodChars = useWatch({ control: form.control, name: 'goodCharacters' });
+  const evilChars = useWatch({ control: form.control, name: 'evilCharacters' });
+
+  const numberOfPlayers = goodChars.length + evilChars.length;
 
   const onSubmit = ({ goodCharacters = [], evilCharacters = [] }: z.infer<typeof FormSchema>) => {
     const hasPercival = goodCharacters.includes(AvalonCharacterName.Percival);
@@ -189,7 +195,7 @@ export const NarrationForm = ({ onFormSubmit }: NarrationFormProps) => {
         />
 
         <Button className="md:self-start" type="submit">
-          Submit
+          Play {numberOfPlayers}
         </Button>
       </form>
     </Form>
