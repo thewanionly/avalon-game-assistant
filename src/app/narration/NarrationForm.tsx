@@ -23,6 +23,9 @@ import {
   REQUIRED_CHARACTERS,
 } from '@/constants/characters';
 
+const MIN_PLAYERS = 5;
+const MAX_PLAYERS = 10;
+
 const FormSchema = z.object({
   goodCharacters: z
     .array(z.string())
@@ -82,6 +85,18 @@ export const NarrationForm = ({ onFormSubmit }: NarrationFormProps) => {
   const numberOfPlayers = goodChars.length + evilChars.length;
 
   const onSubmit = ({ goodCharacters = [], evilCharacters = [] }: z.infer<typeof FormSchema>) => {
+    if (numberOfPlayers < MIN_PLAYERS) {
+      alert(`The minimum number of players is ${MIN_PLAYERS}. Please pick add more players.`);
+      return;
+    }
+
+    if (numberOfPlayers > MAX_PLAYERS) {
+      alert(
+        `The maximum number of players is ${MAX_PLAYERS}. Please reduce the number of players.`
+      );
+      return;
+    }
+
     const hasPercival = goodCharacters.includes(AvalonCharacterName.Percival);
     const hasMordred = evilCharacters.includes(AvalonCharacterName.Mordred);
     const hasMorgana = evilCharacters.includes(AvalonCharacterName.Morgana);
