@@ -21,6 +21,7 @@ import {
   EVIL_AVALON_CHARACTERS,
   GOOD_AVALON_CHARACTERS,
   REQUIRED_CHARACTERS,
+  TEAM_DISTRIBUTION,
 } from '@/constants/characters';
 
 const MIN_PLAYERS = 5;
@@ -97,43 +98,19 @@ export const NarrationForm = ({ onFormSubmit }: NarrationFormProps) => {
       return;
     }
 
-    switch (numberOfPlayers) {
-      case 5: {
-        const validDistribution = goodCharacters.length === 3 && evilCharacters.length === 2;
-        if (!validDistribution) {
-          alert(
-            `Oops! It looks like the character selection isn't quite right. You need exactly 3 good characters and 2 evil characters to proceed. Please adjust your choices and try again!`
-          );
-          return;
-        }
-        break;
-      }
-      case 6: {
-        // TODO:
-        console.log('### numberOfPlayers', numberOfPlayers);
-        break;
-      }
-      case 7: {
-        // TODO:
-        console.log('### numberOfPlayers', numberOfPlayers);
-        break;
-      }
-      case 8: {
-        // TODO:
-        console.log('### numberOfPlayers', numberOfPlayers);
-        break;
-      }
-      case 9: {
-        // TODO:
-        console.log('### numberOfPlayers', numberOfPlayers);
-        break;
-      }
-      case 10: {
-        // TODO:
-        console.log('### numberOfPlayers', numberOfPlayers);
-        break;
-      }
+    const { good: goodPlayers, evil: evilPlayers } =
+      TEAM_DISTRIBUTION[numberOfPlayers as keyof typeof TEAM_DISTRIBUTION];
+
+    const validDistribution =
+      goodCharacters.length === goodPlayers && evilCharacters.length === evilPlayers;
+
+    if (!validDistribution) {
+      alert(
+        `Oops! It looks like the character selection isn't quite right. In a ${numberOfPlayers}-player game, you need exactly ${goodPlayers} good characters and ${evilPlayers} evil characters to proceed. Please adjust your choices and try again!`
+      );
+      return;
     }
+
     const hasPercival = goodCharacters.includes(AvalonCharacterName.Percival);
     const hasMordred = evilCharacters.includes(AvalonCharacterName.Mordred);
     const hasMorgana = evilCharacters.includes(AvalonCharacterName.Morgana);

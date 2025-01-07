@@ -85,3 +85,30 @@ export const GOOD_AVALON_CHARACTERS = groupCharacters(AvalonCharacterLoyalty.Goo
 export const EVIL_AVALON_CHARACTERS = groupCharacters(AvalonCharacterLoyalty.Evil);
 
 export const REQUIRED_CHARACTERS = AVALON_CHARACTERS.filter(({ isRequired }) => isRequired);
+
+export const TEAM_DISTRIBUTION = {
+  5: {
+    [AvalonCharacterLoyalty.Good]: 3,
+    [AvalonCharacterLoyalty.Evil]: 2,
+  },
+  6: {
+    [AvalonCharacterLoyalty.Good]: 4,
+    [AvalonCharacterLoyalty.Evil]: 2,
+  },
+  7: {
+    [AvalonCharacterLoyalty.Good]: 4,
+    [AvalonCharacterLoyalty.Evil]: 3,
+  },
+  8: {
+    [AvalonCharacterLoyalty.Good]: 5,
+    [AvalonCharacterLoyalty.Evil]: 3,
+  },
+  9: {
+    [AvalonCharacterLoyalty.Good]: 6,
+    [AvalonCharacterLoyalty.Evil]: 3,
+  },
+  10: {
+    [AvalonCharacterLoyalty.Good]: 6,
+    [AvalonCharacterLoyalty.Evil]: 4,
+  },
+};
