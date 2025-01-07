@@ -97,6 +97,43 @@ export const NarrationForm = ({ onFormSubmit }: NarrationFormProps) => {
       return;
     }
 
+    switch (numberOfPlayers) {
+      case 5: {
+        const validDistribution = goodCharacters.length === 3 && evilCharacters.length === 2;
+        if (!validDistribution) {
+          alert(
+            `Oops! It looks like the character selection isn't quite right. You need exactly 3 good characters and 2 evil characters to proceed. Please adjust your choices and try again!`
+          );
+          return;
+        }
+        break;
+      }
+      case 6: {
+        // TODO:
+        console.log('### numberOfPlayers', numberOfPlayers);
+        break;
+      }
+      case 7: {
+        // TODO:
+        console.log('### numberOfPlayers', numberOfPlayers);
+        break;
+      }
+      case 8: {
+        // TODO:
+        console.log('### numberOfPlayers', numberOfPlayers);
+        break;
+      }
+      case 9: {
+        // TODO:
+        console.log('### numberOfPlayers', numberOfPlayers);
+        break;
+      }
+      case 10: {
+        // TODO:
+        console.log('### numberOfPlayers', numberOfPlayers);
+        break;
+      }
+    }
     const hasPercival = goodCharacters.includes(AvalonCharacterName.Percival);
     const hasMordred = evilCharacters.includes(AvalonCharacterName.Mordred);
     const hasMorgana = evilCharacters.includes(AvalonCharacterName.Morgana);
