@@ -60,7 +60,7 @@ export const NarrationArea = () => {
 
   return (
     <>
-      <NarrationForm onFormSubmit={handleFormSubmit} />
+      <NarrationForm className={narrationScript && 'hidden'} onFormSubmit={handleFormSubmit} />
       {narrationScript && <p className="mt-8">{narrationScript}</p>}
       {isSpeaking && (
         <div className="flex flex-wrap gap-4">

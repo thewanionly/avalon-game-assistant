@@ -23,6 +23,7 @@ import {
   REQUIRED_CHARACTERS,
   TEAM_DISTRIBUTION,
 } from '@/constants/characters';
+import { cn } from '@/lib/utils';
 
 const MIN_PLAYERS = 5;
 const MAX_PLAYERS = 10;
@@ -61,12 +62,13 @@ const FormSchema = z.object({
 });
 
 interface NarrationFormProps {
+  className?: string;
   onFormSubmit: (narrationScript: string) => void;
 }
 
 const conditionalString = (condition: boolean, str: string) => (condition ? str : '');
 
-export const NarrationForm = ({ onFormSubmit }: NarrationFormProps) => {
+export const NarrationForm = ({ className, onFormSubmit }: NarrationFormProps) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -143,7 +145,7 @@ export const NarrationForm = ({ onFormSubmit }: NarrationFormProps) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col justify-between space-y-6"
+        className={cn('flex flex-col justify-between space-y-6', className)}
       >
         <FormField
           control={form.control}
