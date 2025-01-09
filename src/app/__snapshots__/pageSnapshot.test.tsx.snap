@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders homepage unchanged 1`] = `
+<div>
+  <div
+    class="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-[family-name:var(--font-geist-sans)] sm:p-20"
+  >
+    <main
+      class="row-start-2 flex flex-col items-center gap-8"
+    >
+      <h1
+        class="text-3xl"
+      >
+        Avalon Game Assistant
+      </h1>
+      <a
+        class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2"
+        href="/narration"
+      >
+        Narration
+      </a>
+    </main>
+    <footer
+      class="row-start-3 flex flex-wrap items-center justify-center gap-6"
+    />
+  </div>
+</div>
+`;
