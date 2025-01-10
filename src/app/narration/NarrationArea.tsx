@@ -36,6 +36,7 @@ export const NarrationArea = () => {
   const handleStopNarration = () => {
     window.speechSynthesis.cancel();
     setIsSpeaking(false);
+    setIsPaused(false);
     setNarrationScript('');
   };
 
