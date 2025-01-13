@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { APP_TITLE } from '@/constants/app';
+import { APP_TITLE, NARRATION } from '@/constants/app';
 
 export default function Home() {
   return (
@@ -8,7 +8,7 @@ export default function Home() {
       <main className="row-start-2 flex flex-col items-center gap-8">
         <h1 className="text-3xl">{APP_TITLE}</h1>
         <Button asChild>
-          <Link href="/narration">Narration</Link>
+          <Link href={NARRATION.href}>{NARRATION.linkLabel}</Link>
         </Button>
       </main>
       <footer className="row-start-3 flex flex-wrap items-center justify-center gap-6"></footer>
