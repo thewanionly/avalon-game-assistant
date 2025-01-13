@@ -1,14 +1,22 @@
-import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
+
+import { APP_TITLE } from '@/constants/app';
+
 import Page from '../app/page';
 
-describe('Page', () => {
-  it('renders a heading', () => {
-    render(<Page />);
+const setup = () => render(<Page />);
 
-    const heading = screen.getByRole('heading', { level: 1 });
+describe('Home Page', () => {
+  it('renders app title heading', () => {
+    setup();
 
-    expect(heading).toBeInTheDocument();
-    expect(heading).toHaveTextContent('Avalon Game Assistant');
+    const appTitle = screen.getByRole('heading', { name: APP_TITLE, level: 1 });
+
+    expect(appTitle).toBeInTheDocument();
+  });
+
+  it('renders home page unchanged', () => {
+    const { container } = render(<Page />);
+    expect(container).toMatchSnapshot();
   });
 });
