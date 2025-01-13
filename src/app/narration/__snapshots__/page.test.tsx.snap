@@ -1,0 +1,570 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Narration Page renders narration page unchanged 1`] = `
+<div>
+  <div
+    class="mx-auto max-w-screen-xl p-8 pb-20 font-[family-name:var(--font-geist-sans)] sm:p-20"
+  >
+    <h1
+      class="mb-12 text-2xl"
+    >
+      Narration
+    </h1>
+    <form
+      class="flex flex-col justify-between space-y-6"
+    >
+      <div
+        class="space-y-3"
+      >
+        <label
+          class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          for=":rg:-form-item"
+        >
+          Good characters
+        </label>
+        <p
+          class="text-[0.8rem] text-muted-foreground"
+          id=":rg:-form-item-description"
+        >
+          Merlin should be included.
+        </p>
+        <div
+          class="flex flex-wrap items-start space-x-3 space-y-0"
+        >
+          <button
+            aria-checked="true"
+            aria-describedby=":rh:-form-item-description"
+            aria-invalid="false"
+            class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+            data-state="checked"
+            id=":rh:-form-item"
+            role="checkbox"
+            type="button"
+            value="on"
+          >
+            <span
+              class="flex items-center justify-center text-current"
+              data-state="checked"
+              style="pointer-events: none;"
+            >
+              <svg
+                class="lucide lucide-check h-4 w-4"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M20 6 9 17l-5-5"
+                />
+              </svg>
+            </span>
+          </button>
+          <input
+            aria-hidden="true"
+            checked=""
+            style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px; width: 0px; height: 0px;"
+            tabindex="-1"
+            type="checkbox"
+            value="on"
+          />
+          <label
+            class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-normal"
+            for=":rh:-form-item"
+          >
+            Merlin
+          </label>
+        </div>
+        <div
+          class="flex flex-wrap items-start space-x-3 space-y-0"
+        >
+          <button
+            aria-checked="false"
+            aria-describedby=":ri:-form-item-description"
+            aria-invalid="false"
+            class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+            data-state="unchecked"
+            id=":ri:-form-item"
+            role="checkbox"
+            type="button"
+            value="on"
+          />
+          <input
+            aria-hidden="true"
+            style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px; width: 0px; height: 0px;"
+            tabindex="-1"
+            type="checkbox"
+            value="on"
+          />
+          <label
+            class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-normal"
+            for=":ri:-form-item"
+          >
+            Percival
+          </label>
+        </div>
+        <div
+          class="flex flex-wrap items-start space-x-3 space-y-0"
+        >
+          <button
+            aria-checked="true"
+            aria-describedby=":rj:-form-item-description"
+            aria-invalid="false"
+            class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+            data-state="checked"
+            id=":rj:-form-item"
+            role="checkbox"
+            type="button"
+            value="on"
+          >
+            <span
+              class="flex items-center justify-center text-current"
+              data-state="checked"
+              style="pointer-events: none;"
+            >
+              <svg
+                class="lucide lucide-check h-4 w-4"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M20 6 9 17l-5-5"
+                />
+              </svg>
+            </span>
+          </button>
+          <input
+            aria-hidden="true"
+            checked=""
+            style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px; width: 0px; height: 0px;"
+            tabindex="-1"
+            type="checkbox"
+            value="on"
+          />
+          <label
+            class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-normal"
+            for=":rj:-form-item"
+          >
+            Loyal Servant of Arthur 1
+          </label>
+        </div>
+        <div
+          class="flex flex-wrap items-start space-x-3 space-y-0"
+        >
+          <button
+            aria-checked="true"
+            aria-describedby=":rk:-form-item-description"
+            aria-invalid="false"
+            class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+            data-state="checked"
+            id=":rk:-form-item"
+            role="checkbox"
+            type="button"
+            value="on"
+          >
+            <span
+              class="flex items-center justify-center text-current"
+              data-state="checked"
+              style="pointer-events: none;"
+            >
+              <svg
+                class="lucide lucide-check h-4 w-4"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M20 6 9 17l-5-5"
+                />
+              </svg>
+            </span>
+          </button>
+          <input
+            aria-hidden="true"
+            checked=""
+            style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px; width: 0px; height: 0px;"
+            tabindex="-1"
+            type="checkbox"
+            value="on"
+          />
+          <label
+            class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-normal"
+            for=":rk:-form-item"
+          >
+            Loyal Servant of Arthur 2
+          </label>
+        </div>
+        <div
+          class="flex flex-wrap items-start space-x-3 space-y-0"
+        >
+          <button
+            aria-checked="false"
+            aria-describedby=":rl:-form-item-description"
+            aria-invalid="false"
+            class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+            data-state="unchecked"
+            id=":rl:-form-item"
+            role="checkbox"
+            type="button"
+            value="on"
+          />
+          <input
+            aria-hidden="true"
+            style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px; width: 0px; height: 0px;"
+            tabindex="-1"
+            type="checkbox"
+            value="on"
+          />
+          <label
+            class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-normal"
+            for=":rl:-form-item"
+          >
+            Loyal Servant of Arthur 3
+          </label>
+        </div>
+        <div
+          class="flex flex-wrap items-start space-x-3 space-y-0"
+        >
+          <button
+            aria-checked="false"
+            aria-describedby=":rm:-form-item-description"
+            aria-invalid="false"
+            class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+            data-state="unchecked"
+            id=":rm:-form-item"
+            role="checkbox"
+            type="button"
+            value="on"
+          />
+          <input
+            aria-hidden="true"
+            style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px; width: 0px; height: 0px;"
+            tabindex="-1"
+            type="checkbox"
+            value="on"
+          />
+          <label
+            class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-normal"
+            for=":rm:-form-item"
+          >
+            Loyal Servant of Arthur 4
+          </label>
+        </div>
+        <div
+          class="flex flex-wrap items-start space-x-3 space-y-0"
+        >
+          <button
+            aria-checked="false"
+            aria-describedby=":rn:-form-item-description"
+            aria-invalid="false"
+            class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+            data-state="unchecked"
+            id=":rn:-form-item"
+            role="checkbox"
+            type="button"
+            value="on"
+          />
+          <input
+            aria-hidden="true"
+            style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px; width: 0px; height: 0px;"
+            tabindex="-1"
+            type="checkbox"
+            value="on"
+          />
+          <label
+            class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-normal"
+            for=":rn:-form-item"
+          >
+            Loyal Servant of Arthur 5
+          </label>
+        </div>
+      </div>
+      <div
+        class="space-y-3"
+      >
+        <label
+          class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          for=":ro:-form-item"
+        >
+          Evil characters
+        </label>
+        <p
+          class="text-[0.8rem] text-muted-foreground"
+          id=":ro:-form-item-description"
+        >
+          Assassin should be included.
+        </p>
+        <div
+          class="flex flex-wrap items-start space-x-3 space-y-0"
+        >
+          <button
+            aria-checked="false"
+            aria-describedby=":rp:-form-item-description"
+            aria-invalid="false"
+            class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+            data-state="unchecked"
+            id=":rp:-form-item"
+            role="checkbox"
+            type="button"
+            value="on"
+          />
+          <input
+            aria-hidden="true"
+            style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px; width: 0px; height: 0px;"
+            tabindex="-1"
+            type="checkbox"
+            value="on"
+          />
+          <label
+            class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-normal"
+            for=":rp:-form-item"
+          >
+            Mordred
+          </label>
+        </div>
+        <div
+          class="flex flex-wrap items-start space-x-3 space-y-0"
+        >
+          <button
+            aria-checked="false"
+            aria-describedby=":rq:-form-item-description"
+            aria-invalid="false"
+            class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+            data-state="unchecked"
+            id=":rq:-form-item"
+            role="checkbox"
+            type="button"
+            value="on"
+          />
+          <input
+            aria-hidden="true"
+            style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px; width: 0px; height: 0px;"
+            tabindex="-1"
+            type="checkbox"
+            value="on"
+          />
+          <label
+            class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-normal"
+            for=":rq:-form-item"
+          >
+            Morgana
+          </label>
+        </div>
+        <div
+          class="flex flex-wrap items-start space-x-3 space-y-0"
+        >
+          <button
+            aria-checked="false"
+            aria-describedby=":rr:-form-item-description"
+            aria-invalid="false"
+            class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+            data-state="unchecked"
+            id=":rr:-form-item"
+            role="checkbox"
+            type="button"
+            value="on"
+          />
+          <input
+            aria-hidden="true"
+            style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px; width: 0px; height: 0px;"
+            tabindex="-1"
+            type="checkbox"
+            value="on"
+          />
+          <label
+            class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-normal"
+            for=":rr:-form-item"
+          >
+            Oberon
+          </label>
+        </div>
+        <div
+          class="flex flex-wrap items-start space-x-3 space-y-0"
+        >
+          <button
+            aria-checked="true"
+            aria-describedby=":rs:-form-item-description"
+            aria-invalid="false"
+            class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+            data-state="checked"
+            id=":rs:-form-item"
+            role="checkbox"
+            type="button"
+            value="on"
+          >
+            <span
+              class="flex items-center justify-center text-current"
+              data-state="checked"
+              style="pointer-events: none;"
+            >
+              <svg
+                class="lucide lucide-check h-4 w-4"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M20 6 9 17l-5-5"
+                />
+              </svg>
+            </span>
+          </button>
+          <input
+            aria-hidden="true"
+            checked=""
+            style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px; width: 0px; height: 0px;"
+            tabindex="-1"
+            type="checkbox"
+            value="on"
+          />
+          <label
+            class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-normal"
+            for=":rs:-form-item"
+          >
+            Assassin
+          </label>
+        </div>
+        <div
+          class="flex flex-wrap items-start space-x-3 space-y-0"
+        >
+          <button
+            aria-checked="true"
+            aria-describedby=":rt:-form-item-description"
+            aria-invalid="false"
+            class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+            data-state="checked"
+            id=":rt:-form-item"
+            role="checkbox"
+            type="button"
+            value="on"
+          >
+            <span
+              class="flex items-center justify-center text-current"
+              data-state="checked"
+              style="pointer-events: none;"
+            >
+              <svg
+                class="lucide lucide-check h-4 w-4"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M20 6 9 17l-5-5"
+                />
+              </svg>
+            </span>
+          </button>
+          <input
+            aria-hidden="true"
+            checked=""
+            style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px; width: 0px; height: 0px;"
+            tabindex="-1"
+            type="checkbox"
+            value="on"
+          />
+          <label
+            class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-normal"
+            for=":rt:-form-item"
+          >
+            Minion of Mordred 1
+          </label>
+        </div>
+        <div
+          class="flex flex-wrap items-start space-x-3 space-y-0"
+        >
+          <button
+            aria-checked="false"
+            aria-describedby=":ru:-form-item-description"
+            aria-invalid="false"
+            class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+            data-state="unchecked"
+            id=":ru:-form-item"
+            role="checkbox"
+            type="button"
+            value="on"
+          />
+          <input
+            aria-hidden="true"
+            style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px; width: 0px; height: 0px;"
+            tabindex="-1"
+            type="checkbox"
+            value="on"
+          />
+          <label
+            class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-normal"
+            for=":ru:-form-item"
+          >
+            Minion of Mordred 2
+          </label>
+        </div>
+        <div
+          class="flex flex-wrap items-start space-x-3 space-y-0"
+        >
+          <button
+            aria-checked="false"
+            aria-describedby=":rv:-form-item-description"
+            aria-invalid="false"
+            class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+            data-state="unchecked"
+            id=":rv:-form-item"
+            role="checkbox"
+            type="button"
+            value="on"
+          />
+          <input
+            aria-hidden="true"
+            style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px; width: 0px; height: 0px;"
+            tabindex="-1"
+            type="checkbox"
+            value="on"
+          />
+          <label
+            class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-normal"
+            for=":rv:-form-item"
+          >
+            Minion of Mordred 3
+          </label>
+        </div>
+      </div>
+      <button
+        class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2 md:self-start"
+        type="submit"
+      >
+        Play 
+        5
+      </button>
+    </form>
+  </div>
+</div>
+`;
