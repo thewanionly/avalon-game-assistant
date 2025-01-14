@@ -25,8 +25,8 @@ import {
 } from '@/constants/characters';
 import { cn } from '@/lib/utils';
 
-const MIN_PLAYERS = 5;
-const MAX_PLAYERS = 10;
+export const MIN_PLAYERS = 5;
+export const MAX_PLAYERS = 10;
 
 const FormSchema = z.object({
   goodCharacters: z
