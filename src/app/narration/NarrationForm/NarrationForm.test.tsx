@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 import { NarrationForm } from './NarrationForm';
 import {
   DEFAULT_EVIL_CHARACTERS_VALUE,
@@ -98,6 +99,24 @@ describe('NarrationForm', () => {
 
       const playBtn = screen.getByRole('button', { name: /play/i });
       expect(playBtn).toHaveTextContent(`${TOTAL_DEFAULT_CHECKED}`);
+    });
+  });
+
+  describe('Interactions', () => {
+    it('checks and unchecks checkboxes', async () => {
+      render(<NarrationForm onFormSubmit={jest.fn()} />);
+
+      // checked (default)
+      const checkboxEl = screen.getByRole('checkbox', { name: DEFAULT_GOOD_CHARACTERS_VALUE[0] });
+      expect(checkboxEl).toBeChecked();
+
+      // unchecked
+      await userEvent.click(checkboxEl);
+      expect(checkboxEl).not.toBeChecked();
+
+      // checked
+      await userEvent.click(checkboxEl);
+      expect(checkboxEl).toBeChecked();
     });
   });
 });
