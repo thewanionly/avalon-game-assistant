@@ -18,6 +18,8 @@ import { Checkbox } from '@/components/ui/checkbox';
 import {
   AvalonCharacterLoyalty,
   AvalonCharacterName,
+  DEFAULT_EVIL_CHARACTERS_VALUE,
+  DEFAULT_GOOD_CHARACTERS_VALUE,
   EVIL_AVALON_CHARACTERS,
   GOOD_AVALON_CHARACTERS,
   REQUIRED_CHARACTERS,
@@ -72,12 +74,8 @@ export const NarrationForm = ({ className, onFormSubmit }: NarrationFormProps) =
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      goodCharacters: [
-        AvalonCharacterName.Merlin,
-        `${AvalonCharacterName.LoyalServantOfArthur} 1`,
-        `${AvalonCharacterName.LoyalServantOfArthur} 2`,
-      ],
-      evilCharacters: [AvalonCharacterName.Assassin, `${AvalonCharacterName.MinionOfMordred} 1`],
+      goodCharacters: DEFAULT_GOOD_CHARACTERS_VALUE,
+      evilCharacters: DEFAULT_EVIL_CHARACTERS_VALUE,
     },
   });
 

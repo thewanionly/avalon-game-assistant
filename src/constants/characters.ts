@@ -112,3 +112,14 @@ export const TEAM_DISTRIBUTION = {
     [AvalonCharacterLoyalty.Evil]: 4,
   },
 };
+
+export const DEFAULT_GOOD_CHARACTERS_VALUE = [
+  AvalonCharacterName.Merlin,
+  `${AvalonCharacterName.LoyalServantOfArthur} 1`,
+  `${AvalonCharacterName.LoyalServantOfArthur} 2`,
+];
+
+export const DEFAULT_EVIL_CHARACTERS_VALUE = [
+  AvalonCharacterName.Assassin,
+  `${AvalonCharacterName.MinionOfMordred} 1`,
+];
