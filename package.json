@@ -11,7 +11,7 @@
     "format:fix": "prettier --write .",
     "prepare": "husky",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch --verbose"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
