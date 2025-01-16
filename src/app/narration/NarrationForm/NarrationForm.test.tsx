@@ -118,5 +118,53 @@ describe('NarrationForm', () => {
       await userEvent.click(checkboxEl);
       expect(checkboxEl).toBeChecked();
     });
+
+    it('increments play button number when a new checkbox is checked', async () => {
+      render(<NarrationForm onFormSubmit={jest.fn()} />);
+
+      // default
+      const playBtn = screen.getByRole('button', { name: /play/i });
+      expect(playBtn).toHaveTextContent(`${TOTAL_DEFAULT_CHECKED}`);
+
+      // check an unchecked checkbox
+      const checkboxEl = screen.getByRole('checkbox', { name: EVIL_AVALON_CHARACTERS[0].name });
+      expect(checkboxEl).not.toBeChecked();
+      await userEvent.click(checkboxEl);
+
+      // assert play button number
+      expect(playBtn).toHaveTextContent(`${TOTAL_DEFAULT_CHECKED + 1}`);
+    });
+
+    it(`displays "Reset" button when a new checkbox is checked`, async () => {
+      render(<NarrationForm onFormSubmit={jest.fn()} />);
+
+      // reset button is not shown by default
+      expect(screen.queryByRole('button', { name: /reset/i })).not.toBeInTheDocument();
+
+      // check an unchecked checkbox
+      const checkboxEl = screen.getByRole('checkbox', { name: EVIL_AVALON_CHARACTERS[0].name });
+      expect(checkboxEl).not.toBeChecked();
+      await userEvent.click(checkboxEl);
+
+      // assert reset button number
+      expect(screen.getByRole('button', { name: /reset/i })).toBeInTheDocument();
+    });
+
+    // TODO: hides "Reset" button when a new checkobx is checked then unchecked
+    // TODO: displays "Reset" button when a default checkbox is unchecked
+    // TODO: hides "Reset" button when a default checkobx is unchecked then checked
+    // TODO: not selecting merlin will show an error
+    // TODO: not selecting assassin will show an error
+    // TODO: selecting less than 5 will throw an error
+    // TODO: selecting more than 10 will throw an error
+    // TODO: selecting 5 will transition to narrating state
+    // TODO: selecting 10 will transition to narrating state
+    // TODO: selecting 8 will transition to narrating state
+    // TODO: in a 5 player game, good chars should be 3 and evil should be 2
+    // TODO: in a 6 player game, good chars should be 4 and evil should be 2
+    // TODO: in a 7 player game, good chars should be 4 and evil should be 3
+    // TODO: in a 8 player game, good chars should be 5 and evil should be 3
+    // TODO: in a 9 player game, good chars should be 6 and evil should be 3
+    // TODO: in a 10 player game, good chars should be 6 and evil should be 4
   });
 });
