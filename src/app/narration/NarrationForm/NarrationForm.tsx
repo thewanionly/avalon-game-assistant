@@ -226,11 +226,6 @@ export const NarrationForm = ({ className, onFormSubmit }: NarrationFormProps) =
         <Button className="md:self-start" type="submit">
           Play {numberOfPlayers}
         </Button>
-        {form.formState.isDirty && (
-          <Button variant="secondary" className="md:self-start" onClick={() => form.reset()}>
-            Reset
-          </Button>
-        )}
       </form>
     </Form>
   );

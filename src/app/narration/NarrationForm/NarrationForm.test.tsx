@@ -135,24 +135,6 @@ describe('NarrationForm', () => {
       expect(playBtn).toHaveTextContent(`${TOTAL_DEFAULT_CHECKED + 1}`);
     });
 
-    it(`displays "Reset" button when a new checkbox is checked`, async () => {
-      render(<NarrationForm onFormSubmit={jest.fn()} />);
-
-      // reset button is not shown by default
-      expect(screen.queryByRole('button', { name: /reset/i })).not.toBeInTheDocument();
-
-      // check an unchecked checkbox
-      const checkboxEl = screen.getByRole('checkbox', { name: EVIL_AVALON_CHARACTERS[0].name });
-      expect(checkboxEl).not.toBeChecked();
-      await userEvent.click(checkboxEl);
-
-      // assert reset button number
-      expect(screen.getByRole('button', { name: /reset/i })).toBeInTheDocument();
-    });
-
-    // TODO: hides "Reset" button when a new checkobx is checked then unchecked
-    // TODO: displays "Reset" button when a default checkbox is unchecked
-    // TODO: hides "Reset" button when a default checkobx is unchecked then checked
     // TODO: not selecting merlin will show an error
     // TODO: not selecting assassin will show an error
     // TODO: selecting less than 5 will throw an error
