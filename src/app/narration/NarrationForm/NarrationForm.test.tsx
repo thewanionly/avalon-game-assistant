@@ -158,12 +158,42 @@ describe('NarrationForm', () => {
       }
     );
 
-    // TODO: selecting required char will remove error message
+    it.each(REQUIRED_CHARACTERS)(
+      `does not show an error anymore when $name is checked after it was submitted as unchecked`,
+      async ({ name }) => {
+        render(<NarrationForm onFormSubmit={jest.fn()} />);
+
+        // uncheck a required checkbox
+        const requiredCheckbox = screen.getByRole('checkbox', { name });
+        expect(requiredCheckbox).toBeChecked();
+        await userEvent.click(requiredCheckbox);
+
+        //  click play button
+        const playBtn = screen.getByRole('button', { name: /play/i });
+        await userEvent.click(playBtn);
+
+        // assert an error message
+        const errorMessage = screen.getByText(
+          `You must include the following required characters: ${name}`
+        );
+        expect(errorMessage).toBeInTheDocument();
+
+        // check the required checkbox
+        await userEvent.click(requiredCheckbox);
+
+        // assert error message is not present anymore
+        expect(errorMessage).not.toBeInTheDocument();
+      }
+    );
+
     // TODO: selecting less than 5 will throw an error
     // TODO: selecting more than 10 will throw an error
     // TODO: selecting 5 will transition to narrating state
     // TODO: selecting 10 will transition to narrating state
     // TODO: selecting 8 will transition to narrating state
+    // TODO: it does not go to narrating state when required checkbox is not checked
+    // TODO: it does not go to narrating state when less than 5 players is selected
+    // TODO: it does not go to narrating state when more than 10 players is selected
     // TODO: in a 5 player game, good chars should be 3 and evil should be 2
     // TODO: in a 6 player game, good chars should be 4 and evil should be 2
     // TODO: in a 7 player game, good chars should be 4 and evil should be 3
