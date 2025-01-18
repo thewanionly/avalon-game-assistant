@@ -6,6 +6,7 @@ import {
   DEFAULT_GOOD_CHARACTERS_VALUE,
   EVIL_AVALON_CHARACTERS,
   GOOD_AVALON_CHARACTERS,
+  REQUIRED_CHARACTERS,
 } from '@/constants/characters';
 
 const TOTAL_DEFAULT_CHECKED =
@@ -135,8 +136,29 @@ describe('NarrationForm', () => {
       expect(playBtn).toHaveTextContent(`${TOTAL_DEFAULT_CHECKED + 1}`);
     });
 
-    // TODO: not selecting merlin will show an error
-    // TODO: not selecting assassin will show an error
+    it.each(REQUIRED_CHARACTERS)(
+      `shows an error when $name is not checked and form is submitted`,
+      async ({ name }) => {
+        render(<NarrationForm onFormSubmit={jest.fn()} />);
+
+        // uncheck a required checkbox
+        const requiredCheckbox = screen.getByRole('checkbox', { name });
+        expect(requiredCheckbox).toBeChecked();
+        await userEvent.click(requiredCheckbox);
+
+        //  click play button
+        const playBtn = screen.getByRole('button', { name: /play/i });
+        await userEvent.click(playBtn);
+
+        // assert an error message
+        const errorMessage = screen.getByText(
+          `You must include the following required characters: ${name}`
+        );
+        expect(errorMessage).toBeInTheDocument();
+      }
+    );
+
+    // TODO: selecting required char will remove error message
     // TODO: selecting less than 5 will throw an error
     // TODO: selecting more than 10 will throw an error
     // TODO: selecting 5 will transition to narrating state
