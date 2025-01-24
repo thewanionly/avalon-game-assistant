@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { NarrationForm } from './NarrationForm';
+import { MIN_PLAYERS, NarrationForm } from './NarrationForm';
 import {
   DEFAULT_EVIL_CHARACTERS_VALUE,
   DEFAULT_GOOD_CHARACTERS_VALUE,
@@ -155,6 +155,8 @@ describe('NarrationForm', () => {
           `You must include the following required characters: ${name}`
         );
         expect(errorMessage).toBeInTheDocument();
+
+        // TODO: check if submit button is disabled
       }
     );
 
@@ -183,11 +185,32 @@ describe('NarrationForm', () => {
 
         // assert error message is not present anymore
         expect(errorMessage).not.toBeInTheDocument();
+
+        // TODO: check if submit button is enabled
       }
     );
 
-    // TODO: selecting less than 5 will throw an error
+    it('shows an error when selected characters are less than 5', async () => {
+      render(<NarrationForm onFormSubmit={jest.fn()} />);
+
+      // uncheck a check checkbox - making selected checbkox from 5 (default) to 4
+      const checkboxEl = screen.getByRole('checkbox', { name: DEFAULT_EVIL_CHARACTERS_VALUE[1] });
+      await userEvent.click(checkboxEl);
+
+      // assert error message
+      const errorMessage = screen.getByText(
+        `The minimum number of players is ${MIN_PLAYERS}. Please add more players.`
+      );
+      expect(errorMessage).toBeInTheDocument();
+
+      // assert play button is disabled
+      const playBtn = screen.getByRole('button', { name: /play/i });
+      expect(playBtn).toBeDisabled();
+    });
+
+    // TODO: selecting 5 players after slecting less will NOT show an error anymore
     // TODO: selecting more than 10 will throw an error
+    // TODO: selecting 10 players after slecting more will NOT show an error anymore
     // TODO: selecting 5 will transition to narrating state
     // TODO: selecting 10 will transition to narrating state
     // TODO: selecting 8 will transition to narrating state

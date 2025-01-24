@@ -30,38 +30,52 @@ import { cn } from '@/lib/utils';
 export const MIN_PLAYERS = 5;
 export const MAX_PLAYERS = 10;
 
-const FormSchema = z.object({
-  goodCharacters: z
-    .array(z.string())
-    .refine(
-      (values) =>
-        REQUIRED_CHARACTERS.filter(({ loyalty }) => loyalty === AvalonCharacterLoyalty.Good).every(
-          ({ name }) => values.includes(name)
-        ),
-      {
-        message: `You must include the following required characters: ${REQUIRED_CHARACTERS.filter(
-          ({ loyalty }) => loyalty === AvalonCharacterLoyalty.Good
-        )
-          .map(({ name }) => name)
-          .join(', ')}`,
-      }
-    ),
-  evilCharacters: z
-    .array(z.string())
-    .refine(
-      (values) =>
-        REQUIRED_CHARACTERS.filter(({ loyalty }) => loyalty === AvalonCharacterLoyalty.Evil).every(
-          ({ name }) => values.includes(name)
-        ),
-      {
-        message: `You must include the following required characters: ${REQUIRED_CHARACTERS.filter(
-          ({ loyalty }) => loyalty === AvalonCharacterLoyalty.Evil
-        )
-          .map(({ name }) => name)
-          .join(', ')}`,
-      }
-    ),
-});
+const FormSchema = z
+  .object({
+    goodCharacters: z
+      .array(z.string())
+      .refine(
+        (values) =>
+          REQUIRED_CHARACTERS.filter(
+            ({ loyalty }) => loyalty === AvalonCharacterLoyalty.Good
+          ).every(({ name }) => values.includes(name)),
+        {
+          message: `You must include the following required characters: ${REQUIRED_CHARACTERS.filter(
+            ({ loyalty }) => loyalty === AvalonCharacterLoyalty.Good
+          )
+            .map(({ name }) => name)
+            .join(', ')}`,
+        }
+      ),
+    evilCharacters: z
+      .array(z.string())
+      .refine(
+        (values) =>
+          REQUIRED_CHARACTERS.filter(
+            ({ loyalty }) => loyalty === AvalonCharacterLoyalty.Evil
+          ).every(({ name }) => values.includes(name)),
+        {
+          message: `You must include the following required characters: ${REQUIRED_CHARACTERS.filter(
+            ({ loyalty }) => loyalty === AvalonCharacterLoyalty.Evil
+          )
+            .map(({ name }) => name)
+            .join(', ')}`,
+        }
+      ),
+  })
+  .refine(
+    ({ goodCharacters, evilCharacters }) => {
+      const numberOfPlayers = goodCharacters.length + evilCharacters.length;
+
+      return numberOfPlayers >= MIN_PLAYERS;
+    },
+    {
+      path: [],
+      message: `The minimum number of players is ${MIN_PLAYERS}. Please add more players.`,
+    }
+  );
+
+type FormValuesType = z.infer<typeof FormSchema>;
 
 interface NarrationFormProps {
   className?: string;
@@ -71,7 +85,7 @@ interface NarrationFormProps {
 const conditionalString = (condition: boolean, str: string) => (condition ? str : '');
 
 export const NarrationForm = ({ className, onFormSubmit }: NarrationFormProps) => {
-  const form = useForm<z.infer<typeof FormSchema>>({
+  const form = useForm<FormValuesType>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       goodCharacters: DEFAULT_GOOD_CHARACTERS_VALUE,
@@ -85,12 +99,7 @@ export const NarrationForm = ({ className, onFormSubmit }: NarrationFormProps) =
 
   const numberOfPlayers = goodChars.length + evilChars.length;
 
-  const onSubmit = ({ goodCharacters = [], evilCharacters = [] }: z.infer<typeof FormSchema>) => {
-    if (numberOfPlayers < MIN_PLAYERS) {
-      alert(`The minimum number of players is ${MIN_PLAYERS}. Please pick add more players.`);
-      return;
-    }
-
+  const onSubmit = ({ goodCharacters = [], evilCharacters = [] }: FormValuesType) => {
     if (numberOfPlayers > MAX_PLAYERS) {
       alert(
         `The maximum number of players is ${MAX_PLAYERS}. Please reduce the number of players.`
@@ -139,6 +148,10 @@ export const NarrationForm = ({ className, onFormSubmit }: NarrationFormProps) =
     `);
   };
 
+  // TODO: find a better way to handle global errors with correct typing
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const rootError = (form.formState.errors as any)?.['']?.message;
+
   return (
     <Form {...form}>
       <form
@@ -166,10 +179,14 @@ export const NarrationForm = ({ className, onFormSubmit }: NarrationFormProps) =
                         <FormControl>
                           <Checkbox
                             checked={field.value?.includes(value)}
-                            onCheckedChange={(checked) => {
-                              return checked
-                                ? field.onChange([...(field.value ?? []), value])
-                                : field.onChange(field.value?.filter((v) => v !== value));
+                            onCheckedChange={async (checked) => {
+                              if (checked) {
+                                field.onChange([...(field.value ?? []), value]);
+                              } else {
+                                field.onChange(field.value?.filter((v) => v !== value));
+                              }
+
+                              await form.trigger(); // Re-run validation
                             }}
                           />
                         </FormControl>
@@ -205,10 +222,14 @@ export const NarrationForm = ({ className, onFormSubmit }: NarrationFormProps) =
                         <FormControl>
                           <Checkbox
                             checked={field.value?.includes(value)}
-                            onCheckedChange={(checked) => {
-                              return checked
-                                ? field.onChange([...(field.value ?? []), value])
-                                : field.onChange(field.value?.filter((v) => v !== value));
+                            onCheckedChange={async (checked) => {
+                              if (checked) {
+                                field.onChange([...(field.value ?? []), value]);
+                              } else {
+                                field.onChange(field.value?.filter((v) => v !== value));
+                              }
+
+                              await form.trigger(); // Re-run validation
                             }}
                           />
                         </FormControl>
@@ -223,9 +244,12 @@ export const NarrationForm = ({ className, onFormSubmit }: NarrationFormProps) =
           )}
         />
 
-        <Button className="md:self-start" type="submit">
-          Play {numberOfPlayers}
-        </Button>
+        <div>
+          <Button className="w-full md:w-max" type="submit" disabled={Boolean(rootError)}>
+            Play {numberOfPlayers}
+          </Button>
+          {rootError && <FormMessage className="mt-2">{rootError}</FormMessage>}
+        </div>
       </form>
     </Form>
   );
