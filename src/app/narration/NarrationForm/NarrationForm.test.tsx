@@ -103,7 +103,7 @@ describe('NarrationForm', () => {
     });
   });
 
-  describe('Interactions', () => {
+  describe('Checkbox interaction', () => {
     it('checks and unchecks checkboxes', async () => {
       render(<NarrationForm onFormSubmit={jest.fn()} />);
 
@@ -135,7 +135,9 @@ describe('NarrationForm', () => {
       // assert play button number
       expect(playBtn).toHaveTextContent(`${TOTAL_DEFAULT_CHECKED + 1}`);
     });
+  });
 
+  describe('Required characters validation', () => {
     it.each(REQUIRED_CHARACTERS)(
       `shows an error when $name is not checked and form is submitted`,
       async ({ name }) => {
@@ -189,7 +191,9 @@ describe('NarrationForm', () => {
         // TODO: check if submit button is enabled
       }
     );
+  });
 
+  describe('Character limit validation', () => {
     it(`shows an error when selected characters are less than ${MIN_PLAYERS}`, async () => {
       render(<NarrationForm onFormSubmit={jest.fn()} />);
 
@@ -381,18 +385,18 @@ describe('NarrationForm', () => {
       const playBtn2 = screen.getByRole('button', { name: /play/i });
       expect(playBtn2).not.toBeDisabled();
     });
-
-    // TODO: selecting 5 will transition to narrating state
-    // TODO: selecting 10 will transition to narrating state
-    // TODO: selecting 8 will transition to narrating state
-    // TODO: it does not go to narrating state when required checkbox is not checked
-    // TODO: it does not go to narrating state when less than 5 players is selected
-    // TODO: it does not go to narrating state when more than 10 players is selected
-    // TODO: in a 5 player game, good chars should be 3 and evil should be 2
-    // TODO: in a 6 player game, good chars should be 4 and evil should be 2
-    // TODO: in a 7 player game, good chars should be 4 and evil should be 3
-    // TODO: in a 8 player game, good chars should be 5 and evil should be 3
-    // TODO: in a 9 player game, good chars should be 6 and evil should be 3
-    // TODO: in a 10 player game, good chars should be 6 and evil should be 4
   });
+
+  // TODO: selecting 5 will transition to narrating state
+  // TODO: selecting 10 will transition to narrating state
+  // TODO: selecting 8 will transition to narrating state
+  // TODO: it does not go to narrating state when required checkbox is not checked
+  // TODO: it does not go to narrating state when less than 5 players is selected
+  // TODO: it does not go to narrating state when more than 10 players is selected
+  // TODO: in a 5 player game, good chars should be 3 and evil should be 2
+  // TODO: in a 6 player game, good chars should be 4 and evil should be 2
+  // TODO: in a 7 player game, good chars should be 4 and evil should be 3
+  // TODO: in a 8 player game, good chars should be 5 and evil should be 3
+  // TODO: in a 9 player game, good chars should be 6 and evil should be 3
+  // TODO: in a 10 player game, good chars should be 6 and evil should be 4
 });
