@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -170,7 +169,6 @@ export const NarrationForm = ({ className, onFormSubmit }: NarrationFormProps) =
           render={() => (
             <FormItem className="space-y-3">
               <FormLabel>Good characters</FormLabel>
-              <FormDescription>Merlin should be included.</FormDescription>
               {GOOD_AVALON_CHARACTERS.map(({ name }) => name).map((value, index) => (
                 <FormField
                   key={value + index}
@@ -213,7 +211,6 @@ export const NarrationForm = ({ className, onFormSubmit }: NarrationFormProps) =
           render={() => (
             <FormItem className="space-y-3">
               <FormLabel>Evil characters</FormLabel>
-              <FormDescription>Assassin should be included.</FormDescription>
               {EVIL_AVALON_CHARACTERS.map(({ name }) => name).map((value, index) => (
                 <FormField
                   key={value + index}

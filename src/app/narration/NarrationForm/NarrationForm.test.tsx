@@ -21,13 +21,6 @@ describe('NarrationForm', () => {
       expect(goodCharactersLabel).toBeInTheDocument();
     });
 
-    it('displays "Good characters" description', () => {
-      render(<NarrationForm onFormSubmit={jest.fn()} />);
-
-      const goodCharactersDescription = screen.getByText('Merlin should be included.');
-      expect(goodCharactersDescription).toBeInTheDocument();
-    });
-
     it(`displays "Good characters" checkboxes with correct labels"`, () => {
       render(<NarrationForm onFormSubmit={jest.fn()} />);
 
@@ -56,13 +49,6 @@ describe('NarrationForm', () => {
 
       const evilCharactersLabel = screen.getByText('Evil characters');
       expect(evilCharactersLabel).toBeInTheDocument();
-    });
-
-    it('displays "Evil characters" description', () => {
-      render(<NarrationForm onFormSubmit={jest.fn()} />);
-
-      const evilCharactersDescription = screen.getByText('Assassin should be included.');
-      expect(evilCharactersDescription).toBeInTheDocument();
     });
 
     it(`displays "Evil characters" checkboxes with correct labels"`, () => {

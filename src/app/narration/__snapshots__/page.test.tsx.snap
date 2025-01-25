@@ -22,12 +22,6 @@ exports[`Narration Page renders narration page unchanged 1`] = `
         >
           Good characters
         </label>
-        <p
-          class="text-[0.8rem] text-muted-foreground"
-          id=":rg:-form-item-description"
-        >
-          Merlin should be included.
-        </p>
         <div
           class="flex flex-wrap items-start space-x-3 space-y-0"
         >
@@ -306,12 +300,6 @@ exports[`Narration Page renders narration page unchanged 1`] = `
         >
           Evil characters
         </label>
-        <p
-          class="text-[0.8rem] text-muted-foreground"
-          id=":ro:-form-item-description"
-        >
-          Assassin should be included.
-        </p>
         <div
           class="flex flex-wrap items-start space-x-3 space-y-0"
         >
