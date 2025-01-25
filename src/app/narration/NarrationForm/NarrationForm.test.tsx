@@ -138,19 +138,42 @@ describe('NarrationForm', () => {
   });
 
   describe('Required characters validation', () => {
+    it.each(REQUIRED_CHARACTERS)(`shows an error when $name is not checked`, async ({ name }) => {
+      render(<NarrationForm onFormSubmit={jest.fn()} />);
+
+      // check another non-required checkbox (this is to ensure we don't get min char limit error)
+      const checkboxEl = screen.getByRole('checkbox', { name: EVIL_AVALON_CHARACTERS[0].name });
+      await userEvent.click(checkboxEl);
+
+      // uncheck a required checkbox
+      const requiredCheckbox = screen.getByRole('checkbox', { name });
+      expect(requiredCheckbox).toBeChecked();
+      await userEvent.click(requiredCheckbox);
+
+      // assert an error message
+      const errorMessage = screen.getByText(
+        `You must include the following required characters: ${name}`
+      );
+      expect(errorMessage).toBeInTheDocument();
+
+      // assert play button is disabled
+      const playBtn = screen.getByRole('button', { name: /play/i });
+      expect(playBtn).toBeDisabled();
+    });
+
     it.each(REQUIRED_CHARACTERS)(
-      `shows an error when $name is not checked and form is submitted`,
+      `does not show an error anymore when $name is checked after it was unchecked`,
       async ({ name }) => {
         render(<NarrationForm onFormSubmit={jest.fn()} />);
+
+        // check another non-required checkbox (this is to ensure we don't get min char limit error)
+        const checkboxEl = screen.getByRole('checkbox', { name: EVIL_AVALON_CHARACTERS[0].name });
+        await userEvent.click(checkboxEl);
 
         // uncheck a required checkbox
         const requiredCheckbox = screen.getByRole('checkbox', { name });
         expect(requiredCheckbox).toBeChecked();
         await userEvent.click(requiredCheckbox);
-
-        //  click play button
-        const playBtn = screen.getByRole('button', { name: /play/i });
-        await userEvent.click(playBtn);
 
         // assert an error message
         const errorMessage = screen.getByText(
@@ -158,29 +181,9 @@ describe('NarrationForm', () => {
         );
         expect(errorMessage).toBeInTheDocument();
 
-        // TODO: check if submit button is disabled
-      }
-    );
-
-    it.each(REQUIRED_CHARACTERS)(
-      `does not show an error anymore when $name is checked after it was submitted as unchecked`,
-      async ({ name }) => {
-        render(<NarrationForm onFormSubmit={jest.fn()} />);
-
-        // uncheck a required checkbox
-        const requiredCheckbox = screen.getByRole('checkbox', { name });
-        expect(requiredCheckbox).toBeChecked();
-        await userEvent.click(requiredCheckbox);
-
-        //  click play button
+        // assert play button is disabled
         const playBtn = screen.getByRole('button', { name: /play/i });
-        await userEvent.click(playBtn);
-
-        // assert an error message
-        const errorMessage = screen.getByText(
-          `You must include the following required characters: ${name}`
-        );
-        expect(errorMessage).toBeInTheDocument();
+        expect(playBtn).toBeDisabled();
 
         // check the required checkbox
         await userEvent.click(requiredCheckbox);
@@ -188,7 +191,8 @@ describe('NarrationForm', () => {
         // assert error message is not present anymore
         expect(errorMessage).not.toBeInTheDocument();
 
-        // TODO: check if submit button is enabled
+        // assert play button is eanbled
+        expect(playBtn).toBeEnabled();
       }
     );
   });

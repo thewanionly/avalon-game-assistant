@@ -156,6 +156,8 @@ export const NarrationForm = ({ className, onFormSubmit }: NarrationFormProps) =
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const rootError = (form.formState.errors as any)?.['']?.message;
 
+  const hasError = Boolean(rootError || Object.keys(form.formState.errors).length > 0);
+
   return (
     <Form {...form}>
       <form
@@ -249,7 +251,7 @@ export const NarrationForm = ({ className, onFormSubmit }: NarrationFormProps) =
         />
 
         <div>
-          <Button className="w-full md:w-max" type="submit" disabled={Boolean(rootError)}>
+          <Button className="w-full md:w-max" type="submit" disabled={Boolean(hasError)}>
             Play {numberOfPlayers}
           </Button>
           {rootError && <FormMessage className="mt-2">{rootError}</FormMessage>}
