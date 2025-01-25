@@ -29,6 +29,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             aria-checked="true"
             aria-describedby=":rh:-form-item-description"
             aria-invalid="false"
+            aria-required="true"
             class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
             data-state="checked"
             id=":rh:-form-item"
@@ -62,13 +63,14 @@ exports[`Narration Page renders narration page unchanged 1`] = `
           <input
             aria-hidden="true"
             checked=""
+            required=""
             style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px; width: 0px; height: 0px;"
             tabindex="-1"
             type="checkbox"
             value="on"
           />
           <label
-            class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-normal"
+            class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-normal after:ml-0.5 after:text-red-500 after:content-['*']"
             for=":rh:-form-item"
           >
             Merlin
@@ -391,6 +393,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             aria-checked="true"
             aria-describedby=":rs:-form-item-description"
             aria-invalid="false"
+            aria-required="true"
             class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
             data-state="checked"
             id=":rs:-form-item"
@@ -424,13 +427,14 @@ exports[`Narration Page renders narration page unchanged 1`] = `
           <input
             aria-hidden="true"
             checked=""
+            required=""
             style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px; width: 0px; height: 0px;"
             tabindex="-1"
             type="checkbox"
             value="on"
           />
           <label
-            class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-normal"
+            class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-normal after:ml-0.5 after:text-red-500 after:content-['*']"
             for=":rs:-form-item"
           >
             Assassin

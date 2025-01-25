@@ -74,6 +74,20 @@ describe('NarrationForm', () => {
       });
     });
 
+    it('marks required checkboxes properly', () => {
+      render(<NarrationForm onFormSubmit={jest.fn()} />);
+
+      const requiredGood = GOOD_AVALON_CHARACTERS.filter(({ isRequired }) => isRequired);
+      const requiredEvil = EVIL_AVALON_CHARACTERS.filter(({ isRequired }) => isRequired);
+
+      const requiredChars = [...requiredGood, ...requiredEvil];
+
+      requiredChars.forEach(({ name }) => {
+        const checkbox = screen.getByRole('checkbox', { name });
+        expect(checkbox).toBeRequired();
+      });
+    });
+
     it(`displays Play button`, () => {
       render(<NarrationForm onFormSubmit={jest.fn()} />);
 

@@ -169,7 +169,7 @@ export const NarrationForm = ({ className, onFormSubmit }: NarrationFormProps) =
           render={() => (
             <FormItem className="space-y-3">
               <FormLabel>Good characters</FormLabel>
-              {GOOD_AVALON_CHARACTERS.map(({ name }) => name).map((value, index) => (
+              {GOOD_AVALON_CHARACTERS.map(({ name: value, isRequired }, index) => (
                 <FormField
                   key={value + index}
                   control={form.control}
@@ -192,9 +192,17 @@ export const NarrationForm = ({ className, onFormSubmit }: NarrationFormProps) =
 
                               await form.trigger(); // Re-run validation
                             }}
+                            required={isRequired}
                           />
                         </FormControl>
-                        <FormLabel className="text-sm font-normal">{value}</FormLabel>
+                        <FormLabel
+                          className={cn(
+                            'text-sm font-normal',
+                            isRequired && "after:ml-0.5 after:text-red-500 after:content-['*']"
+                          )}
+                        >
+                          {value}
+                        </FormLabel>
                       </FormItem>
                     );
                   }}
@@ -211,7 +219,7 @@ export const NarrationForm = ({ className, onFormSubmit }: NarrationFormProps) =
           render={() => (
             <FormItem className="space-y-3">
               <FormLabel>Evil characters</FormLabel>
-              {EVIL_AVALON_CHARACTERS.map(({ name }) => name).map((value, index) => (
+              {EVIL_AVALON_CHARACTERS.map(({ name: value, isRequired }, index) => (
                 <FormField
                   key={value + index}
                   control={form.control}
@@ -234,9 +242,17 @@ export const NarrationForm = ({ className, onFormSubmit }: NarrationFormProps) =
 
                               await form.trigger(); // Re-run validation
                             }}
+                            required={isRequired}
                           />
                         </FormControl>
-                        <FormLabel className="text-sm font-normal">{value}</FormLabel>
+                        <FormLabel
+                          className={cn(
+                            'text-sm font-normal',
+                            isRequired && "after:ml-0.5 after:text-red-500 after:content-['*']"
+                          )}
+                        >
+                          {value}
+                        </FormLabel>
                       </FormItem>
                     );
                   }}
