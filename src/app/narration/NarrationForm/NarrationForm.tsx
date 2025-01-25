@@ -73,6 +73,17 @@ const FormSchema = z
       path: [],
       message: `The minimum number of players is ${MIN_PLAYERS}. Please add more players.`,
     }
+  )
+  .refine(
+    ({ goodCharacters, evilCharacters }) => {
+      const numberOfPlayers = goodCharacters.length + evilCharacters.length;
+
+      return numberOfPlayers <= MAX_PLAYERS;
+    },
+    {
+      path: [],
+      message: `The maximum number of players is ${MAX_PLAYERS}. Please reduce the number of players.`,
+    }
   );
 
 type FormValuesType = z.infer<typeof FormSchema>;
@@ -100,13 +111,6 @@ export const NarrationForm = ({ className, onFormSubmit }: NarrationFormProps) =
   const numberOfPlayers = goodChars.length + evilChars.length;
 
   const onSubmit = ({ goodCharacters = [], evilCharacters = [] }: FormValuesType) => {
-    if (numberOfPlayers > MAX_PLAYERS) {
-      alert(
-        `The maximum number of players is ${MAX_PLAYERS}. Please reduce the number of players.`
-      );
-      return;
-    }
-
     const { good: goodPlayers, evil: evilPlayers } =
       TEAM_DISTRIBUTION[numberOfPlayers as keyof typeof TEAM_DISTRIBUTION];
 

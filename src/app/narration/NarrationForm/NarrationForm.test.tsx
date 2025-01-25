@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { MIN_PLAYERS, NarrationForm } from './NarrationForm';
+import { MAX_PLAYERS, MIN_PLAYERS, NarrationForm } from './NarrationForm';
 import {
   DEFAULT_EVIL_CHARACTERS_VALUE,
   DEFAULT_GOOD_CHARACTERS_VALUE,
@@ -190,10 +190,10 @@ describe('NarrationForm', () => {
       }
     );
 
-    it('shows an error when selected characters are less than 5', async () => {
+    it(`shows an error when selected characters are less than ${MIN_PLAYERS}`, async () => {
       render(<NarrationForm onFormSubmit={jest.fn()} />);
 
-      // uncheck a check checkbox - making selected checbkox from 5 (default) to 4
+      // uncheck a check checkbox - making selected checbkox less than the default
       const checkboxEl = screen.getByRole('checkbox', { name: DEFAULT_EVIL_CHARACTERS_VALUE[1] });
       await userEvent.click(checkboxEl);
 
@@ -208,9 +208,180 @@ describe('NarrationForm', () => {
       expect(playBtn).toBeDisabled();
     });
 
-    // TODO: selecting 5 players after slecting less will NOT show an error anymore
-    // TODO: selecting more than 10 will throw an error
-    // TODO: selecting 10 players after slecting more will NOT show an error anymore
+    it(`hides the error message after selecting ${MIN_PLAYERS} players after selecting less`, async () => {
+      render(<NarrationForm onFormSubmit={jest.fn()} />);
+
+      // uncheck a check checkbox - making selected checbkox less than the default
+      const checkboxEl = screen.getByRole('checkbox', { name: DEFAULT_EVIL_CHARACTERS_VALUE[1] });
+      await userEvent.click(checkboxEl);
+
+      // assert error message
+      const errorMessage = screen.getByText(
+        `The minimum number of players is ${MIN_PLAYERS}. Please add more players.`
+      );
+      expect(errorMessage).toBeInTheDocument();
+
+      // assert play button is disabled
+      const playBtn = screen.getByRole('button', { name: /play/i });
+      expect(playBtn).toBeDisabled();
+
+      // check a checkbox - making selected checbkox back to the default
+      const checkboxEl2 = screen.getByRole('checkbox', { name: DEFAULT_EVIL_CHARACTERS_VALUE[1] });
+      await userEvent.click(checkboxEl2);
+
+      // assert error message is not shown
+      const errorMessage2 = screen.queryByText(
+        `The minimum number of players is ${MIN_PLAYERS}. Please add more players.`
+      );
+      expect(errorMessage2).not.toBeInTheDocument();
+
+      // assert play button is not  disabled
+      const playBtn2 = screen.getByRole('button', { name: /play/i });
+      expect(playBtn2).not.toBeDisabled();
+    });
+
+    it(`hides the error message after selecting more than ${MIN_PLAYERS} players after selecting less`, async () => {
+      render(<NarrationForm onFormSubmit={jest.fn()} />);
+
+      // uncheck a check checkbox - making selected checbkox less than the default
+      const checkboxEl = screen.getByRole('checkbox', { name: DEFAULT_EVIL_CHARACTERS_VALUE[1] });
+      await userEvent.click(checkboxEl);
+
+      // assert error message
+      const errorMessage = screen.getByText(
+        `The minimum number of players is ${MIN_PLAYERS}. Please add more players.`
+      );
+      expect(errorMessage).toBeInTheDocument();
+
+      // assert play button is disabled
+      const playBtn = screen.getByRole('button', { name: /play/i });
+      expect(playBtn).toBeDisabled();
+
+      // check two checkboxes - making selected checbkox more than the default
+      await userEvent.click(
+        screen.getByRole('checkbox', { name: DEFAULT_EVIL_CHARACTERS_VALUE[1] })
+      );
+      await userEvent.click(screen.getByRole('checkbox', { name: EVIL_AVALON_CHARACTERS[0].name }));
+
+      // assert error message is not shown
+      const errorMessage2 = screen.queryByText(
+        `The minimum number of players is ${MIN_PLAYERS}. Please add more players.`
+      );
+      expect(errorMessage2).not.toBeInTheDocument();
+
+      // assert play button is not  disabled
+      const playBtn2 = screen.getByRole('button', { name: /play/i });
+      expect(playBtn2).not.toBeDisabled();
+    });
+
+    it(`shows an error when selected characters are more than ${MAX_PLAYERS}`, async () => {
+      render(<NarrationForm onFormSubmit={jest.fn()} />);
+
+      // check checkboxes until it exceeds the max
+      for (const goodChar of GOOD_AVALON_CHARACTERS.filter(
+        ({ name }) => !DEFAULT_GOOD_CHARACTERS_VALUE.includes(name)
+      )) {
+        await userEvent.click(screen.getByRole('checkbox', { name: goodChar.name }));
+      }
+
+      for (const evilChar of EVIL_AVALON_CHARACTERS.filter(
+        ({ name }) => !DEFAULT_EVIL_CHARACTERS_VALUE.includes(name)
+      ).slice(0, 2)) {
+        await userEvent.click(screen.getByRole('checkbox', { name: evilChar.name }));
+      }
+
+      // assert error message
+      const errorMessage = screen.getByText(
+        `The maximum number of players is ${MAX_PLAYERS}. Please reduce the number of players.`
+      );
+      expect(errorMessage).toBeInTheDocument();
+
+      // assert play button is disabled
+      const playBtn = screen.getByRole('button', { name: /play/i });
+      expect(playBtn).toBeDisabled();
+    });
+
+    it(`hides the error message after selecting ${MAX_PLAYERS} players after selecting more`, async () => {
+      render(<NarrationForm onFormSubmit={jest.fn()} />);
+
+      // check checkboxes until it exceeds the max
+      for (const goodChar of GOOD_AVALON_CHARACTERS.filter(
+        ({ name }) => !DEFAULT_GOOD_CHARACTERS_VALUE.includes(name)
+      )) {
+        await userEvent.click(screen.getByRole('checkbox', { name: goodChar.name }));
+      }
+
+      for (const evilChar of EVIL_AVALON_CHARACTERS.filter(
+        ({ name }) => !DEFAULT_EVIL_CHARACTERS_VALUE.includes(name)
+      ).slice(0, 2)) {
+        await userEvent.click(screen.getByRole('checkbox', { name: evilChar.name }));
+      }
+
+      // assert error message
+      const errorMessage = screen.getByText(
+        `The maximum number of players is ${MAX_PLAYERS}. Please reduce the number of players.`
+      );
+      expect(errorMessage).toBeInTheDocument();
+
+      // assert play button is disabled
+      const playBtn = screen.getByRole('button', { name: /play/i });
+      expect(playBtn).toBeDisabled();
+
+      // uncheck one checkbox - making it back to the max
+      await userEvent.click(screen.getByRole('checkbox', { name: GOOD_AVALON_CHARACTERS[2].name }));
+
+      // assert error message is not shown
+      const errorMessage2 = screen.queryByText(
+        `The maximum number of players is ${MAX_PLAYERS}. Please reduce the number of players.`
+      );
+      expect(errorMessage2).not.toBeInTheDocument();
+
+      // assert play button is not  disabled
+      const playBtn2 = screen.getByRole('button', { name: /play/i });
+      expect(playBtn2).not.toBeDisabled();
+    });
+
+    it(`hides the error message after selecting less than ${MAX_PLAYERS} players after selecting more`, async () => {
+      render(<NarrationForm onFormSubmit={jest.fn()} />);
+
+      // check checkboxes until it exceeds the max
+      for (const goodChar of GOOD_AVALON_CHARACTERS.filter(
+        ({ name }) => !DEFAULT_GOOD_CHARACTERS_VALUE.includes(name)
+      )) {
+        await userEvent.click(screen.getByRole('checkbox', { name: goodChar.name }));
+      }
+
+      for (const evilChar of EVIL_AVALON_CHARACTERS.filter(
+        ({ name }) => !DEFAULT_EVIL_CHARACTERS_VALUE.includes(name)
+      ).slice(0, 2)) {
+        await userEvent.click(screen.getByRole('checkbox', { name: evilChar.name }));
+      }
+
+      // assert error message
+      const errorMessage = screen.getByText(
+        `The maximum number of players is ${MAX_PLAYERS}. Please reduce the number of players.`
+      );
+      expect(errorMessage).toBeInTheDocument();
+
+      // assert play button is disabled
+      const playBtn = screen.getByRole('button', { name: /play/i });
+      expect(playBtn).toBeDisabled();
+
+      // uncheck two checkboxes - making it less than the max
+      await userEvent.click(screen.getByRole('checkbox', { name: GOOD_AVALON_CHARACTERS[2].name }));
+      await userEvent.click(screen.getByRole('checkbox', { name: EVIL_AVALON_CHARACTERS[0].name }));
+
+      // assert error message is not shown
+      const errorMessage2 = screen.queryByText(
+        `The maximum number of players is ${MAX_PLAYERS}. Please reduce the number of players.`
+      );
+      expect(errorMessage2).not.toBeInTheDocument();
+
+      // assert play button is not  disabled
+      const playBtn2 = screen.getByRole('button', { name: /play/i });
+      expect(playBtn2).not.toBeDisabled();
+    });
+
     // TODO: selecting 5 will transition to narrating state
     // TODO: selecting 10 will transition to narrating state
     // TODO: selecting 8 will transition to narrating state
