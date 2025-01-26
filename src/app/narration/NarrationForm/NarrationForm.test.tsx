@@ -12,7 +12,7 @@ import {
 const TOTAL_DEFAULT_CHECKED =
   DEFAULT_GOOD_CHARACTERS_VALUE.length + DEFAULT_EVIL_CHARACTERS_VALUE.length;
 
-describe('NarrationForm', () => {
+describe('Narration Form', () => {
   describe('Layout and default state', () => {
     it('displays "Good characters" label', () => {
       render(<NarrationForm onFormSubmit={jest.fn()} />);
@@ -391,16 +391,19 @@ describe('NarrationForm', () => {
     });
   });
 
+  describe('Character distribution validation', () => {
+    // TODO: in a 5 player game, good chars should be 3 and evil should be 2
+    // TODO: in a 6 player game, good chars should be 4 and evil should be 2
+    // TODO: in a 7 player game, good chars should be 4 and evil should be 3
+    // TODO: in a 8 player game, good chars should be 5 and evil should be 3
+    // TODO: in a 9 player game, good chars should be 6 and evil should be 3
+    // TODO: in a 10 player game, good chars should be 6 and evil should be 4
+  });
+
   // TODO: selecting 5 will transition to narrating state
   // TODO: selecting 10 will transition to narrating state
   // TODO: selecting 8 will transition to narrating state
   // TODO: it does not go to narrating state when required checkbox is not checked
   // TODO: it does not go to narrating state when less than 5 players is selected
   // TODO: it does not go to narrating state when more than 10 players is selected
-  // TODO: in a 5 player game, good chars should be 3 and evil should be 2
-  // TODO: in a 6 player game, good chars should be 4 and evil should be 2
-  // TODO: in a 7 player game, good chars should be 4 and evil should be 3
-  // TODO: in a 8 player game, good chars should be 5 and evil should be 3
-  // TODO: in a 9 player game, good chars should be 6 and evil should be 3
-  // TODO: in a 10 player game, good chars should be 6 and evil should be 4
 });
