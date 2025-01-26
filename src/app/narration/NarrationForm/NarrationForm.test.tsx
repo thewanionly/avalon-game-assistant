@@ -6,9 +6,11 @@ import {
   DEFAULT_GOOD_CHARACTERS_VALUE,
   EVIL_AVALON_CHARACTERS,
   GOOD_AVALON_CHARACTERS,
-  REQUIRED_CHARACTERS,
+  GOOD_REQUIRED_CHARACTERS,
+  EVIL_REQUIRED_CHARACTERS,
 } from '@/constants/characters';
 
+const allRequiredCharacters = [...GOOD_REQUIRED_CHARACTERS, ...EVIL_REQUIRED_CHARACTERS];
 const TOTAL_DEFAULT_CHECKED =
   DEFAULT_GOOD_CHARACTERS_VALUE.length + DEFAULT_EVIL_CHARACTERS_VALUE.length;
 
@@ -24,8 +26,8 @@ describe('Narration Form', () => {
     it(`displays "Good characters" checkboxes with correct labels"`, () => {
       render(<NarrationForm onFormSubmit={jest.fn()} />);
 
-      GOOD_AVALON_CHARACTERS.forEach(({ name }) => {
-        const checkbox = screen.getByRole('checkbox', { name });
+      GOOD_AVALON_CHARACTERS.forEach(({ id }) => {
+        const checkbox = screen.getByRole('checkbox', { name: id });
         expect(checkbox).toBeInTheDocument();
       });
     });
@@ -33,10 +35,10 @@ describe('Narration Form', () => {
     it(`checks ${DEFAULT_GOOD_CHARACTERS_VALUE} "Good characters" by default`, () => {
       render(<NarrationForm onFormSubmit={jest.fn()} />);
 
-      GOOD_AVALON_CHARACTERS.forEach(({ name }) => {
-        const checkbox = screen.getByRole('checkbox', { name });
+      GOOD_AVALON_CHARACTERS.forEach(({ id }) => {
+        const checkbox = screen.getByRole('checkbox', { name: id });
 
-        if (DEFAULT_GOOD_CHARACTERS_VALUE.includes(name)) {
+        if (DEFAULT_GOOD_CHARACTERS_VALUE.includes(id)) {
           expect(checkbox).toBeChecked();
         } else {
           expect(checkbox).not.toBeChecked();
@@ -54,8 +56,8 @@ describe('Narration Form', () => {
     it(`displays "Evil characters" checkboxes with correct labels"`, () => {
       render(<NarrationForm onFormSubmit={jest.fn()} />);
 
-      EVIL_AVALON_CHARACTERS.forEach(({ name }) => {
-        const checkbox = screen.getByRole('checkbox', { name });
+      EVIL_AVALON_CHARACTERS.forEach(({ id }) => {
+        const checkbox = screen.getByRole('checkbox', { name: id });
         expect(checkbox).toBeInTheDocument();
       });
     });
@@ -63,10 +65,10 @@ describe('Narration Form', () => {
     it(`checks ${DEFAULT_EVIL_CHARACTERS_VALUE.length} "Evil characters" checkboxes by default`, () => {
       render(<NarrationForm onFormSubmit={jest.fn()} />);
 
-      EVIL_AVALON_CHARACTERS.forEach(({ name }) => {
-        const checkbox = screen.getByRole('checkbox', { name });
+      EVIL_AVALON_CHARACTERS.forEach(({ id }) => {
+        const checkbox = screen.getByRole('checkbox', { name: id });
 
-        if (DEFAULT_EVIL_CHARACTERS_VALUE.includes(name)) {
+        if (DEFAULT_EVIL_CHARACTERS_VALUE.includes(id)) {
           expect(checkbox).toBeChecked();
         } else {
           expect(checkbox).not.toBeChecked();
@@ -77,13 +79,8 @@ describe('Narration Form', () => {
     it('marks required checkboxes properly', () => {
       render(<NarrationForm onFormSubmit={jest.fn()} />);
 
-      const requiredGood = GOOD_AVALON_CHARACTERS.filter(({ isRequired }) => isRequired);
-      const requiredEvil = EVIL_AVALON_CHARACTERS.filter(({ isRequired }) => isRequired);
-
-      const requiredChars = [...requiredGood, ...requiredEvil];
-
-      requiredChars.forEach(({ name }) => {
-        const checkbox = screen.getByRole('checkbox', { name });
+      allRequiredCharacters.forEach(({ id }) => {
+        const checkbox = screen.getByRole('checkbox', { name: id });
         expect(checkbox).toBeRequired();
       });
     });
@@ -128,7 +125,7 @@ describe('Narration Form', () => {
       expect(playBtn).toHaveTextContent(`${TOTAL_DEFAULT_CHECKED}`);
 
       // check an unchecked checkbox
-      const checkboxEl = screen.getByRole('checkbox', { name: EVIL_AVALON_CHARACTERS[0].name });
+      const checkboxEl = screen.getByRole('checkbox', { name: EVIL_AVALON_CHARACTERS[0].id });
       expect(checkboxEl).not.toBeChecked();
       await userEvent.click(checkboxEl);
 
@@ -138,40 +135,43 @@ describe('Narration Form', () => {
   });
 
   describe('Required characters validation', () => {
-    it.each(REQUIRED_CHARACTERS)(`shows an error when $name is not checked`, async ({ name }) => {
-      render(<NarrationForm onFormSubmit={jest.fn()} />);
-
-      // check another non-required checkbox (this is to ensure we don't get min char limit error)
-      const checkboxEl = screen.getByRole('checkbox', { name: EVIL_AVALON_CHARACTERS[0].name });
-      await userEvent.click(checkboxEl);
-
-      // uncheck a required checkbox
-      const requiredCheckbox = screen.getByRole('checkbox', { name });
-      expect(requiredCheckbox).toBeChecked();
-      await userEvent.click(requiredCheckbox);
-
-      // assert an error message
-      const errorMessage = screen.getByText(
-        `You must include the following required characters: ${name}`
-      );
-      expect(errorMessage).toBeInTheDocument();
-
-      // assert play button is disabled
-      const playBtn = screen.getByRole('button', { name: /play/i });
-      expect(playBtn).toBeDisabled();
-    });
-
-    it.each(REQUIRED_CHARACTERS)(
-      `does not show an error anymore when $name is checked after it was unchecked`,
-      async ({ name }) => {
+    it.each(allRequiredCharacters)(
+      `shows an error when $name is not checked`,
+      async ({ id, name }) => {
         render(<NarrationForm onFormSubmit={jest.fn()} />);
 
         // check another non-required checkbox (this is to ensure we don't get min char limit error)
-        const checkboxEl = screen.getByRole('checkbox', { name: EVIL_AVALON_CHARACTERS[0].name });
+        const checkboxEl = screen.getByRole('checkbox', { name: EVIL_AVALON_CHARACTERS[0].id });
         await userEvent.click(checkboxEl);
 
         // uncheck a required checkbox
-        const requiredCheckbox = screen.getByRole('checkbox', { name });
+        const requiredCheckbox = screen.getByRole('checkbox', { name: id });
+        expect(requiredCheckbox).toBeChecked();
+        await userEvent.click(requiredCheckbox);
+
+        // assert an error message
+        const errorMessage = screen.getByText(
+          `You must include the following required characters: ${name}`
+        );
+        expect(errorMessage).toBeInTheDocument();
+
+        // assert play button is disabled
+        const playBtn = screen.getByRole('button', { name: /play/i });
+        expect(playBtn).toBeDisabled();
+      }
+    );
+
+    it.each(allRequiredCharacters)(
+      `does not show an error anymore when $name is checked after it was unchecked`,
+      async ({ id, name }) => {
+        render(<NarrationForm onFormSubmit={jest.fn()} />);
+
+        // check another non-required checkbox (this is to ensure we don't get min char limit error)
+        const checkboxEl = screen.getByRole('checkbox', { name: EVIL_AVALON_CHARACTERS[0].id });
+        await userEvent.click(checkboxEl);
+
+        // uncheck a required checkbox
+        const requiredCheckbox = screen.getByRole('checkbox', { name: id });
         expect(requiredCheckbox).toBeChecked();
         await userEvent.click(requiredCheckbox);
 
@@ -269,7 +269,7 @@ describe('Narration Form', () => {
       await userEvent.click(
         screen.getByRole('checkbox', { name: DEFAULT_EVIL_CHARACTERS_VALUE[1] })
       );
-      await userEvent.click(screen.getByRole('checkbox', { name: EVIL_AVALON_CHARACTERS[0].name }));
+      await userEvent.click(screen.getByRole('checkbox', { name: EVIL_AVALON_CHARACTERS[0].id }));
 
       // assert error message is not shown
       const errorMessage2 = screen.queryByText(
@@ -287,15 +287,15 @@ describe('Narration Form', () => {
 
       // check checkboxes until it exceeds the max
       for (const goodChar of GOOD_AVALON_CHARACTERS.filter(
-        ({ name }) => !DEFAULT_GOOD_CHARACTERS_VALUE.includes(name)
+        ({ id }) => !DEFAULT_GOOD_CHARACTERS_VALUE.includes(id)
       )) {
-        await userEvent.click(screen.getByRole('checkbox', { name: goodChar.name }));
+        await userEvent.click(screen.getByRole('checkbox', { name: goodChar.id }));
       }
 
       for (const evilChar of EVIL_AVALON_CHARACTERS.filter(
-        ({ name }) => !DEFAULT_EVIL_CHARACTERS_VALUE.includes(name)
+        ({ id }) => !DEFAULT_EVIL_CHARACTERS_VALUE.includes(id)
       ).slice(0, 2)) {
-        await userEvent.click(screen.getByRole('checkbox', { name: evilChar.name }));
+        await userEvent.click(screen.getByRole('checkbox', { name: evilChar.id }));
       }
 
       // assert error message
@@ -314,15 +314,15 @@ describe('Narration Form', () => {
 
       // check checkboxes until it exceeds the max
       for (const goodChar of GOOD_AVALON_CHARACTERS.filter(
-        ({ name }) => !DEFAULT_GOOD_CHARACTERS_VALUE.includes(name)
+        ({ id }) => !DEFAULT_GOOD_CHARACTERS_VALUE.includes(id)
       )) {
-        await userEvent.click(screen.getByRole('checkbox', { name: goodChar.name }));
+        await userEvent.click(screen.getByRole('checkbox', { name: goodChar.id }));
       }
 
       for (const evilChar of EVIL_AVALON_CHARACTERS.filter(
-        ({ name }) => !DEFAULT_EVIL_CHARACTERS_VALUE.includes(name)
+        ({ id }) => !DEFAULT_EVIL_CHARACTERS_VALUE.includes(id)
       ).slice(0, 2)) {
-        await userEvent.click(screen.getByRole('checkbox', { name: evilChar.name }));
+        await userEvent.click(screen.getByRole('checkbox', { name: evilChar.id }));
       }
 
       // assert error message
@@ -336,7 +336,7 @@ describe('Narration Form', () => {
       expect(playBtn).toBeDisabled();
 
       // uncheck one checkbox - making it back to the max
-      await userEvent.click(screen.getByRole('checkbox', { name: GOOD_AVALON_CHARACTERS[2].name }));
+      await userEvent.click(screen.getByRole('checkbox', { name: GOOD_AVALON_CHARACTERS[2].id }));
 
       // assert error message is not shown
       const errorMessage2 = screen.queryByText(
@@ -354,15 +354,15 @@ describe('Narration Form', () => {
 
       // check checkboxes until it exceeds the max
       for (const goodChar of GOOD_AVALON_CHARACTERS.filter(
-        ({ name }) => !DEFAULT_GOOD_CHARACTERS_VALUE.includes(name)
+        ({ id }) => !DEFAULT_GOOD_CHARACTERS_VALUE.includes(id)
       )) {
-        await userEvent.click(screen.getByRole('checkbox', { name: goodChar.name }));
+        await userEvent.click(screen.getByRole('checkbox', { name: goodChar.id }));
       }
 
       for (const evilChar of EVIL_AVALON_CHARACTERS.filter(
-        ({ name }) => !DEFAULT_EVIL_CHARACTERS_VALUE.includes(name)
+        ({ id }) => !DEFAULT_EVIL_CHARACTERS_VALUE.includes(id)
       ).slice(0, 2)) {
-        await userEvent.click(screen.getByRole('checkbox', { name: evilChar.name }));
+        await userEvent.click(screen.getByRole('checkbox', { name: evilChar.id }));
       }
 
       // assert error message
@@ -376,8 +376,8 @@ describe('Narration Form', () => {
       expect(playBtn).toBeDisabled();
 
       // uncheck two checkboxes - making it less than the max
-      await userEvent.click(screen.getByRole('checkbox', { name: GOOD_AVALON_CHARACTERS[2].name }));
-      await userEvent.click(screen.getByRole('checkbox', { name: EVIL_AVALON_CHARACTERS[0].name }));
+      await userEvent.click(screen.getByRole('checkbox', { name: GOOD_AVALON_CHARACTERS[2].id }));
+      await userEvent.click(screen.getByRole('checkbox', { name: EVIL_AVALON_CHARACTERS[0].id }));
 
       // assert error message is not shown
       const errorMessage2 = screen.queryByText(

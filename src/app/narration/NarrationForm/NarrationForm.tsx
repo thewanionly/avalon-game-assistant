@@ -15,13 +15,13 @@ import {
 } from '@/components/ui/form';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
-  AvalonCharacterLoyalty,
   AvalonCharacterName,
   DEFAULT_EVIL_CHARACTERS_VALUE,
   DEFAULT_GOOD_CHARACTERS_VALUE,
   EVIL_AVALON_CHARACTERS,
+  EVIL_REQUIRED_CHARACTERS,
   GOOD_AVALON_CHARACTERS,
-  REQUIRED_CHARACTERS,
+  GOOD_REQUIRED_CHARACTERS,
   TEAM_DISTRIBUTION,
 } from '@/constants/characters';
 import { cn } from '@/lib/utils';
@@ -33,34 +33,18 @@ const FormSchema = z
   .object({
     goodCharacters: z
       .array(z.string())
-      .refine(
-        (values) =>
-          REQUIRED_CHARACTERS.filter(
-            ({ loyalty }) => loyalty === AvalonCharacterLoyalty.Good
-          ).every(({ name }) => values.includes(name)),
-        {
-          message: `You must include the following required characters: ${REQUIRED_CHARACTERS.filter(
-            ({ loyalty }) => loyalty === AvalonCharacterLoyalty.Good
-          )
-            .map(({ name }) => name)
-            .join(', ')}`,
-        }
-      ),
+      .refine((values) => GOOD_REQUIRED_CHARACTERS.every(({ id }) => values.includes(id)), {
+        message: `You must include the following required characters: ${GOOD_REQUIRED_CHARACTERS.map(
+          ({ name }) => name
+        ).join(', ')}`,
+      }),
     evilCharacters: z
       .array(z.string())
-      .refine(
-        (values) =>
-          REQUIRED_CHARACTERS.filter(
-            ({ loyalty }) => loyalty === AvalonCharacterLoyalty.Evil
-          ).every(({ name }) => values.includes(name)),
-        {
-          message: `You must include the following required characters: ${REQUIRED_CHARACTERS.filter(
-            ({ loyalty }) => loyalty === AvalonCharacterLoyalty.Evil
-          )
-            .map(({ name }) => name)
-            .join(', ')}`,
-        }
-      ),
+      .refine((values) => EVIL_REQUIRED_CHARACTERS.every(({ id }) => values.includes(id)), {
+        message: `You must include the following required characters: ${EVIL_REQUIRED_CHARACTERS.map(
+          ({ name }) => name
+        ).join(', ')}`,
+      }),
   })
   .refine(
     ({ goodCharacters, evilCharacters }) => {
@@ -169,30 +153,31 @@ export const NarrationForm = ({ className, onFormSubmit }: NarrationFormProps) =
           render={() => (
             <FormItem className="space-y-3">
               <FormLabel>Good characters</FormLabel>
-              {GOOD_AVALON_CHARACTERS.map(({ name: value, isRequired }, index) => (
+              {GOOD_AVALON_CHARACTERS.map(({ id, name, isRequired }, index) => (
                 <FormField
-                  key={value + index}
+                  key={id + index}
                   control={form.control}
                   name="goodCharacters"
                   render={({ field }) => {
                     return (
                       <FormItem
-                        key={value + index}
+                        key={id + index}
                         className="flex flex-wrap items-start space-x-3 space-y-0"
                       >
                         <FormControl>
                           <Checkbox
-                            checked={field.value?.includes(value)}
+                            checked={field.value?.includes(id)}
                             onCheckedChange={async (checked) => {
                               if (checked) {
-                                field.onChange([...(field.value ?? []), value]);
+                                field.onChange([...(field.value ?? []), id]);
                               } else {
-                                field.onChange(field.value?.filter((v) => v !== value));
+                                field.onChange(field.value?.filter((v) => v !== id));
                               }
 
                               await form.trigger(); // Re-run validation
                             }}
                             required={isRequired}
+                            aria-label={id}
                           />
                         </FormControl>
                         <FormLabel
@@ -201,7 +186,7 @@ export const NarrationForm = ({ className, onFormSubmit }: NarrationFormProps) =
                             isRequired && "after:ml-0.5 after:text-red-500 after:content-['*']"
                           )}
                         >
-                          {value}
+                          {name}
                         </FormLabel>
                       </FormItem>
                     );
@@ -219,30 +204,31 @@ export const NarrationForm = ({ className, onFormSubmit }: NarrationFormProps) =
           render={() => (
             <FormItem className="space-y-3">
               <FormLabel>Evil characters</FormLabel>
-              {EVIL_AVALON_CHARACTERS.map(({ name: value, isRequired }, index) => (
+              {EVIL_AVALON_CHARACTERS.map(({ id, name, isRequired }, index) => (
                 <FormField
-                  key={value + index}
+                  key={id + index}
                   control={form.control}
                   name="evilCharacters"
                   render={({ field }) => {
                     return (
                       <FormItem
-                        key={value + index}
+                        key={id + index}
                         className="flex flex-wrap items-start space-x-3 space-y-0"
                       >
                         <FormControl>
                           <Checkbox
-                            checked={field.value?.includes(value)}
+                            checked={field.value?.includes(id)}
                             onCheckedChange={async (checked) => {
                               if (checked) {
-                                field.onChange([...(field.value ?? []), value]);
+                                field.onChange([...(field.value ?? []), id]);
                               } else {
-                                field.onChange(field.value?.filter((v) => v !== value));
+                                field.onChange(field.value?.filter((v) => v !== id));
                               }
 
                               await form.trigger(); // Re-run validation
                             }}
                             required={isRequired}
+                            aria-label={id}
                           />
                         </FormControl>
                         <FormLabel
@@ -251,7 +237,7 @@ export const NarrationForm = ({ className, onFormSubmit }: NarrationFormProps) =
                             isRequired && "after:ml-0.5 after:text-red-500 after:content-['*']"
                           )}
                         >
-                          {value}
+                          {name}
                         </FormLabel>
                       </FormItem>
                     );

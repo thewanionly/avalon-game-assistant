@@ -29,6 +29,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             aria-checked="true"
             aria-describedby=":rh:-form-item-description"
             aria-invalid="false"
+            aria-label="merlin"
             aria-required="true"
             class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
             data-state="checked"
@@ -83,6 +84,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             aria-checked="false"
             aria-describedby=":ri:-form-item-description"
             aria-invalid="false"
+            aria-label="percival"
             class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
             data-state="unchecked"
             id=":ri:-form-item"
@@ -111,6 +113,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             aria-checked="true"
             aria-describedby=":rj:-form-item-description"
             aria-invalid="false"
+            aria-label="loyal-servant-of-arthur-1"
             class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
             data-state="checked"
             id=":rj:-form-item"
@@ -153,7 +156,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-normal"
             for=":rj:-form-item"
           >
-            Loyal Servant of Arthur 1
+            Loyal Servant of Arthur
           </label>
         </div>
         <div
@@ -163,6 +166,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             aria-checked="true"
             aria-describedby=":rk:-form-item-description"
             aria-invalid="false"
+            aria-label="loyal-servant-of-arthur-2"
             class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
             data-state="checked"
             id=":rk:-form-item"
@@ -205,7 +209,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-normal"
             for=":rk:-form-item"
           >
-            Loyal Servant of Arthur 2
+            Loyal Servant of Arthur
           </label>
         </div>
         <div
@@ -215,6 +219,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             aria-checked="false"
             aria-describedby=":rl:-form-item-description"
             aria-invalid="false"
+            aria-label="loyal-servant-of-arthur-3"
             class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
             data-state="unchecked"
             id=":rl:-form-item"
@@ -233,7 +238,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-normal"
             for=":rl:-form-item"
           >
-            Loyal Servant of Arthur 3
+            Loyal Servant of Arthur
           </label>
         </div>
         <div
@@ -243,6 +248,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             aria-checked="false"
             aria-describedby=":rm:-form-item-description"
             aria-invalid="false"
+            aria-label="loyal-servant-of-arthur-4"
             class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
             data-state="unchecked"
             id=":rm:-form-item"
@@ -261,7 +267,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-normal"
             for=":rm:-form-item"
           >
-            Loyal Servant of Arthur 4
+            Loyal Servant of Arthur
           </label>
         </div>
         <div
@@ -271,6 +277,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             aria-checked="false"
             aria-describedby=":rn:-form-item-description"
             aria-invalid="false"
+            aria-label="loyal-servant-of-arthur-5"
             class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
             data-state="unchecked"
             id=":rn:-form-item"
@@ -289,7 +296,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-normal"
             for=":rn:-form-item"
           >
-            Loyal Servant of Arthur 5
+            Loyal Servant of Arthur
           </label>
         </div>
       </div>
@@ -309,6 +316,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             aria-checked="false"
             aria-describedby=":rp:-form-item-description"
             aria-invalid="false"
+            aria-label="mordred"
             class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
             data-state="unchecked"
             id=":rp:-form-item"
@@ -337,6 +345,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             aria-checked="false"
             aria-describedby=":rq:-form-item-description"
             aria-invalid="false"
+            aria-label="morgana"
             class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
             data-state="unchecked"
             id=":rq:-form-item"
@@ -365,6 +374,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             aria-checked="false"
             aria-describedby=":rr:-form-item-description"
             aria-invalid="false"
+            aria-label="oberon"
             class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
             data-state="unchecked"
             id=":rr:-form-item"
@@ -393,6 +403,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             aria-checked="true"
             aria-describedby=":rs:-form-item-description"
             aria-invalid="false"
+            aria-label="assassin"
             aria-required="true"
             class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
             data-state="checked"
@@ -447,6 +458,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             aria-checked="true"
             aria-describedby=":rt:-form-item-description"
             aria-invalid="false"
+            aria-label="minion-of-mordred-1"
             class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
             data-state="checked"
             id=":rt:-form-item"
@@ -489,7 +501,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-normal"
             for=":rt:-form-item"
           >
-            Minion of Mordred 1
+            Minion of Mordred
           </label>
         </div>
         <div
@@ -499,6 +511,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             aria-checked="false"
             aria-describedby=":ru:-form-item-description"
             aria-invalid="false"
+            aria-label="minion-of-mordred-2"
             class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
             data-state="unchecked"
             id=":ru:-form-item"
@@ -517,7 +530,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-normal"
             for=":ru:-form-item"
           >
-            Minion of Mordred 2
+            Minion of Mordred
           </label>
         </div>
         <div
@@ -527,6 +540,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             aria-checked="false"
             aria-describedby=":rv:-form-item-description"
             aria-invalid="false"
+            aria-label="minion-of-mordred-3"
             class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
             data-state="unchecked"
             id=":rv:-form-item"
@@ -545,7 +559,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-normal"
             for=":rv:-form-item"
           >
-            Minion of Mordred 3
+            Minion of Mordred
           </label>
         </div>
       </div>

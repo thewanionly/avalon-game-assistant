@@ -1,3 +1,5 @@
+import idify from '@/utils/idify';
+
 export enum AvalonCharacterName {
   Merlin = 'Merlin',
   Percival = 'Percival',
@@ -15,76 +17,118 @@ export enum AvalonCharacterLoyalty {
 }
 
 interface AvalonCharacter {
+  id: string;
   name: string;
   loyalty: AvalonCharacterLoyalty;
-  count: number;
   isAdditional?: boolean;
   isRequired?: boolean;
+  isDefaultChecked?: boolean;
 }
 
-export const AVALON_CHARACTERS: AvalonCharacter[] = [
+const AVALON_CHARACTERS: AvalonCharacter[] = [
   {
+    id: idify(AvalonCharacterName.Merlin),
     name: AvalonCharacterName.Merlin,
     loyalty: AvalonCharacterLoyalty.Good,
-    count: 1,
     isRequired: true,
+    isDefaultChecked: true,
   },
   {
+    id: idify(AvalonCharacterName.Percival),
     name: AvalonCharacterName.Percival,
     loyalty: AvalonCharacterLoyalty.Good,
-    count: 1,
     isAdditional: true,
   },
   {
+    id: idify(`${AvalonCharacterName.LoyalServantOfArthur} 1`),
     name: AvalonCharacterName.LoyalServantOfArthur,
     loyalty: AvalonCharacterLoyalty.Good,
-    count: 5,
+    isDefaultChecked: true,
   },
   {
+    id: idify(`${AvalonCharacterName.LoyalServantOfArthur} 2`),
+    name: AvalonCharacterName.LoyalServantOfArthur,
+    loyalty: AvalonCharacterLoyalty.Good,
+    isDefaultChecked: true,
+  },
+  {
+    id: idify(`${AvalonCharacterName.LoyalServantOfArthur} 3`),
+    name: AvalonCharacterName.LoyalServantOfArthur,
+    loyalty: AvalonCharacterLoyalty.Good,
+  },
+  {
+    id: idify(`${AvalonCharacterName.LoyalServantOfArthur} 4`),
+    name: AvalonCharacterName.LoyalServantOfArthur,
+    loyalty: AvalonCharacterLoyalty.Good,
+  },
+  {
+    id: idify(`${AvalonCharacterName.LoyalServantOfArthur} 5`),
+    name: AvalonCharacterName.LoyalServantOfArthur,
+    loyalty: AvalonCharacterLoyalty.Good,
+  },
+  {
+    id: idify(AvalonCharacterName.Mordred),
     name: AvalonCharacterName.Mordred,
     loyalty: AvalonCharacterLoyalty.Evil,
-    count: 1,
     isAdditional: true,
   },
   {
+    id: idify(AvalonCharacterName.Morgana),
     name: AvalonCharacterName.Morgana,
     loyalty: AvalonCharacterLoyalty.Evil,
-    count: 1,
     isAdditional: true,
   },
   {
+    id: idify(AvalonCharacterName.Oberon),
     name: AvalonCharacterName.Oberon,
     loyalty: AvalonCharacterLoyalty.Evil,
-    count: 1,
     isAdditional: true,
   },
   {
+    id: idify(AvalonCharacterName.Assassin),
     name: AvalonCharacterName.Assassin,
     loyalty: AvalonCharacterLoyalty.Evil,
-    count: 1,
     isRequired: true,
+    isDefaultChecked: true,
   },
   {
+    id: idify(`${AvalonCharacterName.MinionOfMordred} 1`),
     name: AvalonCharacterName.MinionOfMordred,
     loyalty: AvalonCharacterLoyalty.Evil,
-    count: 3,
+    isDefaultChecked: true,
+  },
+  {
+    id: idify(`${AvalonCharacterName.MinionOfMordred} 2`),
+    name: AvalonCharacterName.MinionOfMordred,
+    loyalty: AvalonCharacterLoyalty.Evil,
+  },
+  {
+    id: idify(`${AvalonCharacterName.MinionOfMordred} 3`),
+    name: AvalonCharacterName.MinionOfMordred,
+    loyalty: AvalonCharacterLoyalty.Evil,
   },
 ];
 
-const groupCharacters = (loyalty: AvalonCharacterLoyalty) =>
-  AVALON_CHARACTERS.filter((character) => character.loyalty === loyalty).flatMap((character) =>
-    Array.from({ length: character.count }, (_, index) => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { count, ...rest } = character; // Exclude `count` if not needed in the resulting objects
-      const uniqueName = character.count > 1 ? `${character.name} ${index + 1}` : character.name; // Append numbers if needed
-      return { ...rest, name: uniqueName }; // Return the updated object
-    })
-  );
+export const GOOD_AVALON_CHARACTERS = AVALON_CHARACTERS.filter(
+  (character) => character.loyalty === AvalonCharacterLoyalty.Good
+);
+export const EVIL_AVALON_CHARACTERS = AVALON_CHARACTERS.filter(
+  (character) => character.loyalty === AvalonCharacterLoyalty.Evil
+);
 
-export const GOOD_AVALON_CHARACTERS = groupCharacters(AvalonCharacterLoyalty.Good);
-export const EVIL_AVALON_CHARACTERS = groupCharacters(AvalonCharacterLoyalty.Evil);
+export const GOOD_REQUIRED_CHARACTERS = GOOD_AVALON_CHARACTERS.filter(
+  ({ isRequired }) => isRequired
+);
+export const EVIL_REQUIRED_CHARACTERS = EVIL_AVALON_CHARACTERS.filter(
+  ({ isRequired }) => isRequired
+);
 
-export const REQUIRED_CHARACTERS = AVALON_CHARACTERS.filter(({ isRequired }) => isRequired);
+export const DEFAULT_GOOD_CHARACTERS_VALUE = GOOD_AVALON_CHARACTERS.filter(
+  ({ isDefaultChecked }) => isDefaultChecked
+).map(({ id }) => id);
+export const DEFAULT_EVIL_CHARACTERS_VALUE = EVIL_AVALON_CHARACTERS.filter(
+  ({ isDefaultChecked }) => isDefaultChecked
+).map(({ id }) => id);
 
 export const TEAM_DISTRIBUTION = {
   5: {
@@ -112,14 +156,3 @@ export const TEAM_DISTRIBUTION = {
     [AvalonCharacterLoyalty.Evil]: 4,
   },
 };
-
-export const DEFAULT_GOOD_CHARACTERS_VALUE = [
-  AvalonCharacterName.Merlin,
-  `${AvalonCharacterName.LoyalServantOfArthur} 1`,
-  `${AvalonCharacterName.LoyalServantOfArthur} 2`,
-];
-
-export const DEFAULT_EVIL_CHARACTERS_VALUE = [
-  AvalonCharacterName.Assassin,
-  `${AvalonCharacterName.MinionOfMordred} 1`,
-];
