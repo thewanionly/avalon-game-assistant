@@ -16,8 +16,8 @@ import {
 import { Checkbox } from '@/components/ui/checkbox';
 import {
   AvalonCharacterName,
-  DEFAULT_EVIL_CHARACTERS_VALUE,
-  DEFAULT_GOOD_CHARACTERS_VALUE,
+  DEFAULT_EVIL_CHARACTERS,
+  DEFAULT_GOOD_CHARACTERS,
   EVIL_AVALON_CHARACTERS,
   EVIL_REQUIRED_CHARACTERS,
   GOOD_AVALON_CHARACTERS,
@@ -82,8 +82,8 @@ export const NarrationForm = ({ className, onFormSubmit }: NarrationFormProps) =
   const form = useForm<FormValuesType>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      goodCharacters: DEFAULT_GOOD_CHARACTERS_VALUE,
-      evilCharacters: DEFAULT_EVIL_CHARACTERS_VALUE,
+      goodCharacters: DEFAULT_GOOD_CHARACTERS.map(({ id }) => id),
+      evilCharacters: DEFAULT_EVIL_CHARACTERS.map(({ id }) => id),
     },
   });
 
@@ -153,17 +153,14 @@ export const NarrationForm = ({ className, onFormSubmit }: NarrationFormProps) =
           render={() => (
             <FormItem className="space-y-3">
               <FormLabel>Good characters</FormLabel>
-              {GOOD_AVALON_CHARACTERS.map(({ id, name, isRequired }, index) => (
+              {GOOD_AVALON_CHARACTERS.map(({ id, name, uniqueLabel, isRequired }) => (
                 <FormField
-                  key={id + index}
+                  key={id}
                   control={form.control}
                   name="goodCharacters"
                   render={({ field }) => {
                     return (
-                      <FormItem
-                        key={id + index}
-                        className="flex flex-wrap items-start space-x-3 space-y-0"
-                      >
+                      <FormItem className="flex flex-wrap items-start space-x-3 space-y-0">
                         <FormControl>
                           <Checkbox
                             checked={field.value?.includes(id)}
@@ -177,7 +174,7 @@ export const NarrationForm = ({ className, onFormSubmit }: NarrationFormProps) =
                               await form.trigger(); // Re-run validation
                             }}
                             required={isRequired}
-                            aria-label={id}
+                            aria-label={uniqueLabel}
                           />
                         </FormControl>
                         <FormLabel
@@ -204,17 +201,14 @@ export const NarrationForm = ({ className, onFormSubmit }: NarrationFormProps) =
           render={() => (
             <FormItem className="space-y-3">
               <FormLabel>Evil characters</FormLabel>
-              {EVIL_AVALON_CHARACTERS.map(({ id, name, isRequired }, index) => (
+              {EVIL_AVALON_CHARACTERS.map(({ id, name, uniqueLabel, isRequired }) => (
                 <FormField
-                  key={id + index}
+                  key={id}
                   control={form.control}
                   name="evilCharacters"
                   render={({ field }) => {
                     return (
-                      <FormItem
-                        key={id + index}
-                        className="flex flex-wrap items-start space-x-3 space-y-0"
-                      >
+                      <FormItem className="flex flex-wrap items-start space-x-3 space-y-0">
                         <FormControl>
                           <Checkbox
                             checked={field.value?.includes(id)}
@@ -228,7 +222,7 @@ export const NarrationForm = ({ className, onFormSubmit }: NarrationFormProps) =
                               await form.trigger(); // Re-run validation
                             }}
                             required={isRequired}
-                            aria-label={id}
+                            aria-label={uniqueLabel}
                           />
                         </FormControl>
                         <FormLabel

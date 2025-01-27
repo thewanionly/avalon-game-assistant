@@ -19,6 +19,7 @@ export enum AvalonCharacterLoyalty {
 interface AvalonCharacter {
   id: string;
   name: string;
+  uniqueLabel: string;
   loyalty: AvalonCharacterLoyalty;
   isAdditional?: boolean;
   isRequired?: boolean;
@@ -29,6 +30,7 @@ const AVALON_CHARACTERS: AvalonCharacter[] = [
   {
     id: idify(AvalonCharacterName.Merlin),
     name: AvalonCharacterName.Merlin,
+    uniqueLabel: AvalonCharacterName.Merlin,
     loyalty: AvalonCharacterLoyalty.Good,
     isRequired: true,
     isDefaultChecked: true,
@@ -36,57 +38,67 @@ const AVALON_CHARACTERS: AvalonCharacter[] = [
   {
     id: idify(AvalonCharacterName.Percival),
     name: AvalonCharacterName.Percival,
+    uniqueLabel: AvalonCharacterName.Percival,
     loyalty: AvalonCharacterLoyalty.Good,
     isAdditional: true,
   },
   {
     id: idify(`${AvalonCharacterName.LoyalServantOfArthur} 1`),
     name: AvalonCharacterName.LoyalServantOfArthur,
+    uniqueLabel: `1st ${AvalonCharacterName.LoyalServantOfArthur}`,
     loyalty: AvalonCharacterLoyalty.Good,
     isDefaultChecked: true,
   },
   {
     id: idify(`${AvalonCharacterName.LoyalServantOfArthur} 2`),
     name: AvalonCharacterName.LoyalServantOfArthur,
+    uniqueLabel: `2nd ${AvalonCharacterName.LoyalServantOfArthur}`,
     loyalty: AvalonCharacterLoyalty.Good,
     isDefaultChecked: true,
   },
   {
     id: idify(`${AvalonCharacterName.LoyalServantOfArthur} 3`),
     name: AvalonCharacterName.LoyalServantOfArthur,
+    uniqueLabel: `3rd ${AvalonCharacterName.LoyalServantOfArthur}`,
     loyalty: AvalonCharacterLoyalty.Good,
   },
   {
     id: idify(`${AvalonCharacterName.LoyalServantOfArthur} 4`),
     name: AvalonCharacterName.LoyalServantOfArthur,
+    uniqueLabel: `4th ${AvalonCharacterName.LoyalServantOfArthur}`,
     loyalty: AvalonCharacterLoyalty.Good,
   },
   {
     id: idify(`${AvalonCharacterName.LoyalServantOfArthur} 5`),
     name: AvalonCharacterName.LoyalServantOfArthur,
+    uniqueLabel: `5th ${AvalonCharacterName.LoyalServantOfArthur}`,
     loyalty: AvalonCharacterLoyalty.Good,
   },
   {
     id: idify(AvalonCharacterName.Mordred),
     name: AvalonCharacterName.Mordred,
+    uniqueLabel: AvalonCharacterName.Mordred,
     loyalty: AvalonCharacterLoyalty.Evil,
     isAdditional: true,
   },
   {
     id: idify(AvalonCharacterName.Morgana),
     name: AvalonCharacterName.Morgana,
+    uniqueLabel: AvalonCharacterName.Morgana,
     loyalty: AvalonCharacterLoyalty.Evil,
     isAdditional: true,
   },
   {
     id: idify(AvalonCharacterName.Oberon),
     name: AvalonCharacterName.Oberon,
+    uniqueLabel: AvalonCharacterName.Oberon,
     loyalty: AvalonCharacterLoyalty.Evil,
     isAdditional: true,
   },
   {
     id: idify(AvalonCharacterName.Assassin),
     name: AvalonCharacterName.Assassin,
+    uniqueLabel: AvalonCharacterName.Assassin,
     loyalty: AvalonCharacterLoyalty.Evil,
     isRequired: true,
     isDefaultChecked: true,
@@ -94,17 +106,20 @@ const AVALON_CHARACTERS: AvalonCharacter[] = [
   {
     id: idify(`${AvalonCharacterName.MinionOfMordred} 1`),
     name: AvalonCharacterName.MinionOfMordred,
+    uniqueLabel: `1st ${AvalonCharacterName.MinionOfMordred}`,
     loyalty: AvalonCharacterLoyalty.Evil,
     isDefaultChecked: true,
   },
   {
     id: idify(`${AvalonCharacterName.MinionOfMordred} 2`),
     name: AvalonCharacterName.MinionOfMordred,
+    uniqueLabel: `2nd ${AvalonCharacterName.MinionOfMordred}`,
     loyalty: AvalonCharacterLoyalty.Evil,
   },
   {
     id: idify(`${AvalonCharacterName.MinionOfMordred} 3`),
     name: AvalonCharacterName.MinionOfMordred,
+    uniqueLabel: `3rd ${AvalonCharacterName.MinionOfMordred}`,
     loyalty: AvalonCharacterLoyalty.Evil,
   },
 ];
@@ -123,12 +138,12 @@ export const EVIL_REQUIRED_CHARACTERS = EVIL_AVALON_CHARACTERS.filter(
   ({ isRequired }) => isRequired
 );
 
-export const DEFAULT_GOOD_CHARACTERS_VALUE = GOOD_AVALON_CHARACTERS.filter(
+export const DEFAULT_GOOD_CHARACTERS = GOOD_AVALON_CHARACTERS.filter(
   ({ isDefaultChecked }) => isDefaultChecked
-).map(({ id }) => id);
-export const DEFAULT_EVIL_CHARACTERS_VALUE = EVIL_AVALON_CHARACTERS.filter(
+);
+export const DEFAULT_EVIL_CHARACTERS = EVIL_AVALON_CHARACTERS.filter(
   ({ isDefaultChecked }) => isDefaultChecked
-).map(({ id }) => id);
+);
 
 export const TEAM_DISTRIBUTION = {
   5: {
