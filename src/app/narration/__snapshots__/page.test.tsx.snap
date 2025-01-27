@@ -23,7 +23,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
           Good characters
         </label>
         <div
-          class="flex flex-wrap items-start space-x-3 space-y-0"
+          class="flex items-center gap-2 space-y-0"
         >
           <button
             aria-checked="true"
@@ -78,13 +78,14 @@ exports[`Narration Page renders narration page unchanged 1`] = `
           </label>
         </div>
         <div
-          class="flex flex-wrap items-start space-x-3 space-y-0"
+          class="flex items-center gap-2 space-y-0"
         >
           <button
             aria-checked="false"
             aria-describedby=":ri:-form-item-description"
             aria-invalid="false"
             aria-label="Percival"
+            aria-required="false"
             class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
             data-state="unchecked"
             id=":ri:-form-item"
@@ -107,13 +108,14 @@ exports[`Narration Page renders narration page unchanged 1`] = `
           </label>
         </div>
         <div
-          class="flex flex-wrap items-start space-x-3 space-y-0"
+          class="flex items-center gap-2 space-y-0"
         >
           <button
             aria-checked="true"
             aria-describedby=":rj:-form-item-description"
             aria-invalid="false"
             aria-label="1st Loyal Servant of Arthur"
+            aria-required="false"
             class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
             data-state="checked"
             id=":rj:-form-item"
@@ -160,13 +162,14 @@ exports[`Narration Page renders narration page unchanged 1`] = `
           </label>
         </div>
         <div
-          class="flex flex-wrap items-start space-x-3 space-y-0"
+          class="flex items-center gap-2 space-y-0"
         >
           <button
             aria-checked="true"
             aria-describedby=":rk:-form-item-description"
             aria-invalid="false"
             aria-label="2nd Loyal Servant of Arthur"
+            aria-required="false"
             class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
             data-state="checked"
             id=":rk:-form-item"
@@ -213,13 +216,14 @@ exports[`Narration Page renders narration page unchanged 1`] = `
           </label>
         </div>
         <div
-          class="flex flex-wrap items-start space-x-3 space-y-0"
+          class="flex items-center gap-2 space-y-0"
         >
           <button
             aria-checked="false"
             aria-describedby=":rl:-form-item-description"
             aria-invalid="false"
             aria-label="3rd Loyal Servant of Arthur"
+            aria-required="false"
             class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
             data-state="unchecked"
             id=":rl:-form-item"
@@ -242,13 +246,14 @@ exports[`Narration Page renders narration page unchanged 1`] = `
           </label>
         </div>
         <div
-          class="flex flex-wrap items-start space-x-3 space-y-0"
+          class="flex items-center gap-2 space-y-0"
         >
           <button
             aria-checked="false"
             aria-describedby=":rm:-form-item-description"
             aria-invalid="false"
             aria-label="4th Loyal Servant of Arthur"
+            aria-required="false"
             class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
             data-state="unchecked"
             id=":rm:-form-item"
@@ -271,13 +276,14 @@ exports[`Narration Page renders narration page unchanged 1`] = `
           </label>
         </div>
         <div
-          class="flex flex-wrap items-start space-x-3 space-y-0"
+          class="flex items-center gap-2 space-y-0"
         >
           <button
             aria-checked="false"
             aria-describedby=":rn:-form-item-description"
             aria-invalid="false"
             aria-label="5th Loyal Servant of Arthur"
+            aria-required="false"
             class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
             data-state="unchecked"
             id=":rn:-form-item"
@@ -310,13 +316,14 @@ exports[`Narration Page renders narration page unchanged 1`] = `
           Evil characters
         </label>
         <div
-          class="flex flex-wrap items-start space-x-3 space-y-0"
+          class="flex items-center gap-2 space-y-0"
         >
           <button
             aria-checked="false"
             aria-describedby=":rp:-form-item-description"
             aria-invalid="false"
             aria-label="Mordred"
+            aria-required="false"
             class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
             data-state="unchecked"
             id=":rp:-form-item"
@@ -339,13 +346,14 @@ exports[`Narration Page renders narration page unchanged 1`] = `
           </label>
         </div>
         <div
-          class="flex flex-wrap items-start space-x-3 space-y-0"
+          class="flex items-center gap-2 space-y-0"
         >
           <button
             aria-checked="false"
             aria-describedby=":rq:-form-item-description"
             aria-invalid="false"
             aria-label="Morgana"
+            aria-required="false"
             class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
             data-state="unchecked"
             id=":rq:-form-item"
@@ -368,13 +376,14 @@ exports[`Narration Page renders narration page unchanged 1`] = `
           </label>
         </div>
         <div
-          class="flex flex-wrap items-start space-x-3 space-y-0"
+          class="flex items-center gap-2 space-y-0"
         >
           <button
             aria-checked="false"
             aria-describedby=":rr:-form-item-description"
             aria-invalid="false"
             aria-label="Oberon"
+            aria-required="false"
             class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
             data-state="unchecked"
             id=":rr:-form-item"
@@ -397,7 +406,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
           </label>
         </div>
         <div
-          class="flex flex-wrap items-start space-x-3 space-y-0"
+          class="flex items-center gap-2 space-y-0"
         >
           <button
             aria-checked="true"
@@ -452,13 +461,14 @@ exports[`Narration Page renders narration page unchanged 1`] = `
           </label>
         </div>
         <div
-          class="flex flex-wrap items-start space-x-3 space-y-0"
+          class="flex items-center gap-2 space-y-0"
         >
           <button
             aria-checked="true"
             aria-describedby=":rt:-form-item-description"
             aria-invalid="false"
             aria-label="1st Minion of Mordred"
+            aria-required="false"
             class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
             data-state="checked"
             id=":rt:-form-item"
@@ -505,13 +515,14 @@ exports[`Narration Page renders narration page unchanged 1`] = `
           </label>
         </div>
         <div
-          class="flex flex-wrap items-start space-x-3 space-y-0"
+          class="flex items-center gap-2 space-y-0"
         >
           <button
             aria-checked="false"
             aria-describedby=":ru:-form-item-description"
             aria-invalid="false"
             aria-label="2nd Minion of Mordred"
+            aria-required="false"
             class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
             data-state="unchecked"
             id=":ru:-form-item"
@@ -534,13 +545,14 @@ exports[`Narration Page renders narration page unchanged 1`] = `
           </label>
         </div>
         <div
-          class="flex flex-wrap items-start space-x-3 space-y-0"
+          class="flex items-center gap-2 space-y-0"
         >
           <button
             aria-checked="false"
             aria-describedby=":rv:-form-item-description"
             aria-invalid="false"
             aria-label="3rd Minion of Mordred"
+            aria-required="false"
             class="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
             data-state="unchecked"
             id=":rv:-form-item"

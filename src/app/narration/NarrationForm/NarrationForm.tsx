@@ -5,15 +5,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import { z } from 'zod';
 
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Checkbox } from '@/components/ui/checkbox';
+import { Form, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import {
   AvalonCharacterName,
   DEFAULT_EVIL_CHARACTERS,
@@ -25,6 +17,7 @@ import {
   TEAM_DISTRIBUTION,
 } from '@/constants/characters';
 import { cn } from '@/lib/utils';
+import { NarrationCheckbox } from './NarrationCheckbox';
 
 export const MIN_PLAYERS = 5;
 export const MAX_PLAYERS = 10;
@@ -147,6 +140,7 @@ export const NarrationForm = ({ className, onFormSubmit }: NarrationFormProps) =
         onSubmit={form.handleSubmit(onSubmit)}
         className={cn('flex flex-col justify-between space-y-6', className)}
       >
+        {/* Good characters */}
         <FormField
           control={form.control}
           name="goodCharacters"
@@ -158,36 +152,22 @@ export const NarrationForm = ({ className, onFormSubmit }: NarrationFormProps) =
                   key={id}
                   control={form.control}
                   name="goodCharacters"
-                  render={({ field }) => {
-                    return (
-                      <FormItem className="flex flex-wrap items-start space-x-3 space-y-0">
-                        <FormControl>
-                          <Checkbox
-                            checked={field.value?.includes(id)}
-                            onCheckedChange={async (checked) => {
-                              if (checked) {
-                                field.onChange([...(field.value ?? []), id]);
-                              } else {
-                                field.onChange(field.value?.filter((v) => v !== id));
-                              }
+                  render={({ field }) => (
+                    <NarrationCheckbox
+                      label={name}
+                      uniqueLabel={uniqueLabel}
+                      isRequired={isRequired}
+                      isChecked={field.value?.includes(id)}
+                      onCheckedChange={async (checked) => {
+                        const newValue = checked
+                          ? [...(field.value ?? []), id]
+                          : field.value?.filter((v) => v !== id);
 
-                              await form.trigger(); // Re-run validation
-                            }}
-                            required={isRequired}
-                            aria-label={uniqueLabel}
-                          />
-                        </FormControl>
-                        <FormLabel
-                          className={cn(
-                            'text-sm font-normal',
-                            isRequired && "after:ml-0.5 after:text-red-500 after:content-['*']"
-                          )}
-                        >
-                          {name}
-                        </FormLabel>
-                      </FormItem>
-                    );
-                  }}
+                        field.onChange(newValue); // save new value
+                        await form.trigger(); // Re-run validation
+                      }}
+                    />
+                  )}
                 />
               ))}
               <FormMessage>{form.formState.errors.goodCharacters?.message}</FormMessage>
@@ -195,6 +175,7 @@ export const NarrationForm = ({ className, onFormSubmit }: NarrationFormProps) =
           )}
         />
 
+        {/* Evil characters */}
         <FormField
           control={form.control}
           name="evilCharacters"
@@ -206,36 +187,22 @@ export const NarrationForm = ({ className, onFormSubmit }: NarrationFormProps) =
                   key={id}
                   control={form.control}
                   name="evilCharacters"
-                  render={({ field }) => {
-                    return (
-                      <FormItem className="flex flex-wrap items-start space-x-3 space-y-0">
-                        <FormControl>
-                          <Checkbox
-                            checked={field.value?.includes(id)}
-                            onCheckedChange={async (checked) => {
-                              if (checked) {
-                                field.onChange([...(field.value ?? []), id]);
-                              } else {
-                                field.onChange(field.value?.filter((v) => v !== id));
-                              }
+                  render={({ field }) => (
+                    <NarrationCheckbox
+                      label={name}
+                      uniqueLabel={uniqueLabel}
+                      isRequired={isRequired}
+                      isChecked={field.value?.includes(id)}
+                      onCheckedChange={async (checked) => {
+                        const newValue = checked
+                          ? [...(field.value ?? []), id]
+                          : field.value?.filter((v) => v !== id);
 
-                              await form.trigger(); // Re-run validation
-                            }}
-                            required={isRequired}
-                            aria-label={uniqueLabel}
-                          />
-                        </FormControl>
-                        <FormLabel
-                          className={cn(
-                            'text-sm font-normal',
-                            isRequired && "after:ml-0.5 after:text-red-500 after:content-['*']"
-                          )}
-                        >
-                          {name}
-                        </FormLabel>
-                      </FormItem>
-                    );
-                  }}
+                        field.onChange(newValue); // save new value
+                        await form.trigger(); // Re-run validation
+                      }}
+                    />
+                  )}
                 />
               ))}
               <FormMessage>{form.formState.errors.evilCharacters?.message}</FormMessage>
