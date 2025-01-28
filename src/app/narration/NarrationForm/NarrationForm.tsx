@@ -16,6 +16,7 @@ import {
 } from '@/constants/characters';
 import { cn } from '@/lib/utils';
 import { NarrationCheckbox } from './NarrationCheckbox';
+import idify from '@/utils/idify';
 
 export const MIN_PLAYERS = 5;
 export const MAX_PLAYERS = 10;
@@ -105,10 +106,10 @@ export const NarrationForm = ({ className, defaultValues, onFormSubmit }: Narrat
   const numberOfPlayers = goodChars.length + evilChars.length;
 
   const onSubmit = ({ goodCharacters = [], evilCharacters = [] }: FormValuesType) => {
-    const hasPercival = goodCharacters.includes(AvalonCharacterName.Percival);
-    const hasMordred = evilCharacters.includes(AvalonCharacterName.Mordred);
-    const hasMorgana = evilCharacters.includes(AvalonCharacterName.Morgana);
-    const hasOberon = evilCharacters.includes(AvalonCharacterName.Oberon);
+    const hasPercival = goodCharacters.includes(idify(AvalonCharacterName.Percival));
+    const hasMordred = evilCharacters.includes(idify(AvalonCharacterName.Mordred));
+    const hasMorgana = evilCharacters.includes(idify(AvalonCharacterName.Morgana));
+    const hasOberon = evilCharacters.includes(idify(AvalonCharacterName.Oberon));
 
     const percivalScript = `
       Merlin ${conditionalString(hasMorgana, `and Morgana`)}, extend your thumb so that Percival may know of you.
