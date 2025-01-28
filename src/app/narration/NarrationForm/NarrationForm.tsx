@@ -58,7 +58,25 @@ const FormSchema = z
       path: [],
       message: `The maximum number of players is ${MAX_PLAYERS}. Please reduce the number of players.`,
     }
-  );
+  )
+  .superRefine(({ goodCharacters, evilCharacters }, ctx) => {
+    const numberOfPlayers = goodCharacters.length + evilCharacters.length;
+
+    if (numberOfPlayers >= MIN_PLAYERS && numberOfPlayers <= MAX_PLAYERS) {
+      const { good: goodPlayers, evil: evilPlayers } =
+        TEAM_DISTRIBUTION[numberOfPlayers as keyof typeof TEAM_DISTRIBUTION];
+
+      const isValidDistribution =
+        goodCharacters.length === goodPlayers && evilCharacters.length === evilPlayers;
+
+      if (!isValidDistribution) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: `The character distribution isn't quite right. In a ${numberOfPlayers}-player game, you need exactly ${goodPlayers} good characters and ${evilPlayers} evil characters to proceed. Please update your selection accordingly.`,
+        });
+      }
+    }
+  });
 
 type FormValuesType = z.infer<typeof FormSchema>;
 
@@ -87,19 +105,6 @@ export const NarrationForm = ({ className, defaultValues, onFormSubmit }: Narrat
   const numberOfPlayers = goodChars.length + evilChars.length;
 
   const onSubmit = ({ goodCharacters = [], evilCharacters = [] }: FormValuesType) => {
-    const { good: goodPlayers, evil: evilPlayers } =
-      TEAM_DISTRIBUTION[numberOfPlayers as keyof typeof TEAM_DISTRIBUTION];
-
-    const validDistribution =
-      goodCharacters.length === goodPlayers && evilCharacters.length === evilPlayers;
-
-    if (!validDistribution) {
-      alert(
-        `Oops! It looks like the character selection isn't quite right. In a ${numberOfPlayers}-player game, you need exactly ${goodPlayers} good characters and ${evilPlayers} evil characters to proceed. Please adjust your choices and try again!`
-      );
-      return;
-    }
-
     const hasPercival = goodCharacters.includes(AvalonCharacterName.Percival);
     const hasMordred = evilCharacters.includes(AvalonCharacterName.Mordred);
     const hasMorgana = evilCharacters.includes(AvalonCharacterName.Morgana);

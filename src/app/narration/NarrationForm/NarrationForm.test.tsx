@@ -17,6 +17,8 @@ const TOTAL_DEFAULT_CHECKED = DEFAULT_GOOD_CHARACTERS.length + DEFAULT_EVIL_CHAR
 const setup = (defaultValues = DEFAULT_NARRATION_FORM_VALUES) =>
   render(<NarrationForm defaultValues={defaultValues} onFormSubmit={jest.fn()} />);
 
+const setupNoDefault = () => setup({ goodCharacters: [], evilCharacters: [] });
+
 describe('Narration Form', () => {
   describe('Layout and default state', () => {
     it('displays "Good characters" label', () => {
@@ -147,16 +149,11 @@ describe('Narration Form', () => {
       async ({ uniqueLabel, name }) => {
         setup();
 
-        // check another non-required checkbox (this is to ensure we don't get min char limit error)
-        const checkboxEl = screen.getByRole('checkbox', {
-          name: EVIL_AVALON_CHARACTERS[0].uniqueLabel,
-        });
-        await userEvent.click(checkboxEl);
-
         // uncheck a required checkbox
         const requiredCheckbox = screen.getByRole('checkbox', { name: uniqueLabel });
         expect(requiredCheckbox).toBeChecked();
         await userEvent.click(requiredCheckbox);
+        expect(requiredCheckbox).not.toBeChecked();
 
         // assert an error message
         const errorMessage = screen.getByText(
@@ -175,16 +172,11 @@ describe('Narration Form', () => {
       async ({ uniqueLabel, name }) => {
         setup();
 
-        // check another non-required checkbox (this is to ensure we don't get min char limit error)
-        const checkboxEl = screen.getByRole('checkbox', {
-          name: EVIL_AVALON_CHARACTERS[0].uniqueLabel,
-        });
-        await userEvent.click(checkboxEl);
-
-        // uncheck a required checkbox
+        //  uncheck the required checkbox
         const requiredCheckbox = screen.getByRole('checkbox', { name: uniqueLabel });
         expect(requiredCheckbox).toBeChecked();
         await userEvent.click(requiredCheckbox);
+        expect(requiredCheckbox).not.toBeChecked();
 
         // assert an error message
         const errorMessage = screen.getByText(
@@ -202,7 +194,7 @@ describe('Narration Form', () => {
         // assert error message is not present anymore
         expect(errorMessage).not.toBeInTheDocument();
 
-        // assert play button is eanbled
+        // assert play button is enabled
         expect(playBtn).toBeEnabled();
       }
     );
@@ -289,7 +281,7 @@ describe('Narration Form', () => {
         screen.getByRole('checkbox', { name: DEFAULT_EVIL_CHARACTERS[1].uniqueLabel })
       );
       await userEvent.click(
-        screen.getByRole('checkbox', { name: EVIL_AVALON_CHARACTERS[0].uniqueLabel })
+        screen.getByRole('checkbox', { name: GOOD_AVALON_CHARACTERS[1].uniqueLabel })
       );
 
       // assert error message is not shown
@@ -420,7 +412,35 @@ describe('Narration Form', () => {
 
   describe('Character distribution validation', () => {
     describe('5 player game - good (3), evil (2)', () => {
-      // TODO: error when good = 4, evil 1
+      it('shows an error message when good chars is 4 and evil char is 1', async () => {
+        // render form with no default values
+        setupNoDefault();
+
+        // check 4 good chars
+        const goodCharsToCheck = [
+          ...new Set([...GOOD_REQUIRED_CHARACTERS, ...GOOD_AVALON_CHARACTERS]),
+        ].slice(0, 4);
+
+        for (const goodChar of goodCharsToCheck) {
+          await userEvent.click(screen.getByRole('checkbox', { name: goodChar.uniqueLabel }));
+        }
+
+        // check 1 evil char
+        await userEvent.click(
+          screen.getByRole('checkbox', { name: EVIL_REQUIRED_CHARACTERS[0].uniqueLabel })
+        );
+
+        // assert that error is shown
+        const errorMessage = screen.getByText(
+          "The character distribution isn't quite right. In a 5-player game, you need exactly 3 good characters and 2 evil characters to proceed. Please update your selection accordingly."
+        );
+        expect(errorMessage).toBeInTheDocument();
+
+        // assert that button is disabled
+        const playBtn = screen.getByRole('button', { name: /play/i });
+        expect(playBtn).toBeDisabled();
+      });
+
       // TODO: error when good = 2, evil 3
       // TODO: ok when good = 3, evil 2 after all the errors
     });
