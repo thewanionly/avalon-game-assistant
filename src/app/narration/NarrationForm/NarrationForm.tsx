@@ -8,8 +8,6 @@ import { Button } from '@/components/ui/button';
 import { Form, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import {
   AvalonCharacterName,
-  DEFAULT_EVIL_CHARACTERS,
-  DEFAULT_GOOD_CHARACTERS,
   EVIL_AVALON_CHARACTERS,
   EVIL_REQUIRED_CHARACTERS,
   GOOD_AVALON_CHARACTERS,
@@ -66,17 +64,19 @@ type FormValuesType = z.infer<typeof FormSchema>;
 
 interface NarrationFormProps {
   className?: string;
+  defaultValues?: FormValuesType;
   onFormSubmit: (narrationScript: string) => void;
 }
 
 const conditionalString = (condition: boolean, str: string) => (condition ? str : '');
 
-export const NarrationForm = ({ className, onFormSubmit }: NarrationFormProps) => {
+export const NarrationForm = ({ className, defaultValues, onFormSubmit }: NarrationFormProps) => {
   const form = useForm<FormValuesType>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      goodCharacters: DEFAULT_GOOD_CHARACTERS.map(({ id }) => id),
-      evilCharacters: DEFAULT_EVIL_CHARACTERS.map(({ id }) => id),
+      goodCharacters: [],
+      evilCharacters: [],
+      ...defaultValues,
     },
   });
 

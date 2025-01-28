@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { NarrationForm } from './NarrationForm';
 import { Button } from '@/components/ui/button';
+import { DEFAULT_NARRATION_FORM_VALUES } from './NarrationForm/NarrationForm.constants';
 
 export const NarrationArea = () => {
   const [narrationScript, setNarrationScript] = useState('');
@@ -74,7 +75,11 @@ export const NarrationArea = () => {
 
   return (
     <>
-      <NarrationForm className={narrationScript && 'hidden'} onFormSubmit={handleFormSubmit} />
+      <NarrationForm
+        className={narrationScript && 'hidden'}
+        defaultValues={DEFAULT_NARRATION_FORM_VALUES}
+        onFormSubmit={handleFormSubmit}
+      />
       {narrationScript && <p className="mt-8">{narrationScript}</p>}
       {isSpeaking && (
         <div className="flex flex-wrap gap-4">

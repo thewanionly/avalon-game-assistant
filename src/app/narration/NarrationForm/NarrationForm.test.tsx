@@ -9,21 +9,25 @@ import {
   GOOD_REQUIRED_CHARACTERS,
   EVIL_REQUIRED_CHARACTERS,
 } from '@/constants/characters';
+import { DEFAULT_NARRATION_FORM_VALUES } from './NarrationForm.constants';
 
 const allRequiredCharacters = [...GOOD_REQUIRED_CHARACTERS, ...EVIL_REQUIRED_CHARACTERS];
 const TOTAL_DEFAULT_CHECKED = DEFAULT_GOOD_CHARACTERS.length + DEFAULT_EVIL_CHARACTERS.length;
 
+const setup = (defaultValues = DEFAULT_NARRATION_FORM_VALUES) =>
+  render(<NarrationForm defaultValues={defaultValues} onFormSubmit={jest.fn()} />);
+
 describe('Narration Form', () => {
   describe('Layout and default state', () => {
     it('displays "Good characters" label', () => {
-      render(<NarrationForm onFormSubmit={jest.fn()} />);
+      setup();
 
       const goodCharactersLabel = screen.getByText('Good characters');
       expect(goodCharactersLabel).toBeInTheDocument();
     });
 
     it(`displays "Good characters" checkboxes with correct labels"`, () => {
-      render(<NarrationForm onFormSubmit={jest.fn()} />);
+      setup();
 
       GOOD_AVALON_CHARACTERS.forEach(({ uniqueLabel }) => {
         const checkbox = screen.getByRole('checkbox', { name: uniqueLabel });
@@ -32,7 +36,7 @@ describe('Narration Form', () => {
     });
 
     it(`checks ${DEFAULT_GOOD_CHARACTERS.length} "Good characters" by default`, () => {
-      render(<NarrationForm onFormSubmit={jest.fn()} />);
+      setup();
 
       GOOD_AVALON_CHARACTERS.forEach(({ uniqueLabel }) => {
         const checkbox = screen.getByRole('checkbox', { name: uniqueLabel });
@@ -46,14 +50,14 @@ describe('Narration Form', () => {
     });
 
     it('displays "Evil characters" label', () => {
-      render(<NarrationForm onFormSubmit={jest.fn()} />);
+      setup();
 
       const evilCharactersLabel = screen.getByText('Evil characters');
       expect(evilCharactersLabel).toBeInTheDocument();
     });
 
     it(`displays "Evil characters" checkboxes with correct labels"`, () => {
-      render(<NarrationForm onFormSubmit={jest.fn()} />);
+      setup();
 
       EVIL_AVALON_CHARACTERS.forEach(({ uniqueLabel }) => {
         const checkbox = screen.getByRole('checkbox', { name: uniqueLabel });
@@ -62,7 +66,7 @@ describe('Narration Form', () => {
     });
 
     it(`checks ${DEFAULT_EVIL_CHARACTERS.length} "Evil characters" checkboxes by default`, () => {
-      render(<NarrationForm onFormSubmit={jest.fn()} />);
+      setup();
 
       EVIL_AVALON_CHARACTERS.forEach(({ uniqueLabel }) => {
         const checkbox = screen.getByRole('checkbox', { name: uniqueLabel });
@@ -76,7 +80,7 @@ describe('Narration Form', () => {
     });
 
     it('marks required checkboxes properly', () => {
-      render(<NarrationForm onFormSubmit={jest.fn()} />);
+      setup();
 
       allRequiredCharacters.forEach(({ uniqueLabel }) => {
         const checkbox = screen.getByRole('checkbox', { name: uniqueLabel });
@@ -85,14 +89,14 @@ describe('Narration Form', () => {
     });
 
     it(`displays Play button`, () => {
-      render(<NarrationForm onFormSubmit={jest.fn()} />);
+      setup();
 
       const playBtn = screen.getByRole('button', { name: /play/i });
       expect(playBtn).toBeInTheDocument();
     });
 
     it(`displays the number "${TOTAL_DEFAULT_CHECKED}" in the Play button by default (corresponds to the number of default checked checkboxes)`, () => {
-      render(<NarrationForm onFormSubmit={jest.fn()} />);
+      setup();
 
       const playBtn = screen.getByRole('button', { name: /play/i });
       expect(playBtn).toHaveTextContent(`${TOTAL_DEFAULT_CHECKED}`);
@@ -101,7 +105,7 @@ describe('Narration Form', () => {
 
   describe('Checkbox interaction', () => {
     it('checks and unchecks checkboxes', async () => {
-      render(<NarrationForm onFormSubmit={jest.fn()} />);
+      setup();
 
       // checked (default)
       const checkboxEl = screen.getByRole('checkbox', {
@@ -119,7 +123,7 @@ describe('Narration Form', () => {
     });
 
     it('increments play button number when a new checkbox is checked', async () => {
-      render(<NarrationForm onFormSubmit={jest.fn()} />);
+      setup();
 
       // default
       const playBtn = screen.getByRole('button', { name: /play/i });
@@ -141,7 +145,7 @@ describe('Narration Form', () => {
     it.each(allRequiredCharacters)(
       `shows an error when $name is not checked`,
       async ({ uniqueLabel, name }) => {
-        render(<NarrationForm onFormSubmit={jest.fn()} />);
+        setup();
 
         // check another non-required checkbox (this is to ensure we don't get min char limit error)
         const checkboxEl = screen.getByRole('checkbox', {
@@ -169,7 +173,7 @@ describe('Narration Form', () => {
     it.each(allRequiredCharacters)(
       `does not show an error anymore when $name is checked after it was unchecked`,
       async ({ uniqueLabel, name }) => {
-        render(<NarrationForm onFormSubmit={jest.fn()} />);
+        setup();
 
         // check another non-required checkbox (this is to ensure we don't get min char limit error)
         const checkboxEl = screen.getByRole('checkbox', {
@@ -206,7 +210,7 @@ describe('Narration Form', () => {
 
   describe('Character limit validation', () => {
     it(`shows an error when selected characters are less than ${MIN_PLAYERS}`, async () => {
-      render(<NarrationForm onFormSubmit={jest.fn()} />);
+      setup();
 
       // uncheck a check checkbox - making selected checbkox less than the default
       const checkboxEl = screen.getByRole('checkbox', {
@@ -226,7 +230,7 @@ describe('Narration Form', () => {
     });
 
     it(`hides the error message after selecting ${MIN_PLAYERS} players after selecting less`, async () => {
-      render(<NarrationForm onFormSubmit={jest.fn()} />);
+      setup();
 
       // uncheck a check checkbox - making selected checbkox less than the default
       const checkboxEl = screen.getByRole('checkbox', {
@@ -262,7 +266,7 @@ describe('Narration Form', () => {
     });
 
     it(`hides the error message after selecting more than ${MIN_PLAYERS} players after selecting less`, async () => {
-      render(<NarrationForm onFormSubmit={jest.fn()} />);
+      setup();
 
       // uncheck a check checkbox - making selected checbkox less than the default
       const checkboxEl = screen.getByRole('checkbox', {
@@ -300,7 +304,7 @@ describe('Narration Form', () => {
     });
 
     it(`shows an error when selected characters are more than ${MAX_PLAYERS}`, async () => {
-      render(<NarrationForm onFormSubmit={jest.fn()} />);
+      setup();
 
       // check checkboxes until it exceeds the max
       for (const goodChar of GOOD_AVALON_CHARACTERS.filter(
@@ -327,7 +331,7 @@ describe('Narration Form', () => {
     });
 
     it(`hides the error message after selecting ${MAX_PLAYERS} players after selecting more`, async () => {
-      render(<NarrationForm onFormSubmit={jest.fn()} />);
+      setup();
 
       // check checkboxes until it exceeds the max
       for (const goodChar of GOOD_AVALON_CHARACTERS.filter(
@@ -369,7 +373,7 @@ describe('Narration Form', () => {
     });
 
     it(`hides the error message after selecting less than ${MAX_PLAYERS} players after selecting more`, async () => {
-      render(<NarrationForm onFormSubmit={jest.fn()} />);
+      setup();
 
       // check checkboxes until it exceeds the max
       for (const goodChar of GOOD_AVALON_CHARACTERS.filter(
@@ -415,7 +419,12 @@ describe('Narration Form', () => {
   });
 
   describe('Character distribution validation', () => {
-    // TODO: in a 5 player game, good chars should be 3 and evil should be 2
+    describe('5 player game - good (3), evil (2)', () => {
+      // TODO: error when good = 4, evil 1
+      // TODO: error when good = 2, evil 3
+      // TODO: ok when good = 3, evil 2 after all the errors
+    });
+
     // TODO: in a 6 player game, good chars should be 4 and evil should be 2
     // TODO: in a 7 player game, good chars should be 4 and evil should be 3
     // TODO: in a 8 player game, good chars should be 5 and evil should be 3
