@@ -8,11 +8,23 @@ import {
   GOOD_AVALON_CHARACTERS,
   GOOD_REQUIRED_CHARACTERS,
   EVIL_REQUIRED_CHARACTERS,
+  TEAM_DISTRIBUTION,
+  AvalonCharacterLoyalty,
 } from '@/constants/characters';
 import { DEFAULT_NARRATION_FORM_VALUES } from './NarrationForm.constants';
 
 const allRequiredCharacters = [...GOOD_REQUIRED_CHARACTERS, ...EVIL_REQUIRED_CHARACTERS];
 const TOTAL_DEFAULT_CHECKED = DEFAULT_GOOD_CHARACTERS.length + DEFAULT_EVIL_CHARACTERS.length;
+
+const sortedGoodChars = [...new Set([...GOOD_REQUIRED_CHARACTERS, ...GOOD_AVALON_CHARACTERS])];
+const sortedEvilChars = [...new Set([...EVIL_REQUIRED_CHARACTERS, ...EVIL_AVALON_CHARACTERS])];
+
+// [numOfPlayers, goodCount, evilCount]
+const flattenedTeamDistribution = Object.entries(TEAM_DISTRIBUTION).map(([key, value]) => [
+  Number(key),
+  value[AvalonCharacterLoyalty.Good],
+  value[AvalonCharacterLoyalty.Evil],
+]);
 
 const setup = (defaultValues = DEFAULT_NARRATION_FORM_VALUES) =>
   render(<NarrationForm defaultValues={defaultValues} onFormSubmit={jest.fn()} />);
@@ -411,170 +423,141 @@ describe('Narration Form', () => {
   });
 
   describe('Character distribution validation', () => {
-    describe('5 player game - good (3), evil (2)', () => {
-      it('does not show any error message when good chars is 3 and evil chars is 2', async () => {
-        // render form with no default values
-        setupNoDefault();
+    describe.each(flattenedTeamDistribution)(
+      `%i-player game: %i good, %i evil`,
+      (numOfPlayers, goodCount, evilCount) => {
+        const errorMessageText = `The character distribution isn't quite right. In a ${numOfPlayers}-player game, you need exactly ${goodCount} good characters and ${evilCount} evil characters to proceed. Please update your selection accordingly.`;
 
-        // check 4 good chars
-        const sortedGoodChars = [
-          ...new Set([...GOOD_REQUIRED_CHARACTERS, ...GOOD_AVALON_CHARACTERS]),
-        ];
-        const goodCharsToCheck = sortedGoodChars.slice(0, 3);
+        it(`does not show any error message when good chars is ${goodCount} and evil chars is ${evilCount}`, async () => {
+          // render form with no default values
+          setupNoDefault();
 
-        for (const goodChar of goodCharsToCheck) {
-          await userEvent.click(screen.getByRole('checkbox', { name: goodChar.uniqueLabel }));
-        }
+          // check 4 good chars
+          const goodCharsToCheck = sortedGoodChars.slice(0, goodCount);
 
-        // check 1 evil char
-        const sortedEvilChars = [
-          ...new Set([...EVIL_REQUIRED_CHARACTERS, ...EVIL_AVALON_CHARACTERS]),
-        ];
-        const evilCharsToCheck = sortedEvilChars.slice(0, 2);
+          for (const goodChar of goodCharsToCheck) {
+            await userEvent.click(screen.getByRole('checkbox', { name: goodChar.uniqueLabel }));
+          }
 
-        for (const evilChar of evilCharsToCheck) {
-          await userEvent.click(screen.getByRole('checkbox', { name: evilChar.uniqueLabel }));
-        }
+          // check 1 evil char
+          const evilCharsToCheck = sortedEvilChars.slice(0, evilCount);
 
-        // assert that error is shown
-        const errorMessage = screen.queryByText(
-          "The character distribution isn't quite right. In a 5-player game, you need exactly 3 good characters and 2 evil characters to proceed. Please update your selection accordingly."
-        );
-        expect(errorMessage).not.toBeInTheDocument();
+          for (const evilChar of evilCharsToCheck) {
+            await userEvent.click(screen.getByRole('checkbox', { name: evilChar.uniqueLabel }));
+          }
 
-        // assert that button is disabled
-        const playBtn = screen.getByRole('button', { name: /play/i });
-        expect(playBtn).not.toBeDisabled();
-      });
+          // assert that error is shown
+          const errorMessage = screen.queryByText(errorMessageText);
+          expect(errorMessage).not.toBeInTheDocument();
 
-      it('shows an error message when good chars is 4 and evil chars is 1', async () => {
-        // render form with no default values
-        setupNoDefault();
+          // assert that button is disabled
+          const playBtn = screen.getByRole('button', { name: /play/i });
+          expect(playBtn).not.toBeDisabled();
+        });
 
-        // check 4 good chars
-        const goodCharsToCheck = [
-          ...new Set([...GOOD_REQUIRED_CHARACTERS, ...GOOD_AVALON_CHARACTERS]),
-        ].slice(0, 4);
+        it(`shows an error message when good chars is ${goodCount + 1} and evil chars is  ${evilCount - 1}`, async () => {
+          // render form with no default values
+          setupNoDefault();
 
-        for (const goodChar of goodCharsToCheck) {
-          await userEvent.click(screen.getByRole('checkbox', { name: goodChar.uniqueLabel }));
-        }
+          // check 4 good chars
+          const goodCharsToCheck = sortedGoodChars.slice(0, goodCount + 1);
 
-        // check 1 evil char
-        const evilCharsToCheck = [
-          ...new Set([...EVIL_REQUIRED_CHARACTERS, ...EVIL_AVALON_CHARACTERS]),
-        ].slice(0, 1);
+          for (const goodChar of goodCharsToCheck) {
+            await userEvent.click(screen.getByRole('checkbox', { name: goodChar.uniqueLabel }));
+          }
 
-        for (const evilChar of evilCharsToCheck) {
-          await userEvent.click(screen.getByRole('checkbox', { name: evilChar.uniqueLabel }));
-        }
+          // check 1 evil char
+          const evilCharsToCheck = sortedEvilChars.slice(0, evilCount - 1);
 
-        // assert that error is shown
-        const errorMessage = screen.getByText(
-          "The character distribution isn't quite right. In a 5-player game, you need exactly 3 good characters and 2 evil characters to proceed. Please update your selection accordingly."
-        );
-        expect(errorMessage).toBeInTheDocument();
+          for (const evilChar of evilCharsToCheck) {
+            await userEvent.click(screen.getByRole('checkbox', { name: evilChar.uniqueLabel }));
+          }
 
-        // assert that button is disabled
-        const playBtn = screen.getByRole('button', { name: /play/i });
-        expect(playBtn).toBeDisabled();
-      });
+          // assert that error is shown
+          const errorMessage = screen.getByText(errorMessageText);
+          expect(errorMessage).toBeInTheDocument();
 
-      it('shows an error message when good chars is 2 and evil char is 3', async () => {
-        // render form with no default values
-        setupNoDefault();
+          // assert that button is disabled
+          const playBtn = screen.getByRole('button', { name: /play/i });
+          expect(playBtn).toBeDisabled();
+        });
 
-        // check 2 good chars
-        const goodCharsToCheck = [
-          ...new Set([...GOOD_REQUIRED_CHARACTERS, ...GOOD_AVALON_CHARACTERS]),
-        ].slice(0, 2);
+        it(`shows an error message when good chars is ${goodCount - 1} and evil char is ${evilCount + 1}`, async () => {
+          // render form with no default values
+          setupNoDefault();
 
-        for (const goodChar of goodCharsToCheck) {
-          await userEvent.click(screen.getByRole('checkbox', { name: goodChar.uniqueLabel }));
-        }
+          // check 2 good chars
+          const goodCharsToCheck = sortedGoodChars.slice(0, goodCount - 1);
 
-        // check 3 evil chars
-        const evilCharsToCheck = [
-          ...new Set([...EVIL_REQUIRED_CHARACTERS, ...EVIL_AVALON_CHARACTERS]),
-        ].slice(0, 3);
+          for (const goodChar of goodCharsToCheck) {
+            await userEvent.click(screen.getByRole('checkbox', { name: goodChar.uniqueLabel }));
+          }
 
-        for (const evilChar of evilCharsToCheck) {
-          await userEvent.click(screen.getByRole('checkbox', { name: evilChar.uniqueLabel }));
-        }
+          // check 3 evil chars
+          const evilCharsToCheck = sortedEvilChars.slice(0, evilCount + 1);
 
-        // assert that error is shown
-        const errorMessage = screen.getByText(
-          "The character distribution isn't quite right. In a 5-player game, you need exactly 3 good characters and 2 evil characters to proceed. Please update your selection accordingly."
-        );
-        expect(errorMessage).toBeInTheDocument();
+          for (const evilChar of evilCharsToCheck) {
+            await userEvent.click(screen.getByRole('checkbox', { name: evilChar.uniqueLabel }));
+          }
 
-        // assert that button is disabled
-        const playBtn = screen.getByRole('button', { name: /play/i });
-        expect(playBtn).toBeDisabled();
-      });
+          // assert that error is shown
+          const errorMessage = screen.getByText(errorMessageText);
+          expect(errorMessage).toBeInTheDocument();
 
-      it('hides the error message when good chars is 3 and evil chars is 2 after incorrect distribution', async () => {
-        // render form with no default values
-        setupNoDefault();
+          // assert that button is disabled
+          const playBtn = screen.getByRole('button', { name: /play/i });
+          expect(playBtn).toBeDisabled();
+        });
 
-        // check 4 good chars
-        const sortedGoodChars = [
-          ...new Set([...GOOD_REQUIRED_CHARACTERS, ...GOOD_AVALON_CHARACTERS]),
-        ];
-        const goodCharsToCheck = sortedGoodChars.slice(0, 4);
+        it(`hides the error message when good chars is ${goodCount} and evil chars is ${evilCount} after incorrect distribution`, async () => {
+          // render form with no default values
+          setupNoDefault();
 
-        for (const goodChar of goodCharsToCheck) {
-          await userEvent.click(screen.getByRole('checkbox', { name: goodChar.uniqueLabel }));
-        }
+          // check 4 good chars
+          const goodCharsToCheck = sortedGoodChars.slice(0, goodCount + 1);
 
-        // check 1 evil char
-        const sortedEvilChars = [
-          ...new Set([...EVIL_REQUIRED_CHARACTERS, ...EVIL_AVALON_CHARACTERS]),
-        ];
-        const evilCharsToCheck = sortedEvilChars.slice(0, 1);
+          for (const goodChar of goodCharsToCheck) {
+            await userEvent.click(screen.getByRole('checkbox', { name: goodChar.uniqueLabel }));
+          }
 
-        for (const evilChar of evilCharsToCheck) {
-          await userEvent.click(screen.getByRole('checkbox', { name: evilChar.uniqueLabel }));
-        }
+          // check 1 evil char
+          const evilCharsToCheck = sortedEvilChars.slice(0, evilCount - 1);
 
-        // assert that error is shown
-        const errorMessage = screen.getByText(
-          "The character distribution isn't quite right. In a 5-player game, you need exactly 3 good characters and 2 evil characters to proceed. Please update your selection accordingly."
-        );
-        expect(errorMessage).toBeInTheDocument();
+          for (const evilChar of evilCharsToCheck) {
+            await userEvent.click(screen.getByRole('checkbox', { name: evilChar.uniqueLabel }));
+          }
 
-        // assert that button is disabled
-        const playBtn = screen.getByRole('button', { name: /play/i });
-        expect(playBtn).toBeDisabled();
+          // assert that error is shown
+          const errorMessage = screen.getByText(errorMessageText);
+          expect(errorMessage).toBeInTheDocument();
 
-        /* select the correct distribution */
-        // check 1 less good chars (find the first non-required -> fallback to the last item in the array)
-        const goodCharToRemove =
-          goodCharsToCheck.find(({ isRequired }) => !isRequired) ??
-          goodCharsToCheck[goodCharsToCheck.length - 1];
-        await userEvent.click(screen.getByRole('checkbox', { name: goodCharToRemove.uniqueLabel }));
+          // assert that button is disabled
+          const playBtn = screen.getByRole('button', { name: /play/i });
+          expect(playBtn).toBeDisabled();
 
-        // check 1 more evil char
-        const evilCharToAdd = sortedEvilChars[1 + 1];
-        await userEvent.click(screen.getByRole('checkbox', { name: evilCharToAdd.uniqueLabel }));
+          /* select the correct distribution */
+          // check 1 less good chars (find the first non-required -> fallback to the last item in the array)
+          const goodCharToRemove =
+            goodCharsToCheck.find(({ isRequired }) => !isRequired) ??
+            goodCharsToCheck[goodCharsToCheck.length - 1];
+          await userEvent.click(
+            screen.getByRole('checkbox', { name: goodCharToRemove.uniqueLabel })
+          );
 
-        // assert that error is shown
-        const errorMessage2 = screen.queryByText(
-          "The character distribution isn't quite right. In a 5-player game, you need exactly 3 good characters and 2 evil characters to proceed. Please update your selection accordingly."
-        );
-        expect(errorMessage2).not.toBeInTheDocument();
+          // check 1 more evil char
+          const evilCharToAdd = sortedEvilChars[1 + (evilCount - 1)];
+          await userEvent.click(screen.getByRole('checkbox', { name: evilCharToAdd.uniqueLabel }));
 
-        // assert that button is disabled
-        const playBtn2 = screen.getByRole('button', { name: /play/i });
-        expect(playBtn2).not.toBeDisabled();
-      });
-    });
+          // assert that error is shown
+          const errorMessage2 = screen.queryByText(errorMessageText);
+          expect(errorMessage2).not.toBeInTheDocument();
 
-    // TODO: in a 6 player game, good chars should be 4 and evil should be 2
-    // TODO: in a 7 player game, good chars should be 4 and evil should be 3
-    // TODO: in a 8 player game, good chars should be 5 and evil should be 3
-    // TODO: in a 9 player game, good chars should be 6 and evil should be 3
-    // TODO: in a 10 player game, good chars should be 6 and evil should be 4
+          // assert that button is disabled
+          const playBtn2 = screen.getByRole('button', { name: /play/i });
+          expect(playBtn2).not.toBeDisabled();
+        });
+      }
+    );
   });
 
   // TODO: selecting 5 will transition to narrating state
