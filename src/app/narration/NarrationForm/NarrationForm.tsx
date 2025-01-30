@@ -30,6 +30,7 @@ import {
   GOOD_CHARACTERS_LABEL,
   GOOD_CHARACTERS_NO_SELECTED_LABEL,
   PLAY_BUTTON_LABEL,
+  PLAY_BUTTON_NO_SELECTED_LABEL,
 } from '@/constants/labels';
 
 export const MIN_PLAYERS = 5;
@@ -246,7 +247,10 @@ export const NarrationForm = ({ className, defaultValues, onFormSubmit }: Narrat
 
         <div>
           <Button className="w-full md:w-max" type="submit" disabled={Boolean(hasError)}>
-            {dynamicString(PLAY_BUTTON_LABEL, { count: numberOfPlayers })}
+            {dynamicString(
+              numberOfPlayers > 0 ? PLAY_BUTTON_LABEL : PLAY_BUTTON_NO_SELECTED_LABEL,
+              { count: numberOfPlayers }
+            )}
           </Button>
           {rootError && <FormMessage className="mt-2">{rootError}</FormMessage>}
         </div>

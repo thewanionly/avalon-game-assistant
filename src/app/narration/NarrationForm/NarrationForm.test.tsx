@@ -24,6 +24,7 @@ import {
   EVIL_CHARACTERS_NO_SELECTED_LABEL,
   GOOD_CHARACTERS_LABEL,
   GOOD_CHARACTERS_NO_SELECTED_LABEL,
+  PLAY_BUTTON_NO_SELECTED_LABEL,
 } from '@/constants/labels';
 
 const allRequiredCharacters = [...GOOD_REQUIRED_CHARACTERS, ...EVIL_REQUIRED_CHARACTERS];
@@ -148,6 +149,13 @@ describe('Narration Form', () => {
 
       const playBtn = screen.getByRole('button', { name: /play/i });
       expect(playBtn).toHaveTextContent(`${TOTAL_DEFAULT_CHECKED}`);
+    });
+
+    it(`displays no player count besides the Play button when there's no checbkoxes checked`, () => {
+      setupNoDefault();
+
+      const playBtn = screen.getByRole('button', { name: PLAY_BUTTON_NO_SELECTED_LABEL });
+      expect(playBtn).toBeInTheDocument();
     });
   });
 
