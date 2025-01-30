@@ -12,6 +12,13 @@ import {
   AvalonCharacterLoyalty,
 } from '@/constants/characters';
 import { DEFAULT_NARRATION_FORM_VALUES } from './NarrationForm.constants';
+import {
+  ERROR_CHARACTER_DISTRIBUTION,
+  ERROR_MAX_PLAYERS,
+  ERROR_MIN_PLAYERS,
+  ERROR_REQUIRED_CHARACTERS,
+} from '@/constants/errorMessages';
+import { dynamicString } from '@/utils/dynamicString';
 
 const allRequiredCharacters = [...GOOD_REQUIRED_CHARACTERS, ...EVIL_REQUIRED_CHARACTERS];
 const TOTAL_DEFAULT_CHECKED = DEFAULT_GOOD_CHARACTERS.length + DEFAULT_EVIL_CHARACTERS.length;
@@ -169,7 +176,7 @@ describe('Narration Form', () => {
 
         // assert an error message
         const errorMessage = screen.getByText(
-          `You must include the following required characters: ${name}`
+          dynamicString(ERROR_REQUIRED_CHARACTERS, { requiredCharacters: name })
         );
         expect(errorMessage).toBeInTheDocument();
 
@@ -192,7 +199,7 @@ describe('Narration Form', () => {
 
         // assert an error message
         const errorMessage = screen.getByText(
-          `You must include the following required characters: ${name}`
+          dynamicString(ERROR_REQUIRED_CHARACTERS, { requiredCharacters: name })
         );
         expect(errorMessage).toBeInTheDocument();
 
@@ -224,7 +231,7 @@ describe('Narration Form', () => {
 
       // assert error message
       const errorMessage = screen.getByText(
-        `The minimum number of players is ${MIN_PLAYERS}. Please add more players.`
+        dynamicString(ERROR_MIN_PLAYERS, { minPlayers: MIN_PLAYERS })
       );
       expect(errorMessage).toBeInTheDocument();
 
@@ -244,7 +251,7 @@ describe('Narration Form', () => {
 
       // assert error message
       const errorMessage = screen.getByText(
-        `The minimum number of players is ${MIN_PLAYERS}. Please add more players.`
+        dynamicString(ERROR_MIN_PLAYERS, { minPlayers: MIN_PLAYERS })
       );
       expect(errorMessage).toBeInTheDocument();
 
@@ -260,7 +267,7 @@ describe('Narration Form', () => {
 
       // assert error message is not shown
       const errorMessage2 = screen.queryByText(
-        `The minimum number of players is ${MIN_PLAYERS}. Please add more players.`
+        dynamicString(ERROR_MIN_PLAYERS, { minPlayers: MIN_PLAYERS })
       );
       expect(errorMessage2).not.toBeInTheDocument();
 
@@ -280,7 +287,7 @@ describe('Narration Form', () => {
 
       // assert error message
       const errorMessage = screen.getByText(
-        `The minimum number of players is ${MIN_PLAYERS}. Please add more players.`
+        dynamicString(ERROR_MIN_PLAYERS, { minPlayers: MIN_PLAYERS })
       );
       expect(errorMessage).toBeInTheDocument();
 
@@ -298,7 +305,7 @@ describe('Narration Form', () => {
 
       // assert error message is not shown
       const errorMessage2 = screen.queryByText(
-        `The minimum number of players is ${MIN_PLAYERS}. Please add more players.`
+        dynamicString(ERROR_MIN_PLAYERS, { minPlayers: MIN_PLAYERS })
       );
       expect(errorMessage2).not.toBeInTheDocument();
 
@@ -325,7 +332,7 @@ describe('Narration Form', () => {
 
       // assert error message
       const errorMessage = screen.getByText(
-        `The maximum number of players is ${MAX_PLAYERS}. Please reduce the number of players.`
+        dynamicString(ERROR_MAX_PLAYERS, { maxPlayers: MAX_PLAYERS })
       );
       expect(errorMessage).toBeInTheDocument();
 
@@ -352,7 +359,7 @@ describe('Narration Form', () => {
 
       // assert error message
       const errorMessage = screen.getByText(
-        `The maximum number of players is ${MAX_PLAYERS}. Please reduce the number of players.`
+        dynamicString(ERROR_MAX_PLAYERS, { maxPlayers: MAX_PLAYERS })
       );
       expect(errorMessage).toBeInTheDocument();
 
@@ -367,7 +374,7 @@ describe('Narration Form', () => {
 
       // assert error message is not shown
       const errorMessage2 = screen.queryByText(
-        `The maximum number of players is ${MAX_PLAYERS}. Please reduce the number of players.`
+        dynamicString(ERROR_MAX_PLAYERS, { maxPlayers: MAX_PLAYERS })
       );
       expect(errorMessage2).not.toBeInTheDocument();
 
@@ -394,7 +401,7 @@ describe('Narration Form', () => {
 
       // assert error message
       const errorMessage = screen.getByText(
-        `The maximum number of players is ${MAX_PLAYERS}. Please reduce the number of players.`
+        dynamicString(ERROR_MAX_PLAYERS, { maxPlayers: MAX_PLAYERS })
       );
       expect(errorMessage).toBeInTheDocument();
 
@@ -412,7 +419,7 @@ describe('Narration Form', () => {
 
       // assert error message is not shown
       const errorMessage2 = screen.queryByText(
-        `The maximum number of players is ${MAX_PLAYERS}. Please reduce the number of players.`
+        dynamicString(ERROR_MAX_PLAYERS, { maxPlayers: MAX_PLAYERS })
       );
       expect(errorMessage2).not.toBeInTheDocument();
 
@@ -426,7 +433,11 @@ describe('Narration Form', () => {
     describe.each(flattenedTeamDistribution)(
       `%i-player game: %i good, %i evil`,
       (numOfPlayers, goodCount, evilCount) => {
-        const errorMessageText = `The character distribution isn't quite right. In a ${numOfPlayers}-player game, you need exactly ${goodCount} good characters and ${evilCount} evil characters to proceed. Please update your selection accordingly.`;
+        const errorMessageText = dynamicString(ERROR_CHARACTER_DISTRIBUTION, {
+          numberOfPlayers: numOfPlayers,
+          goodPlayersCount: goodCount,
+          evilPlayersCount: evilCount,
+        });
 
         it(`does not show any error message when good chars is ${goodCount} and evil chars is ${evilCount}`, async () => {
           // render form with no default values

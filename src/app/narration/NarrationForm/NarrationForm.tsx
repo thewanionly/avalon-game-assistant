@@ -17,6 +17,13 @@ import {
 import { cn } from '@/lib/utils';
 import { NarrationCheckbox } from './NarrationCheckbox';
 import idify from '@/utils/idify';
+import { dynamicString } from '@/utils/dynamicString';
+import {
+  ERROR_CHARACTER_DISTRIBUTION,
+  ERROR_MAX_PLAYERS,
+  ERROR_MIN_PLAYERS,
+  ERROR_REQUIRED_CHARACTERS,
+} from '@/constants/errorMessages';
 
 export const MIN_PLAYERS = 5;
 export const MAX_PLAYERS = 10;
@@ -26,16 +33,16 @@ const FormSchema = z
     goodCharacters: z
       .array(z.string())
       .refine((values) => GOOD_REQUIRED_CHARACTERS.every(({ id }) => values.includes(id)), {
-        message: `You must include the following required characters: ${GOOD_REQUIRED_CHARACTERS.map(
-          ({ name }) => name
-        ).join(', ')}`,
+        message: dynamicString(ERROR_REQUIRED_CHARACTERS, {
+          requiredCharacters: GOOD_REQUIRED_CHARACTERS.map(({ name }) => name).join(', '),
+        }),
       }),
     evilCharacters: z
       .array(z.string())
       .refine((values) => EVIL_REQUIRED_CHARACTERS.every(({ id }) => values.includes(id)), {
-        message: `You must include the following required characters: ${EVIL_REQUIRED_CHARACTERS.map(
-          ({ name }) => name
-        ).join(', ')}`,
+        message: dynamicString(ERROR_REQUIRED_CHARACTERS, {
+          requiredCharacters: EVIL_REQUIRED_CHARACTERS.map(({ name }) => name).join(', '),
+        }),
       }),
   })
   .refine(
@@ -46,7 +53,7 @@ const FormSchema = z
     },
     {
       path: [],
-      message: `The minimum number of players is ${MIN_PLAYERS}. Please add more players.`,
+      message: dynamicString(ERROR_MIN_PLAYERS, { minPlayers: MIN_PLAYERS }),
     }
   )
   .refine(
@@ -57,23 +64,27 @@ const FormSchema = z
     },
     {
       path: [],
-      message: `The maximum number of players is ${MAX_PLAYERS}. Please reduce the number of players.`,
+      message: dynamicString(ERROR_MAX_PLAYERS, { maxPlayers: MAX_PLAYERS }),
     }
   )
   .superRefine(({ goodCharacters, evilCharacters }, ctx) => {
     const numberOfPlayers = goodCharacters.length + evilCharacters.length;
 
     if (numberOfPlayers >= MIN_PLAYERS && numberOfPlayers <= MAX_PLAYERS) {
-      const { good: goodPlayers, evil: evilPlayers } =
+      const { good: goodPlayersCount, evil: evilPlayersCount } =
         TEAM_DISTRIBUTION[numberOfPlayers as keyof typeof TEAM_DISTRIBUTION];
 
       const isValidDistribution =
-        goodCharacters.length === goodPlayers && evilCharacters.length === evilPlayers;
+        goodCharacters.length === goodPlayersCount && evilCharacters.length === evilPlayersCount;
 
       if (!isValidDistribution) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: `The character distribution isn't quite right. In a ${numberOfPlayers}-player game, you need exactly ${goodPlayers} good characters and ${evilPlayers} evil characters to proceed. Please update your selection accordingly.`,
+          message: dynamicString(ERROR_CHARACTER_DISTRIBUTION, {
+            numberOfPlayers,
+            goodPlayersCount,
+            evilPlayersCount,
+          }),
         });
       }
     }
