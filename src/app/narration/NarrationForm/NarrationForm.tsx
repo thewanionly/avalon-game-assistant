@@ -24,6 +24,11 @@ import {
   ERROR_MIN_PLAYERS,
   ERROR_REQUIRED_CHARACTERS,
 } from '@/constants/errorMessages';
+import {
+  EVIL_CHARACTERS_LABEL,
+  GOOD_CHARACTERS_LABEL,
+  PLAY_BUTTON_LABEL,
+} from '@/constants/labels';
 
 export const MIN_PLAYERS = 5;
 export const MAX_PLAYERS = 10;
@@ -163,7 +168,9 @@ export const NarrationForm = ({ className, defaultValues, onFormSubmit }: Narrat
           name="goodCharacters"
           render={() => (
             <FormItem className="space-y-3">
-              <FormLabel>Good characters</FormLabel>
+              <FormLabel>
+                {dynamicString(GOOD_CHARACTERS_LABEL, { count: goodChars.length })}
+              </FormLabel>
               {GOOD_AVALON_CHARACTERS.map(({ id, name, uniqueLabel, isRequired }) => (
                 <FormField
                   key={id}
@@ -198,7 +205,9 @@ export const NarrationForm = ({ className, defaultValues, onFormSubmit }: Narrat
           name="evilCharacters"
           render={() => (
             <FormItem className="space-y-3">
-              <FormLabel>Evil characters</FormLabel>
+              <FormLabel>
+                {dynamicString(EVIL_CHARACTERS_LABEL, { count: evilChars.length })}
+              </FormLabel>
               {EVIL_AVALON_CHARACTERS.map(({ id, name, uniqueLabel, isRequired }) => (
                 <FormField
                   key={id}
@@ -229,7 +238,7 @@ export const NarrationForm = ({ className, defaultValues, onFormSubmit }: Narrat
 
         <div>
           <Button className="w-full md:w-max" type="submit" disabled={Boolean(hasError)}>
-            Play {numberOfPlayers}
+            {dynamicString(PLAY_BUTTON_LABEL, { count: numberOfPlayers })}
           </Button>
           {rootError && <FormMessage className="mt-2">{rootError}</FormMessage>}
         </div>

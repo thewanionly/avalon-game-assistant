@@ -19,6 +19,7 @@ import {
   ERROR_REQUIRED_CHARACTERS,
 } from '@/constants/errorMessages';
 import { dynamicString } from '@/utils/dynamicString';
+import { EVIL_CHARACTERS_LABEL, GOOD_CHARACTERS_LABEL } from '@/constants/labels';
 
 const allRequiredCharacters = [...GOOD_REQUIRED_CHARACTERS, ...EVIL_REQUIRED_CHARACTERS];
 const TOTAL_DEFAULT_CHECKED = DEFAULT_GOOD_CHARACTERS.length + DEFAULT_EVIL_CHARACTERS.length;
@@ -33,6 +34,9 @@ const flattenedTeamDistribution = Object.entries(TEAM_DISTRIBUTION).map(([key, v
   value[AvalonCharacterLoyalty.Evil],
 ]);
 
+const defaultGoodCharsCount = DEFAULT_NARRATION_FORM_VALUES.goodCharacters.length;
+const defaultEvilCharsCount = DEFAULT_NARRATION_FORM_VALUES.evilCharacters.length;
+
 const setup = (defaultValues = DEFAULT_NARRATION_FORM_VALUES) =>
   render(<NarrationForm defaultValues={defaultValues} onFormSubmit={jest.fn()} />);
 
@@ -40,10 +44,12 @@ const setupNoDefault = () => setup({ goodCharacters: [], evilCharacters: [] });
 
 describe('Narration Form', () => {
   describe('Layout and default state', () => {
-    it('displays "Good characters" label', () => {
+    it('displays "Good characters" label with default selected good characeters count', () => {
       setup();
 
-      const goodCharactersLabel = screen.getByText('Good characters');
+      const goodCharactersLabel = screen.getByText(
+        dynamicString(GOOD_CHARACTERS_LABEL, { count: defaultGoodCharsCount })
+      );
       expect(goodCharactersLabel).toBeInTheDocument();
     });
 
@@ -73,7 +79,9 @@ describe('Narration Form', () => {
     it('displays "Evil characters" label', () => {
       setup();
 
-      const evilCharactersLabel = screen.getByText('Evil characters');
+      const evilCharactersLabel = screen.getByText(
+        dynamicString(EVIL_CHARACTERS_LABEL, { count: defaultEvilCharsCount })
+      );
       expect(evilCharactersLabel).toBeInTheDocument();
     });
 
@@ -141,6 +149,52 @@ describe('Narration Form', () => {
       // checked
       await userEvent.click(checkboxEl);
       expect(checkboxEl).toBeChecked();
+    });
+
+    it('increments good characters label number when a new checkbox under good characers is checked', async () => {
+      setup();
+
+      // assert current count
+      const goodCharactersLabel = screen.getByText(
+        dynamicString(GOOD_CHARACTERS_LABEL, { count: defaultGoodCharsCount })
+      );
+      expect(goodCharactersLabel).toBeInTheDocument();
+
+      // check an unchecked checkbox
+      const checkboxEl = screen.getByRole('checkbox', {
+        name: GOOD_AVALON_CHARACTERS[GOOD_AVALON_CHARACTERS.length - 1].uniqueLabel,
+      });
+      expect(checkboxEl).not.toBeChecked();
+      await userEvent.click(checkboxEl);
+
+      // assert count is updated
+      const goodCharactersLabel2 = screen.getByText(
+        dynamicString(GOOD_CHARACTERS_LABEL, { count: defaultGoodCharsCount + 1 })
+      );
+      expect(goodCharactersLabel2).toBeInTheDocument();
+    });
+
+    it('increments evil characters label number when a new checkbox under good characers is checked', async () => {
+      setup();
+
+      // assert current count
+      const evilCharactersLabel = screen.getByText(
+        dynamicString(EVIL_CHARACTERS_LABEL, { count: defaultEvilCharsCount })
+      );
+      expect(evilCharactersLabel).toBeInTheDocument();
+
+      // check an unchecked checkbox
+      const checkboxEl = screen.getByRole('checkbox', {
+        name: EVIL_AVALON_CHARACTERS[EVIL_AVALON_CHARACTERS.length - 1].uniqueLabel,
+      });
+      expect(checkboxEl).not.toBeChecked();
+      await userEvent.click(checkboxEl);
+
+      // assert count is updated
+      const evilCharactersLabel2 = screen.getByText(
+        dynamicString(EVIL_CHARACTERS_LABEL, { count: defaultEvilCharsCount + 1 })
+      );
+      expect(evilCharactersLabel2).toBeInTheDocument();
     });
 
     it('increments play button number when a new checkbox is checked', async () => {
