@@ -5,7 +5,14 @@ import { NarrationForm } from './NarrationForm';
 import { Button } from '@/components/ui/button';
 import { DEFAULT_NARRATION_FORM_VALUES } from './NarrationForm/NarrationForm.constants';
 
+enum NarrationStatus {
+  SELECTION = 'selection',
+  NARRATING = 'narrating',
+}
 export const NarrationArea = () => {
+  const [narrationStatus, setNarrationStatus] = useState<NarrationStatus>(
+    NarrationStatus.SELECTION
+  );
   const [narrationScript, setNarrationScript] = useState('');
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
@@ -32,6 +39,7 @@ export const NarrationArea = () => {
 
   const handleFormSubmit = (value: string) => {
     setNarrationScript(value);
+    setNarrationStatus(NarrationStatus.NARRATING);
   };
 
   const handleStopNarration = () => {
@@ -39,6 +47,7 @@ export const NarrationArea = () => {
     setIsSpeaking(false);
     setIsPaused(false);
     setNarrationScript('');
+    setNarrationStatus(NarrationStatus.SELECTION);
   };
 
   const handleReplay = () => {
@@ -76,30 +85,34 @@ export const NarrationArea = () => {
   return (
     <>
       <NarrationForm
-        className={narrationScript && 'hidden'}
+        className={narrationStatus === NarrationStatus.NARRATING ? 'hidden' : '*:'}
         defaultValues={DEFAULT_NARRATION_FORM_VALUES}
         onFormSubmit={handleFormSubmit}
       />
-      {narrationScript && <p className="mt-8">{narrationScript}</p>}
-      {isSpeaking && (
-        <div className="flex flex-wrap gap-4">
-          <Button className="mt-4" variant="destructive" onClick={handleStopNarration}>
-            Stop
-          </Button>
-          <Button className="mt-4" variant="outline" onClick={handlePauseNarration}>
-            {isPaused ? 'Resume' : 'Pause'}
-          </Button>
-        </div>
-      )}
-      {narrationScript && !isSpeaking && (
-        <div className="flex flex-wrap gap-4">
-          <Button className="mt-4" onClick={handleReplay}>
-            Replay
-          </Button>
-          {/* <Button className="mt-4" variant="outline" onClick={handleChangePlayers}>
+      {narrationStatus === NarrationStatus.NARRATING && (
+        <>
+          <p className="mt-8">{narrationScript}</p>
+          {isSpeaking && (
+            <div className="flex flex-wrap gap-4">
+              <Button className="mt-4" variant="destructive" onClick={handleStopNarration}>
+                Stop
+              </Button>
+              <Button className="mt-4" variant="outline" onClick={handlePauseNarration}>
+                {isPaused ? 'Resume' : 'Pause'}
+              </Button>
+            </div>
+          )}
+          {!isSpeaking && (
+            <div className="flex flex-wrap gap-4">
+              <Button className="mt-4" onClick={handleReplay}>
+                Replay
+              </Button>
+              {/* <Button className="mt-4" variant="outline" onClick={handleChangePlayers}>
                Change players
              </Button> */}
-        </div>
+            </div>
+          )}
+        </>
       )}
     </>
   );

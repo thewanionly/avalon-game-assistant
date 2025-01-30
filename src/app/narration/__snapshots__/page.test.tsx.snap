@@ -11,7 +11,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
       Narration
     </h1>
     <form
-      class="flex flex-col justify-between space-y-6"
+      class="flex flex-col justify-between space-y-6 *:"
     >
       <div
         class="space-y-3"
