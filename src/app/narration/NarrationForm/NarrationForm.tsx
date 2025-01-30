@@ -26,7 +26,9 @@ import {
 } from '@/constants/errorMessages';
 import {
   EVIL_CHARACTERS_LABEL,
+  EVIL_CHARACTERS_NO_SELECTED_LABEL,
   GOOD_CHARACTERS_LABEL,
+  GOOD_CHARACTERS_NO_SELECTED_LABEL,
   PLAY_BUTTON_LABEL,
 } from '@/constants/labels';
 
@@ -169,7 +171,10 @@ export const NarrationForm = ({ className, defaultValues, onFormSubmit }: Narrat
           render={() => (
             <FormItem className="space-y-3">
               <FormLabel>
-                {dynamicString(GOOD_CHARACTERS_LABEL, { count: goodChars.length })}
+                {dynamicString(
+                  goodChars.length > 0 ? GOOD_CHARACTERS_LABEL : GOOD_CHARACTERS_NO_SELECTED_LABEL,
+                  { count: goodChars.length }
+                )}
               </FormLabel>
               {GOOD_AVALON_CHARACTERS.map(({ id, name, uniqueLabel, isRequired }) => (
                 <FormField
@@ -206,7 +211,10 @@ export const NarrationForm = ({ className, defaultValues, onFormSubmit }: Narrat
           render={() => (
             <FormItem className="space-y-3">
               <FormLabel>
-                {dynamicString(EVIL_CHARACTERS_LABEL, { count: evilChars.length })}
+                {dynamicString(
+                  evilChars.length > 0 ? EVIL_CHARACTERS_LABEL : EVIL_CHARACTERS_NO_SELECTED_LABEL,
+                  { count: evilChars.length }
+                )}
               </FormLabel>
               {EVIL_AVALON_CHARACTERS.map(({ id, name, uniqueLabel, isRequired }) => (
                 <FormField

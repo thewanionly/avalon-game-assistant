@@ -19,7 +19,12 @@ import {
   ERROR_REQUIRED_CHARACTERS,
 } from '@/constants/errorMessages';
 import { dynamicString } from '@/utils/dynamicString';
-import { EVIL_CHARACTERS_LABEL, GOOD_CHARACTERS_LABEL } from '@/constants/labels';
+import {
+  EVIL_CHARACTERS_LABEL,
+  EVIL_CHARACTERS_NO_SELECTED_LABEL,
+  GOOD_CHARACTERS_LABEL,
+  GOOD_CHARACTERS_NO_SELECTED_LABEL,
+} from '@/constants/labels';
 
 const allRequiredCharacters = [...GOOD_REQUIRED_CHARACTERS, ...EVIL_REQUIRED_CHARACTERS];
 const TOTAL_DEFAULT_CHECKED = DEFAULT_GOOD_CHARACTERS.length + DEFAULT_EVIL_CHARACTERS.length;
@@ -53,6 +58,13 @@ describe('Narration Form', () => {
       expect(goodCharactersLabel).toBeInTheDocument();
     });
 
+    it(`displays no character count besides "Good characters" label when there's no selected checboxes`, () => {
+      setupNoDefault();
+
+      const goodCharactersLabel = screen.getByText(GOOD_CHARACTERS_NO_SELECTED_LABEL);
+      expect(goodCharactersLabel).toBeInTheDocument();
+    });
+
     it(`displays "Good characters" checkboxes with correct labels"`, () => {
       setup();
 
@@ -76,12 +88,19 @@ describe('Narration Form', () => {
       });
     });
 
-    it('displays "Evil characters" label', () => {
+    it('displays "Evil characters" label with default selected evil characters count', () => {
       setup();
 
       const evilCharactersLabel = screen.getByText(
         dynamicString(EVIL_CHARACTERS_LABEL, { count: defaultEvilCharsCount })
       );
+      expect(evilCharactersLabel).toBeInTheDocument();
+    });
+
+    it(`displays no character count besides "Evil characters" label when there's no selected checboxes`, () => {
+      setupNoDefault();
+
+      const evilCharactersLabel = screen.getByText(EVIL_CHARACTERS_NO_SELECTED_LABEL);
       expect(evilCharactersLabel).toBeInTheDocument();
     });
 
