@@ -62,5 +62,34 @@ describe('Narration Player', () => {
 
       expect(onPauseHandler).toHaveBeenCalled();
     });
+
+    it('shows the "Resume" button and hides the "Pause" button when "Pause" button is clicked', async () => {
+      setup();
+
+      const pauseButton1 = screen.getByRole('button', { name: /pause/i });
+      await userEvent.click(pauseButton1);
+
+      const resumeButton = screen.getByRole('button', { name: /resume/i });
+      expect(resumeButton).toBeInTheDocument();
+
+      const pauseButton2 = screen.queryByRole('button', { name: /pause/i });
+      expect(pauseButton2).not.toBeInTheDocument();
+    });
+
+    it('shows the "Pause" button and hides the "Resume" button when "Resume" button is clicked', async () => {
+      setup();
+
+      const pauseButton1 = screen.getByRole('button', { name: /pause/i });
+      await userEvent.click(pauseButton1);
+
+      const resumeButton1 = screen.getByRole('button', { name: /resume/i });
+      await userEvent.click(resumeButton1);
+
+      const pauseButton2 = screen.getByRole('button', { name: /pause/i });
+      expect(pauseButton2).toBeInTheDocument();
+
+      const resumeButton2 = screen.queryByRole('button', { name: /resume/i });
+      expect(resumeButton2).not.toBeInTheDocument();
+    });
   });
 });
