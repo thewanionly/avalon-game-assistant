@@ -1,23 +1,26 @@
 import { render, screen } from '@testing-library/react';
-import { NarrationPlayer } from './NarrationPlayer';
+import { NarrationPlayer, NarrationPlayerStatus } from './NarrationPlayer';
 import userEvent from '@testing-library/user-event';
 
 const DEFAULT_NARRATION_SCRIPT = 'Everyone, close your eyes';
 
-const setup = () => {
+const setup = (initialStatus = NarrationPlayerStatus.PLAYING) => {
   const narrationScript = DEFAULT_NARRATION_SCRIPT;
+  const onPlayHandler = jest.fn();
   const onStopHandler = jest.fn();
   const onPauseHandler = jest.fn();
 
   render(
     <NarrationPlayer
       narrationScript={narrationScript}
+      initialStatus={initialStatus}
+      onPlay={onPlayHandler}
       onStop={onStopHandler}
       onPause={onPauseHandler}
     />
   );
 
-  return { narrationScript, onStopHandler, onPauseHandler };
+  return { narrationScript, onPlayHandler, onStopHandler, onPauseHandler };
 };
 
 describe('Narration Player', () => {
@@ -29,14 +32,42 @@ describe('Narration Player', () => {
       expect(narrationScript).toBeInTheDocument();
     });
 
-    it('displays "Stop" button', () => {
+    it('displays "Play" button when initial status is idle', () => {
+      setup(NarrationPlayerStatus.IDLE);
+
+      const playButton = screen.getByRole('button', { name: /play/i });
+      expect(playButton).toBeInTheDocument();
+    });
+
+    it('hides "Stop" button when initial status is idle', () => {
+      setup(NarrationPlayerStatus.IDLE);
+
+      const stopButton = screen.queryByRole('button', { name: /stop/i });
+      expect(stopButton).not.toBeInTheDocument();
+    });
+
+    it('hides "Pause" button when initial status is idle', () => {
+      setup(NarrationPlayerStatus.IDLE);
+
+      const pauseButton = screen.queryByRole('button', { name: /pause/i });
+      expect(pauseButton).not.toBeInTheDocument();
+    });
+
+    it('hides "Play" button when initial status is playing', () => {
+      setup();
+
+      const playButton = screen.queryByRole('button', { name: /play/i });
+      expect(playButton).not.toBeInTheDocument();
+    });
+
+    it('displays "Stop" button when initial status is playing', () => {
       setup();
 
       const stopButton = screen.getByRole('button', { name: /stop/i });
       expect(stopButton).toBeInTheDocument();
     });
 
-    it('displays "Pause" button', () => {
+    it('displays "Pause" button when initial status is playing', () => {
       setup();
 
       const pauseButton = screen.getByRole('button', { name: /pause/i });
@@ -45,6 +76,15 @@ describe('Narration Player', () => {
   });
 
   describe('Interactions', () => {
+    it('executes the function passed in the `onPlay` prop when "Play" button is clicked', async () => {
+      const { onPlayHandler } = setup(NarrationPlayerStatus.IDLE);
+
+      const playButton = screen.getByRole('button', { name: /play/i });
+      await userEvent.click(playButton);
+
+      expect(onPlayHandler).toHaveBeenCalled();
+    });
+
     it('executes the function passed in the `onStop` prop when "Stop" button is clicked', async () => {
       const { onStopHandler } = setup();
 
@@ -92,4 +132,7 @@ describe('Narration Player', () => {
       expect(resumeButton2).not.toBeInTheDocument();
     });
   });
+
+  // TODO: Replay
+  // TODO: Back to form
 });

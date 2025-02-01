@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 
-enum NarrationPlayerStatus {
+export enum NarrationPlayerStatus {
   IDLE = 'idle',
   PLAYING = 'playing',
   PAUSED = 'paused',
@@ -10,12 +10,20 @@ enum NarrationPlayerStatus {
 
 type NarrationPlayerProps = {
   narrationScript: string;
+  initialStatus?: NarrationPlayerStatus;
+  onPlay?: () => void;
   onStop?: () => void;
   onPause?: () => void;
 };
 
-export const NarrationPlayer = ({ narrationScript, onStop, onPause }: NarrationPlayerProps) => {
-  const [status, setStatus] = useState<NarrationPlayerStatus>(NarrationPlayerStatus.IDLE);
+export const NarrationPlayer = ({
+  narrationScript,
+  initialStatus = NarrationPlayerStatus.IDLE,
+  onPlay,
+  onStop,
+  onPause,
+}: NarrationPlayerProps) => {
+  const [status, setStatus] = useState<NarrationPlayerStatus>(initialStatus);
 
   const handlePause = () => {
     setStatus(
@@ -31,12 +39,21 @@ export const NarrationPlayer = ({ narrationScript, onStop, onPause }: NarrationP
     <>
       <p className="mt-8">{narrationScript}</p>
       <div className="flex flex-wrap gap-4">
-        <Button className="mt-4" variant="destructive" onClick={onStop}>
-          Stop
-        </Button>
-        <Button className="mt-4" variant="outline" onClick={handlePause}>
-          {status === NarrationPlayerStatus.PAUSED ? 'Resume' : 'Pause'}
-        </Button>
+        {status === NarrationPlayerStatus.IDLE && (
+          <Button className="mt-4" onClick={onPlay}>
+            Play
+          </Button>
+        )}
+        {[NarrationPlayerStatus.PLAYING, NarrationPlayerStatus.PAUSED].includes(status) && (
+          <>
+            <Button className="mt-4" variant="destructive" onClick={onStop}>
+              Stop
+            </Button>
+            <Button className="mt-4" variant="outline" onClick={handlePause}>
+              {status === NarrationPlayerStatus.PAUSED ? 'Resume' : 'Pause'}
+            </Button>
+          </>
+        )}
       </div>
     </>
   );
