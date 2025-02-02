@@ -7,21 +7,17 @@ const DEFAULT_NARRATION_SCRIPT = 'Everyone, close your eyes';
 
 const setup = (initialStatus = NarratorStatus.PLAYING) => {
   const narrationScript = DEFAULT_NARRATION_SCRIPT;
-  const onPlayHandler = jest.fn();
-  const onStopHandler = jest.fn();
-  const onPauseHandler = jest.fn();
+  const onCloseHandler = jest.fn();
 
   render(
     <NarrationPlayer
       narrationScript={narrationScript}
       initialStatus={initialStatus}
-      onPlay={onPlayHandler}
-      onStop={onStopHandler}
-      onPause={onPauseHandler}
+      onClose={onCloseHandler}
     />
   );
 
-  return { narrationScript, onPlayHandler, onStopHandler, onPauseHandler };
+  return { narrationScript, onCloseHandler };
 };
 
 describe('Narration Player', () => {
@@ -77,31 +73,13 @@ describe('Narration Player', () => {
   });
 
   describe('Interactions', () => {
-    it('executes the function passed in the `onPlay` prop when "Play" button is clicked', async () => {
-      const { onPlayHandler } = setup(NarratorStatus.IDLE);
-
-      const playButton = screen.getByRole('button', { name: /play/i });
-      await userEvent.click(playButton);
-
-      expect(onPlayHandler).toHaveBeenCalled();
-    });
-
-    it('executes the function passed in the `onStop` prop when "Stop" button is clicked', async () => {
-      const { onStopHandler } = setup();
+    it('executes the function passed in the `onClose` prop when "Stop" button is clicked', async () => {
+      const { onCloseHandler } = setup();
 
       const stopButton = screen.getByRole('button', { name: /stop/i });
       await userEvent.click(stopButton);
 
-      expect(onStopHandler).toHaveBeenCalled();
-    });
-
-    it('executes the function passed in the `onPause` prop when "Pause" button is clicked', async () => {
-      const { onPauseHandler } = setup();
-
-      const pauseButton = screen.getByRole('button', { name: /pause/i });
-      await userEvent.click(pauseButton);
-
-      expect(onPauseHandler).toHaveBeenCalled();
+      expect(onCloseHandler).toHaveBeenCalled();
     });
 
     it('shows the "Resume" button and hides the "Pause" button when "Pause" button is clicked', async () => {

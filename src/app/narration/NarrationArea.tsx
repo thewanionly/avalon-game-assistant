@@ -21,8 +21,7 @@ export const NarrationArea = () => {
     setNarrationStatus(NarrationStatus.NARRATING);
   };
 
-  const handleStopNarration = () => {
-    setNarrationScript('');
+  const handleNarrationPlayerClose = () => {
     setNarrationStatus(NarrationStatus.SELECTION);
   };
 
@@ -37,7 +36,7 @@ export const NarrationArea = () => {
         <NarrationPlayer
           narrationScript={narrationScript}
           initialStatus={NarratorStatus.PLAYING}
-          onStop={handleStopNarration}
+          onClose={handleNarrationPlayerClose}
         />
       )}
     </>
