@@ -33,6 +33,10 @@ export const NarrationPlayer = ({
     speak(narrationScript);
   };
 
+  const handleUpdateSelection = () => {
+    onStop?.();
+  };
+
   useEffect(() => {
     if (initialStatus !== NarratorStatus.PLAYING) return;
 
@@ -57,19 +61,14 @@ export const NarrationPlayer = ({
   return (
     <>
       <p className="mt-8">{narrationScript}</p>
-      <div className="flex flex-wrap gap-4">
-        {status === NarratorStatus.IDLE && (
-          <Button className="mt-4" onClick={onPlay}>
-            Play
-          </Button>
-        )}
+      <div className="mt-4 flex flex-wrap gap-4">
+        {status === NarratorStatus.IDLE && <Button onClick={onPlay}>Play</Button>}
         {[NarratorStatus.PLAYING, NarratorStatus.PAUSED].includes(status) && (
           <>
-            <Button className="mt-4" variant="destructive" onClick={onStop}>
+            <Button variant="destructive" onClick={onStop}>
               Stop
             </Button>
             <Button
-              className="mt-4"
               variant="outline"
               onClick={status === NarratorStatus.PAUSED ? handleResume : handlePause}
             >
@@ -79,12 +78,10 @@ export const NarrationPlayer = ({
         )}
         {status === NarratorStatus.END && (
           <>
-            <Button className="mt-4" onClick={handleReplay}>
-              Replay
+            <Button onClick={handleReplay}>Replay</Button>
+            <Button variant="outline" onClick={handleUpdateSelection}>
+              Update selection
             </Button>
-            {/* <Button className="mt-4" variant="outline" onClick={handleChangePlayers}>
-               Change players
-             </Button> */}
           </>
         )}
       </div>
