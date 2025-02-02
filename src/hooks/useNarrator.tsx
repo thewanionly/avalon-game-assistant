@@ -1,25 +1,27 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { NarratorStatus } from '@/constants/narrator';
 
 interface UseNarratorParams {
+  text: string;
   initialStatus?: NarratorStatus;
 }
 
 interface UseNarratorReturnType {
   status: NarratorStatus;
-  speak: (text: string) => void;
-  stop: (updateState?: boolean) => void;
+  speak: () => void;
+  stop: () => void;
   pause: () => void;
   resume: () => void;
 }
 
-export const useNarrator = (params?: UseNarratorParams): UseNarratorReturnType => {
-  const { initialStatus = NarratorStatus.IDLE } = params ?? {};
-
+export const useNarrator = ({
+  text,
+  initialStatus = NarratorStatus.IDLE,
+}: UseNarratorParams): UseNarratorReturnType => {
   const [status, setStatus] = useState<NarratorStatus>(initialStatus);
 
-  const handleSpeak = useCallback((text: string) => {
+  const handleSpeak = useCallback(() => {
     if (!text) return;
 
     if (!('speechSynthesis' in window)) {
@@ -35,12 +37,10 @@ export const useNarrator = (params?: UseNarratorParams): UseNarratorReturnType =
 
     // speak the text
     window.speechSynthesis.speak(utterance);
-  }, []);
+  }, [text]);
 
-  const handleStop = useCallback((updateState = true) => {
+  const handleStop = useCallback(() => {
     window.speechSynthesis.cancel();
-
-    if (updateState) setStatus(NarratorStatus.END);
   }, []);
 
   const handlePause = useCallback(() => {
@@ -52,6 +52,27 @@ export const useNarrator = (params?: UseNarratorParams): UseNarratorReturnType =
     window.speechSynthesis.resume();
     setStatus(NarratorStatus.PLAYING);
   }, []);
+
+  useEffect(() => {
+    if (initialStatus !== NarratorStatus.PLAYING) return;
+
+    // start narrator if initialStatus is playing
+    handleSpeak();
+
+    const handleBeforeUnload = () => {
+      // stop narrator during page reload
+      window.speechSynthesis.cancel();
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+
+      // stop narrator in the next time this useEffect is run (e.g. component unmounts)
+      window.speechSynthesis.cancel();
+    };
+  }, [initialStatus, handleSpeak]);
 
   return { status, speak: handleSpeak, stop: handleStop, pause: handlePause, resume: handleResume };
 };

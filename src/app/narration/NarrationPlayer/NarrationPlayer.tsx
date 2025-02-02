@@ -1,7 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { useNarrator } from '@/hooks/useNarrator';
 import { NarratorStatus } from '@/constants/narrator';
-import { useEffect } from 'react';
 
 type NarrationPlayerProps = {
   narrationScript: string;
@@ -18,7 +17,15 @@ export const NarrationPlayer = ({
   onStop,
   onPause,
 }: NarrationPlayerProps) => {
-  const { status, speak, pause, resume, stop } = useNarrator({ initialStatus });
+  const { status, speak, stop, pause, resume } = useNarrator({
+    text: narrationScript,
+    initialStatus,
+  });
+
+  const handleStop = () => {
+    stop();
+    onStop?.();
+  };
 
   const handlePause = () => {
     pause();
@@ -30,33 +37,12 @@ export const NarrationPlayer = ({
   };
 
   const handleReplay = () => {
-    speak(narrationScript);
+    speak();
   };
 
   const handleUpdateSelection = () => {
     onStop?.();
   };
-
-  useEffect(() => {
-    if (initialStatus !== NarratorStatus.PLAYING) return;
-
-    // start narrator if initialStatus is playing
-    speak(narrationScript);
-
-    const handleBeforeUnload = () => {
-      // stop narrator during page reload
-      stop(false);
-    };
-
-    window.addEventListener('beforeunload', handleBeforeUnload);
-
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-
-      // stop narrator in the next time this useEffect is run (e.g. component unmounts)
-      stop();
-    };
-  }, [initialStatus, narrationScript, speak, stop]);
 
   return (
     <>
@@ -65,7 +51,7 @@ export const NarrationPlayer = ({
         {status === NarratorStatus.IDLE && <Button onClick={onPlay}>Play</Button>}
         {[NarratorStatus.PLAYING, NarratorStatus.PAUSED].includes(status) && (
           <>
-            <Button variant="destructive" onClick={onStop}>
+            <Button variant="destructive" onClick={handleStop}>
               Stop
             </Button>
             <Button
