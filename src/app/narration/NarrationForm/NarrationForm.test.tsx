@@ -652,6 +652,7 @@ describe('Narration Form', () => {
     );
   });
 
+  // Testing NarrationArea
   // TODO: selecting 5 will transition to narrating state
   // TODO: selecting 10 will transition to narrating state
   // TODO: selecting 8 will transition to narrating state

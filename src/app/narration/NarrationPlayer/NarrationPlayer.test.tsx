@@ -1,10 +1,11 @@
 import { render, screen } from '@testing-library/react';
-import { NarrationPlayer, NarrationPlayerStatus } from './NarrationPlayer';
+import { NarrationPlayer } from './NarrationPlayer';
 import userEvent from '@testing-library/user-event';
+import { NarratorStatus } from '@/constants/narrator';
 
 const DEFAULT_NARRATION_SCRIPT = 'Everyone, close your eyes';
 
-const setup = (initialStatus = NarrationPlayerStatus.PLAYING) => {
+const setup = (initialStatus = NarratorStatus.PLAYING) => {
   const narrationScript = DEFAULT_NARRATION_SCRIPT;
   const onPlayHandler = jest.fn();
   const onStopHandler = jest.fn();
@@ -33,21 +34,21 @@ describe('Narration Player', () => {
     });
 
     it('displays "Play" button when initial status is idle', () => {
-      setup(NarrationPlayerStatus.IDLE);
+      setup(NarratorStatus.IDLE);
 
       const playButton = screen.getByRole('button', { name: /play/i });
       expect(playButton).toBeInTheDocument();
     });
 
     it('hides "Stop" button when initial status is idle', () => {
-      setup(NarrationPlayerStatus.IDLE);
+      setup(NarratorStatus.IDLE);
 
       const stopButton = screen.queryByRole('button', { name: /stop/i });
       expect(stopButton).not.toBeInTheDocument();
     });
 
     it('hides "Pause" button when initial status is idle', () => {
-      setup(NarrationPlayerStatus.IDLE);
+      setup(NarratorStatus.IDLE);
 
       const pauseButton = screen.queryByRole('button', { name: /pause/i });
       expect(pauseButton).not.toBeInTheDocument();
@@ -77,7 +78,7 @@ describe('Narration Player', () => {
 
   describe('Interactions', () => {
     it('executes the function passed in the `onPlay` prop when "Play" button is clicked', async () => {
-      const { onPlayHandler } = setup(NarrationPlayerStatus.IDLE);
+      const { onPlayHandler } = setup(NarratorStatus.IDLE);
 
       const playButton = screen.getByRole('button', { name: /play/i });
       await userEvent.click(playButton);
