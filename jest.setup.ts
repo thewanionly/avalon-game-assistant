@@ -7,7 +7,7 @@ global.ResizeObserver = jest.fn().mockImplementation(() => ({
   disconnect: jest.fn(),
 }));
 
-// speechSynthesis mock
+// speechSynthesis mocks
 Object.defineProperty(window, 'speechSynthesis', {
   value: {
     pause: jest.fn(),
@@ -17,3 +17,5 @@ Object.defineProperty(window, 'speechSynthesis', {
   },
   writable: true,
 });
+
+global.SpeechSynthesisUtterance = jest.fn();
