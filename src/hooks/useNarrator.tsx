@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { NarratorStatus } from '@/constants/narrator';
 
@@ -9,7 +9,7 @@ interface UseNarratorParams {
 interface UseNarratorReturnType {
   status: NarratorStatus;
   speak: (text: string) => void;
-  stop: () => void;
+  stop: (updateState?: boolean) => void;
   pause: () => void;
   resume: () => void;
 }
@@ -19,7 +19,7 @@ export const useNarrator = (params?: UseNarratorParams): UseNarratorReturnType =
 
   const [status, setStatus] = useState<NarratorStatus>(initialStatus);
 
-  const handleSpeak = (text: string) => {
+  const handleSpeak = useCallback((text: string) => {
     if (!text) return;
 
     if (!('speechSynthesis' in window)) {
@@ -35,26 +35,23 @@ export const useNarrator = (params?: UseNarratorParams): UseNarratorReturnType =
 
     // speak the text
     window.speechSynthesis.speak(utterance);
-  };
+  }, []);
 
-  const handleStop = () => {
+  const handleStop = useCallback((updateState = true) => {
     window.speechSynthesis.cancel();
-    setStatus(NarratorStatus.END);
-  };
 
-  const handlePause = () => {
-    if (status === NarratorStatus.PAUSED) return;
+    if (updateState) setStatus(NarratorStatus.END);
+  }, []);
 
+  const handlePause = useCallback(() => {
     window.speechSynthesis.pause();
     setStatus(NarratorStatus.PAUSED);
-  };
+  }, []);
 
-  const handleResume = () => {
-    if (status !== NarratorStatus.PAUSED) return;
-
+  const handleResume = useCallback(() => {
     window.speechSynthesis.resume();
     setStatus(NarratorStatus.PLAYING);
-  };
+  }, []);
 
   return { status, speak: handleSpeak, stop: handleStop, pause: handlePause, resume: handleResume };
 };

@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { useNarrator } from '@/hooks/useNarrator';
 import { NarratorStatus } from '@/constants/narrator';
+import { useEffect } from 'react';
 
 type NarrationPlayerProps = {
   narrationScript: string;
@@ -17,7 +18,7 @@ export const NarrationPlayer = ({
   onStop,
   onPause,
 }: NarrationPlayerProps) => {
-  const { status, pause, resume } = useNarrator({ initialStatus });
+  const { status, speak, pause, resume, stop } = useNarrator({ initialStatus });
 
   const handlePause = () => {
     pause();
@@ -27,6 +28,31 @@ export const NarrationPlayer = ({
   const handleResume = () => {
     resume();
   };
+
+  const handleReplay = () => {
+    speak(narrationScript);
+  };
+
+  useEffect(() => {
+    if (initialStatus !== NarratorStatus.PLAYING) return;
+
+    // start narrator if initialStatus is playing
+    speak(narrationScript);
+
+    const handleBeforeUnload = () => {
+      // stop narrator during page reload
+      stop(false);
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+
+      // stop narrator in the next time this useEffect is run (e.g. component unmounts)
+      stop();
+    };
+  }, [initialStatus, narrationScript, speak, stop]);
 
   return (
     <>
@@ -49,6 +75,16 @@ export const NarrationPlayer = ({
             >
               {status === NarratorStatus.PAUSED ? 'Resume' : 'Pause'}
             </Button>
+          </>
+        )}
+        {status === NarratorStatus.END && (
+          <>
+            <Button className="mt-4" onClick={handleReplay}>
+              Replay
+            </Button>
+            {/* <Button className="mt-4" variant="outline" onClick={handleChangePlayers}>
+               Change players
+             </Button> */}
           </>
         )}
       </div>
