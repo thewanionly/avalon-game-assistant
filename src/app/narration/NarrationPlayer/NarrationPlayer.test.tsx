@@ -111,7 +111,4 @@ describe('Narration Player', () => {
       expect(resumeButton2).not.toBeInTheDocument();
     });
   });
-
-  // TODO: Replay
-  // TODO: Back to form
 });

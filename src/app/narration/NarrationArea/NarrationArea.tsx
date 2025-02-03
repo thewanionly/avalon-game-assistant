@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { NarrationForm } from './NarrationForm';
-import { DEFAULT_NARRATION_FORM_VALUES } from './NarrationForm/NarrationForm.constants';
-import { NarrationPlayer } from './NarrationPlayer';
+import { NarrationForm } from '../NarrationForm';
+import { DEFAULT_NARRATION_FORM_VALUES } from '../NarrationForm/NarrationForm.constants';
+import { NarrationPlayer } from '../NarrationPlayer';
 import { NarratorStatus } from '@/constants/narrator';
 
 enum NarrationStatus {
