@@ -32,6 +32,7 @@ import {
   PLAY_BUTTON_LABEL,
   PLAY_BUTTON_NO_SELECTED_LABEL,
 } from '@/constants/labels';
+import { generateNarrationScript } from '@/helper/generateNarrationScript';
 
 export const MIN_PLAYERS = 5;
 export const MAX_PLAYERS = 10;
@@ -106,8 +107,6 @@ interface NarrationFormProps {
   onFormSubmit: (narrationScript: string) => void;
 }
 
-const conditionalString = (condition: boolean, str: string) => (condition ? str : '');
-
 export const NarrationForm = ({ className, defaultValues, onFormSubmit }: NarrationFormProps) => {
   const form = useForm<FormValuesType>({
     resolver: zodResolver(FormSchema),
@@ -138,29 +137,7 @@ export const NarrationForm = ({ className, defaultValues, onFormSubmit }: Narrat
       (charId) => AVALON_CHARACTERS[charId].name === AvalonCharacterName.Oberon
     );
 
-    const percivalScript = `
-      Merlin ${conditionalString(hasMorgana, `and Morgana`)}, extend your thumb so that Percival may know of you.
-      Percival, open your eyes so you may know Merlin ${conditionalString(hasMorgana, `and Morgana`)}.
-      Merlin ${conditionalString(hasMorgana, `and Morgana`)}, put your thumbs down and form your hand into a fist.
-      Percival, close your eyes.
-      All players should have their eyes closed and hands in a fist in front of them.
-    `;
-
-    const narrationScript = `
-      Everyone, close your eyes and extend your hand into a fist in front of you.
-      Minions of Mordred, ${conditionalString(hasOberon, `not Oberon,`)} open your eyes and look around so that you know all agents of Evil.
-      Minions of Mordred, close your eyes.
-      All players should have their eyes closed and hands in a fist in front of them.
-      Minions of Mordred, ${conditionalString(hasMordred, `not Mordred himself,`)} extend your thumb so that Merlin will know of you.
-      Merlin, open your eyes and see the agents of Evil.
-      Minions of Mordred, put your thumbs down and re-form your hand into a fist.
-      Merlin, close your eyes.
-      All players should have their eyes closed and hands in a fist in front of them.
-      ${conditionalString(hasPercival, percivalScript)}
-      Everyone, open your eyes.
-    `;
-
-    onFormSubmit(narrationScript);
+    onFormSubmit(generateNarrationScript({ hasMordred, hasMorgana, hasOberon, hasPercival }));
   };
 
   // TODO: find a better way to handle global errors with correct typing
