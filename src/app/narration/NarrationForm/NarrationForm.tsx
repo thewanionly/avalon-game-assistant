@@ -7,6 +7,7 @@ import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Form, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import {
+  AVALON_CHARACTERS,
   AvalonCharacterName,
   EVIL_AVALON_CHARACTERS,
   EVIL_REQUIRED_CHARACTERS,
@@ -16,7 +17,6 @@ import {
 } from '@/constants/characters';
 import { cn } from '@/lib/utils';
 import { NarrationCheckbox } from './NarrationCheckbox';
-import idify from '@/utils/idify';
 import { dynamicString } from '@/utils/dynamicString';
 import {
   ERROR_CHARACTER_DISTRIBUTION,
@@ -125,10 +125,18 @@ export const NarrationForm = ({ className, defaultValues, onFormSubmit }: Narrat
   const numberOfPlayers = goodChars.length + evilChars.length;
 
   const onSubmit = ({ goodCharacters = [], evilCharacters = [] }: FormValuesType) => {
-    const hasPercival = goodCharacters.includes(idify(AvalonCharacterName.Percival));
-    const hasMordred = evilCharacters.includes(idify(AvalonCharacterName.Mordred));
-    const hasMorgana = evilCharacters.includes(idify(AvalonCharacterName.Morgana));
-    const hasOberon = evilCharacters.includes(idify(AvalonCharacterName.Oberon));
+    const hasPercival = goodCharacters.some(
+      (charId) => AVALON_CHARACTERS[charId].name === AvalonCharacterName.Percival
+    );
+    const hasMordred = evilCharacters.some(
+      (charId) => AVALON_CHARACTERS[charId].name === AvalonCharacterName.Mordred
+    );
+    const hasMorgana = evilCharacters.some(
+      (charId) => AVALON_CHARACTERS[charId].name === AvalonCharacterName.Morgana
+    );
+    const hasOberon = evilCharacters.some(
+      (charId) => AVALON_CHARACTERS[charId].name === AvalonCharacterName.Oberon
+    );
 
     const percivalScript = `
       Merlin ${conditionalString(hasMorgana, `and Morgana`)}, extend your thumb so that Percival may know of you.
@@ -138,7 +146,7 @@ export const NarrationForm = ({ className, defaultValues, onFormSubmit }: Narrat
       All players should have their eyes closed and hands in a fist in front of them.
     `;
 
-    onFormSubmit(`
+    const narrationScript = `
       Everyone, close your eyes and extend your hand into a fist in front of you.
       Minions of Mordred, ${conditionalString(hasOberon, `not Oberon,`)} open your eyes and look around so that you know all agents of Evil.
       Minions of Mordred, close your eyes.
@@ -150,7 +158,9 @@ export const NarrationForm = ({ className, defaultValues, onFormSubmit }: Narrat
       All players should have their eyes closed and hands in a fist in front of them.
       ${conditionalString(hasPercival, percivalScript)}
       Everyone, open your eyes.
-    `);
+    `;
+
+    onFormSubmit(narrationScript);
   };
 
   // TODO: find a better way to handle global errors with correct typing
