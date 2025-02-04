@@ -163,7 +163,7 @@ export const NarrationForm = ({ className, defaultValues, onFormSubmit }: Narrat
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className={cn('flex flex-col justify-between space-y-6', className)}
+        className={cn('flex flex-col justify-between gap-6', className)}
       >
         {/* Good characters */}
         <FormField
