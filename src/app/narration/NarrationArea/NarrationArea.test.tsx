@@ -70,5 +70,31 @@ describe('Narration Area', () => {
       const pauseBtn = screen.queryByRole('button', { name: /pause/i });
       expect(pauseBtn).not.toBeInTheDocument();
     });
+
+    it('displays back the narration form after clicking "Stop" button in narration player', async () => {
+      setup();
+
+      // transition to Narration Player
+      const playBtn = screen.getByRole('button', { name: /play/i });
+      await userEvent.click(playBtn);
+
+      // click stop button
+      const stopBtn = screen.getByRole('button', { name: /stop/i });
+      await userEvent.click(stopBtn);
+
+      // assert narration form elements are present
+
+      const goodCharactersLabel = screen.getByText(
+        new RegExp(GOOD_CHARACTERS_NO_SELECTED_LABEL, 'i')
+      );
+      expect(goodCharactersLabel).toBeInTheDocument();
+
+      const evilCharactersLabel = screen.getByText(
+        new RegExp(EVIL_CHARACTERS_NO_SELECTED_LABEL, 'i')
+      );
+      expect(evilCharactersLabel).toBeInTheDocument();
+
+      expect(screen.getByRole('button', { name: /play/i })).toBeInTheDocument();
+    });
   });
 });
