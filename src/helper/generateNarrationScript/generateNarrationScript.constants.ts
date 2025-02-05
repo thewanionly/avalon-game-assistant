@@ -17,13 +17,13 @@ export const MERLIN_SCRIPT = arrayToString([
   'Minions of Mordred, extend your thumb so that Merlin will know of you.',
   'Merlin, open your eyes and see the agents of Evil.',
   'Minions of Mordred, put your thumbs down and re-form your hand into a fist.',
-  ' Merlin, close your eyes.',
+  'Merlin, close your eyes.',
 ]);
 export const MERLIN_WITH_MORDRED_SCRIPT = arrayToString([
   'Minions of Mordred, not Mordred himself, extend your thumb so that Merlin will know of you.',
   'Merlin, open your eyes and see the agents of Evil.',
   'Minions of Mordred, put your thumbs down and re-form your hand into a fist.',
-  ' Merlin, close your eyes.',
+  'Merlin, close your eyes.',
 ]);
 
 export const ALL_PLAYERS_HANDS_CLOSED_HANDS_FIST =
