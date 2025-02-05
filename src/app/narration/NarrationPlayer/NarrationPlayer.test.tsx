@@ -2,8 +2,9 @@ import { render, screen } from '@testing-library/react';
 import { NarrationPlayer } from './NarrationPlayer';
 import userEvent from '@testing-library/user-event';
 import { NarratorStatus } from '@/constants/narrator';
+import { INTRO } from '@/helper/generateNarrationScript/generateNarrationScript.constants';
 
-const DEFAULT_NARRATION_SCRIPT = 'Everyone, close your eyes';
+const DEFAULT_NARRATION_SCRIPT = INTRO;
 
 const setup = (initialStatus = NarratorStatus.PLAYING) => {
   const narrationScript = DEFAULT_NARRATION_SCRIPT;
@@ -23,10 +24,10 @@ const setup = (initialStatus = NarratorStatus.PLAYING) => {
 describe('Narration Player', () => {
   describe('Layout and default state', () => {
     it('displays the narration script', () => {
-      setup();
+      const { narrationScript } = setup();
 
-      const narrationScript = screen.getByText(DEFAULT_NARRATION_SCRIPT);
-      expect(narrationScript).toBeInTheDocument();
+      const narrationScriptText = screen.getByText(narrationScript);
+      expect(narrationScriptText).toBeInTheDocument();
     });
 
     it('displays "Play" button when initial status is idle', () => {
