@@ -2,9 +2,12 @@ import { render, screen } from '@testing-library/react';
 import { NarrationPlayer } from './NarrationPlayer';
 import userEvent from '@testing-library/user-event';
 import { NarratorStatus } from '@/constants/narrator';
-import { INTRO } from '@/helper/generateNarrationScript/generateNarrationScript.constants';
+import { INTRO, CLOSING } from '@/helper/generateNarrationScript/generateNarrationScript.constants';
+import { arrayToString } from '@/utils/arrayToString';
 
-const DEFAULT_NARRATION_SCRIPT = INTRO;
+import { transformNarrationScript } from './NarrationPlayer.utils';
+
+const DEFAULT_NARRATION_SCRIPT = arrayToString([INTRO, CLOSING]);
 
 const setup = (initialStatus = NarratorStatus.PLAYING) => {
   const narrationScript = DEFAULT_NARRATION_SCRIPT;
@@ -26,8 +29,12 @@ describe('Narration Player', () => {
     it('displays the narration script', () => {
       const { narrationScript } = setup();
 
-      const narrationScriptText = screen.getByText(narrationScript);
-      expect(narrationScriptText).toBeInTheDocument();
+      const narrationScriptArr = transformNarrationScript(narrationScript);
+
+      narrationScriptArr.forEach((line) => {
+        const lineEl = screen.getByText(line);
+        expect(lineEl).toBeInTheDocument();
+      });
     });
 
     it('displays "Play" button when initial status is idle', () => {
