@@ -24,37 +24,44 @@ interface NarrationFormProps {
   onFormSubmit: (values: NarrationFormValuesType) => void;
 }
 
-export const NarrationForm = ({ className, defaultValues, onFormSubmit }: NarrationFormProps) => {
+export const NarrationForm = ({
+  className,
+  defaultValues = { goodCharacters: [], evilCharacters: [] },
+  onFormSubmit,
+}: NarrationFormProps) => {
   const form = useForm<NarrationFormValuesType>({
     resolver: zodResolver(NarrationFormSchema),
-    defaultValues: {
-      goodCharacters: [],
-      evilCharacters: [],
-      ...defaultValues,
-    },
+    defaultValues,
   });
 
+  const {
+    formState: { errors },
+    handleSubmit,
+    control,
+    trigger,
+  } = form;
+
   // Watching the fields for dynamic state calculation
-  const goodChars = useWatch({ control: form.control, name: 'goodCharacters' });
-  const evilChars = useWatch({ control: form.control, name: 'evilCharacters' });
+  const goodChars = useWatch({ control, name: 'goodCharacters' });
+  const evilChars = useWatch({ control, name: 'evilCharacters' });
 
   const numberOfPlayers = goodChars.length + evilChars.length;
 
   // TODO: find a better way to handle global errors with correct typing
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const rootError = (form.formState.errors as any)?.['']?.message;
+  const rootError = (errors as any)?.['']?.message;
 
-  const hasError = Boolean(rootError || Object.keys(form.formState.errors).length > 0);
+  const hasError = Boolean(rootError || Object.keys(errors).length > 0);
 
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onFormSubmit)}
+        onSubmit={handleSubmit(onFormSubmit)}
         className={cn('flex flex-col justify-between gap-6', className)}
       >
         {/* Good characters */}
         <FormField
-          control={form.control}
+          control={control}
           name="goodCharacters"
           render={() => (
             <FormItem className="space-y-3">
@@ -67,7 +74,7 @@ export const NarrationForm = ({ className, defaultValues, onFormSubmit }: Narrat
               {GOOD_AVALON_CHARACTERS.map(({ id, name, uniqueLabel, isRequired }) => (
                 <FormField
                   key={id}
-                  control={form.control}
+                  control={control}
                   name="goodCharacters"
                   render={({ field }) => (
                     <NarrationCheckbox
@@ -81,20 +88,20 @@ export const NarrationForm = ({ className, defaultValues, onFormSubmit }: Narrat
                           : field.value?.filter((v) => v !== id);
 
                         field.onChange(newValue); // save new value
-                        await form.trigger(); // Re-run validation
+                        await trigger(); // Re-run validation
                       }}
                     />
                   )}
                 />
               ))}
-              <FormMessage>{form.formState.errors.goodCharacters?.message}</FormMessage>
+              <FormMessage>{errors.goodCharacters?.message}</FormMessage>
             </FormItem>
           )}
         />
 
         {/* Evil characters */}
         <FormField
-          control={form.control}
+          control={control}
           name="evilCharacters"
           render={() => (
             <FormItem className="space-y-3">
@@ -107,7 +114,7 @@ export const NarrationForm = ({ className, defaultValues, onFormSubmit }: Narrat
               {EVIL_AVALON_CHARACTERS.map(({ id, name, uniqueLabel, isRequired }) => (
                 <FormField
                   key={id}
-                  control={form.control}
+                  control={control}
                   name="evilCharacters"
                   render={({ field }) => (
                     <NarrationCheckbox
@@ -121,13 +128,13 @@ export const NarrationForm = ({ className, defaultValues, onFormSubmit }: Narrat
                           : field.value?.filter((v) => v !== id);
 
                         field.onChange(newValue); // save new value
-                        await form.trigger(); // Re-run validation
+                        await trigger(); // Re-run validation
                       }}
                     />
                   )}
                 />
               ))}
-              <FormMessage>{form.formState.errors.evilCharacters?.message}</FormMessage>
+              <FormMessage>{errors.evilCharacters?.message}</FormMessage>
             </FormItem>
           )}
         />
