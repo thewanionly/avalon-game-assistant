@@ -3,12 +3,7 @@ import { useForm, useWatch } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
 import { Form, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import {
-  AVALON_CHARACTERS,
-  AvalonCharacterName,
-  EVIL_AVALON_CHARACTERS,
-  GOOD_AVALON_CHARACTERS,
-} from '@/constants/characters';
+import { EVIL_AVALON_CHARACTERS, GOOD_AVALON_CHARACTERS } from '@/constants/characters';
 import { cn } from '@/lib/utils';
 import { NarrationCheckbox } from './NarrationCheckbox';
 import { dynamicString } from '@/utils/dynamicString';
@@ -21,13 +16,12 @@ import {
   PLAY_BUTTON_LABEL,
   PLAY_BUTTON_NO_SELECTED_LABEL,
 } from '@/constants/labels';
-import { generateNarrationScript } from '@/helper/generateNarrationScript';
 import { NarrationFormSchema, NarrationFormValuesType } from './NarrationForm.schema';
 
 interface NarrationFormProps {
   className?: string;
   defaultValues?: NarrationFormValuesType;
-  onFormSubmit: (narrationScript: string) => void;
+  onFormSubmit: (values: NarrationFormValuesType) => void;
 }
 
 export const NarrationForm = ({ className, defaultValues, onFormSubmit }: NarrationFormProps) => {
@@ -46,23 +40,6 @@ export const NarrationForm = ({ className, defaultValues, onFormSubmit }: Narrat
 
   const numberOfPlayers = goodChars.length + evilChars.length;
 
-  const onSubmit = ({ goodCharacters = [], evilCharacters = [] }: NarrationFormValuesType) => {
-    const hasPercival = goodCharacters.some(
-      (charId) => AVALON_CHARACTERS[charId].name === AvalonCharacterName.Percival
-    );
-    const hasMordred = evilCharacters.some(
-      (charId) => AVALON_CHARACTERS[charId].name === AvalonCharacterName.Mordred
-    );
-    const hasMorgana = evilCharacters.some(
-      (charId) => AVALON_CHARACTERS[charId].name === AvalonCharacterName.Morgana
-    );
-    const hasOberon = evilCharacters.some(
-      (charId) => AVALON_CHARACTERS[charId].name === AvalonCharacterName.Oberon
-    );
-
-    onFormSubmit(generateNarrationScript({ hasMordred, hasMorgana, hasOberon, hasPercival }));
-  };
-
   // TODO: find a better way to handle global errors with correct typing
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const rootError = (form.formState.errors as any)?.['']?.message;
@@ -72,7 +49,7 @@ export const NarrationForm = ({ className, defaultValues, onFormSubmit }: Narrat
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit(onFormSubmit)}
         className={cn('flex flex-col justify-between gap-6', className)}
       >
         {/* Good characters */}
