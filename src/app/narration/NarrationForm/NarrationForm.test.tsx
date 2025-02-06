@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { MAX_PLAYERS, MIN_PLAYERS, NarrationForm } from './NarrationForm';
+import { NarrationForm } from './NarrationForm';
 import {
   DEFAULT_EVIL_CHARACTERS,
   DEFAULT_GOOD_CHARACTERS,
@@ -11,7 +11,7 @@ import {
   TEAM_DISTRIBUTION,
   AvalonCharacterLoyalty,
 } from '@/constants/characters';
-import { DEFAULT_NARRATION_FORM_VALUES } from './NarrationForm.constants';
+import { DEFAULT_NARRATION_FORM_VALUES, MAX_PLAYERS, MIN_PLAYERS } from './NarrationForm.constants';
 import {
   ERROR_CHARACTER_DISTRIBUTION,
   ERROR_MAX_PLAYERS,

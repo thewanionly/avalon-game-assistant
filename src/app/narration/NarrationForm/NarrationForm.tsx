@@ -2,7 +2,6 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, useWatch } from 'react-hook-form';
-import { z } from 'zod';
 
 import { Button } from '@/components/ui/button';
 import { Form, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
@@ -10,20 +9,12 @@ import {
   AVALON_CHARACTERS,
   AvalonCharacterName,
   EVIL_AVALON_CHARACTERS,
-  EVIL_REQUIRED_CHARACTERS,
   GOOD_AVALON_CHARACTERS,
-  GOOD_REQUIRED_CHARACTERS,
-  TEAM_DISTRIBUTION,
 } from '@/constants/characters';
 import { cn } from '@/lib/utils';
 import { NarrationCheckbox } from './NarrationCheckbox';
 import { dynamicString } from '@/utils/dynamicString';
-import {
-  ERROR_CHARACTER_DISTRIBUTION,
-  ERROR_MAX_PLAYERS,
-  ERROR_MIN_PLAYERS,
-  ERROR_REQUIRED_CHARACTERS,
-} from '@/constants/errorMessages';
+
 import {
   EVIL_CHARACTERS_LABEL,
   EVIL_CHARACTERS_NO_SELECTED_LABEL,
@@ -33,83 +24,17 @@ import {
   PLAY_BUTTON_NO_SELECTED_LABEL,
 } from '@/constants/labels';
 import { generateNarrationScript } from '@/helper/generateNarrationScript';
-
-export const MIN_PLAYERS = 5;
-export const MAX_PLAYERS = 10;
-
-const FormSchema = z
-  .object({
-    goodCharacters: z
-      .array(z.string())
-      .refine((values) => GOOD_REQUIRED_CHARACTERS.every(({ id }) => values.includes(id)), {
-        message: dynamicString(ERROR_REQUIRED_CHARACTERS, {
-          requiredCharacters: GOOD_REQUIRED_CHARACTERS.map(({ name }) => name).join(', '),
-        }),
-      }),
-    evilCharacters: z
-      .array(z.string())
-      .refine((values) => EVIL_REQUIRED_CHARACTERS.every(({ id }) => values.includes(id)), {
-        message: dynamicString(ERROR_REQUIRED_CHARACTERS, {
-          requiredCharacters: EVIL_REQUIRED_CHARACTERS.map(({ name }) => name).join(', '),
-        }),
-      }),
-  })
-  .refine(
-    ({ goodCharacters, evilCharacters }) => {
-      const numberOfPlayers = goodCharacters.length + evilCharacters.length;
-
-      return numberOfPlayers >= MIN_PLAYERS;
-    },
-    {
-      path: [],
-      message: dynamicString(ERROR_MIN_PLAYERS, { minPlayers: MIN_PLAYERS }),
-    }
-  )
-  .refine(
-    ({ goodCharacters, evilCharacters }) => {
-      const numberOfPlayers = goodCharacters.length + evilCharacters.length;
-
-      return numberOfPlayers <= MAX_PLAYERS;
-    },
-    {
-      path: [],
-      message: dynamicString(ERROR_MAX_PLAYERS, { maxPlayers: MAX_PLAYERS }),
-    }
-  )
-  .superRefine(({ goodCharacters, evilCharacters }, ctx) => {
-    const numberOfPlayers = goodCharacters.length + evilCharacters.length;
-
-    if (numberOfPlayers >= MIN_PLAYERS && numberOfPlayers <= MAX_PLAYERS) {
-      const { good: goodPlayersCount, evil: evilPlayersCount } =
-        TEAM_DISTRIBUTION[numberOfPlayers as keyof typeof TEAM_DISTRIBUTION];
-
-      const isValidDistribution =
-        goodCharacters.length === goodPlayersCount && evilCharacters.length === evilPlayersCount;
-
-      if (!isValidDistribution) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: dynamicString(ERROR_CHARACTER_DISTRIBUTION, {
-            numberOfPlayers,
-            goodPlayersCount,
-            evilPlayersCount,
-          }),
-        });
-      }
-    }
-  });
-
-type FormValuesType = z.infer<typeof FormSchema>;
+import { NarrationFormSchema, NarrationFormValuesType } from './NarrationForm.schema';
 
 interface NarrationFormProps {
   className?: string;
-  defaultValues?: FormValuesType;
+  defaultValues?: NarrationFormValuesType;
   onFormSubmit: (narrationScript: string) => void;
 }
 
 export const NarrationForm = ({ className, defaultValues, onFormSubmit }: NarrationFormProps) => {
-  const form = useForm<FormValuesType>({
-    resolver: zodResolver(FormSchema),
+  const form = useForm<NarrationFormValuesType>({
+    resolver: zodResolver(NarrationFormSchema),
     defaultValues: {
       goodCharacters: [],
       evilCharacters: [],
@@ -123,7 +48,7 @@ export const NarrationForm = ({ className, defaultValues, onFormSubmit }: Narrat
 
   const numberOfPlayers = goodChars.length + evilChars.length;
 
-  const onSubmit = ({ goodCharacters = [], evilCharacters = [] }: FormValuesType) => {
+  const onSubmit = ({ goodCharacters = [], evilCharacters = [] }: NarrationFormValuesType) => {
     const hasPercival = goodCharacters.some(
       (charId) => AVALON_CHARACTERS[charId].name === AvalonCharacterName.Percival
     );
