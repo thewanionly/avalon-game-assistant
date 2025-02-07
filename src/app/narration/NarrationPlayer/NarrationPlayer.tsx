@@ -42,7 +42,7 @@ export const NarrationPlayer = ({
 
   return (
     <>
-      <ol className="mt-8 flex flex-col gap-2">
+      <ol className="mt-8 flex flex-col gap-4">
         {transformNarrationScript(narrationScript).map((line, index) => (
           <li key={index}>{line}</li>
         ))}
@@ -51,10 +51,11 @@ export const NarrationPlayer = ({
         {status === NarratorStatus.IDLE && <Button onClick={handlePlay}>Play</Button>}
         {[NarratorStatus.PLAYING, NarratorStatus.PAUSED].includes(status) && (
           <>
-            <Button variant="destructive" onClick={handleStop}>
+            <Button className="flex-1" variant="destructive" onClick={handleStop}>
               Stop
             </Button>
             <Button
+              className="flex-1"
               variant="outline"
               onClick={status === NarratorStatus.PAUSED ? handleResume : handlePause}
             >
@@ -64,8 +65,10 @@ export const NarrationPlayer = ({
         )}
         {status === NarratorStatus.END && (
           <>
-            <Button onClick={handlePlay}>Replay</Button>
-            <Button variant="outline" onClick={handleUpdateSelection}>
+            <Button className="flex-1" onClick={handlePlay}>
+              Replay
+            </Button>
+            <Button className="flex-1" variant="outline" onClick={handleUpdateSelection}>
               Update selection
             </Button>
           </>
