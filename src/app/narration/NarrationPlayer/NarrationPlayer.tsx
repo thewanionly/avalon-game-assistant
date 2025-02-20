@@ -42,7 +42,7 @@ export const NarrationPlayer = ({
 
   return (
     <>
-      <ol className="mt-8 flex flex-col gap-4">
+      <ol className="mt-8 flex flex-col gap-5">
         {transformNarrationScript(narrationScript).map((line, index) => (
           <li key={index}>{line}</li>
         ))}

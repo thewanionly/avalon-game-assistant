@@ -4,5 +4,5 @@ export const transformNarrationScript = (narrationScript: string): string[] => {
   return narrationScript
     .split(/\. |\./)
     .filter((v) => v)
-    .map((v) => `"${v}."`);
+    .map((v) => `${v}.`);
 };
