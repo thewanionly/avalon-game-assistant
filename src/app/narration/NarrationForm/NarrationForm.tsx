@@ -71,29 +71,31 @@ export const NarrationForm = ({
                   { count: goodChars.length }
                 )}
               </FormLabel>
-              {GOOD_AVALON_CHARACTERS.map(({ id, name, uniqueLabel, isRequired }) => (
-                <FormField
-                  key={id}
-                  control={control}
-                  name="goodCharacters"
-                  render={({ field }) => (
-                    <NarrationCheckbox
-                      label={name}
-                      uniqueLabel={uniqueLabel}
-                      isRequired={isRequired}
-                      isChecked={field.value?.includes(id)}
-                      onCheckedChange={async (checked) => {
-                        const newValue = checked
-                          ? [...(field.value ?? []), id]
-                          : field.value?.filter((v) => v !== id);
+              <div className="flex flex-wrap gap-3">
+                {GOOD_AVALON_CHARACTERS.map(({ id, name, uniqueLabel, isRequired }) => (
+                  <FormField
+                    key={id}
+                    control={control}
+                    name="goodCharacters"
+                    render={({ field }) => (
+                      <NarrationCheckbox
+                        label={name}
+                        uniqueLabel={uniqueLabel}
+                        isRequired={isRequired}
+                        isChecked={field.value?.includes(id)}
+                        onCheckedChange={async (checked) => {
+                          const newValue = checked
+                            ? [...(field.value ?? []), id]
+                            : field.value?.filter((v) => v !== id);
 
-                        field.onChange(newValue); // save new value
-                        await trigger(); // Re-run validation
-                      }}
-                    />
-                  )}
-                />
-              ))}
+                          field.onChange(newValue); // save new value
+                          await trigger(); // Re-run validation
+                        }}
+                      />
+                    )}
+                  />
+                ))}
+              </div>
               <FormMessage>{errors.goodCharacters?.message}</FormMessage>
             </FormItem>
           )}
@@ -111,29 +113,32 @@ export const NarrationForm = ({
                   { count: evilChars.length }
                 )}
               </FormLabel>
-              {EVIL_AVALON_CHARACTERS.map(({ id, name, uniqueLabel, isRequired }) => (
-                <FormField
-                  key={id}
-                  control={control}
-                  name="evilCharacters"
-                  render={({ field }) => (
-                    <NarrationCheckbox
-                      label={name}
-                      uniqueLabel={uniqueLabel}
-                      isRequired={isRequired}
-                      isChecked={field.value?.includes(id)}
-                      onCheckedChange={async (checked) => {
-                        const newValue = checked
-                          ? [...(field.value ?? []), id]
-                          : field.value?.filter((v) => v !== id);
+              <div className="flex flex-wrap gap-3">
+                {EVIL_AVALON_CHARACTERS.map(({ id, name, uniqueLabel, isRequired }) => (
+                  <FormField
+                    key={id}
+                    control={control}
+                    name="evilCharacters"
+                    render={({ field }) => (
+                      <NarrationCheckbox
+                        label={name}
+                        uniqueLabel={uniqueLabel}
+                        isRequired={isRequired}
+                        isChecked={field.value?.includes(id)}
+                        onCheckedChange={async (checked) => {
+                          const newValue = checked
+                            ? [...(field.value ?? []), id]
+                            : field.value?.filter((v) => v !== id);
 
-                        field.onChange(newValue); // save new value
-                        await trigger(); // Re-run validation
-                      }}
-                    />
-                  )}
-                />
-              ))}
+                          field.onChange(newValue); // save new value
+                          await trigger(); // Re-run validation
+                        }}
+                        isEvil
+                      />
+                    )}
+                  />
+                ))}
+              </div>
               <FormMessage>{errors.evilCharacters?.message}</FormMessage>
             </FormItem>
           )}
