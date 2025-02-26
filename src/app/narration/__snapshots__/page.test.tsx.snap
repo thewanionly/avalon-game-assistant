@@ -3,7 +3,7 @@
 exports[`Narration Page renders narration page unchanged 1`] = `
 <div>
   <div
-    class="mx-auto max-w-screen-xl p-8 pb-20 font-[family-name:var(--font-geist-sans)] sm:p-20"
+    class="mx-auto max-w-screen-xl px-4 py-8 font-[family-name:var(--font-geist-sans)] sm:p-20"
   >
     <h1
       class="mb-12 text-2xl"
@@ -23,7 +23,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
           Good characters (3)
         </label>
         <div
-          class="flex flex-wrap gap-3"
+          class="flex flex-wrap gap-1"
         >
           <div
             class="flex items-center gap-2 space-y-0"
@@ -41,7 +41,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
                 type="checkbox"
               />
               <div
-                class="flex aspect-[3/4] w-[100px] items-center justify-center rounded-md p-4 text-center text-sm bg-blue-500 text-neutral-900 peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
+                class="flex aspect-[3/4] w-[82px] items-center justify-center rounded-md p-4 text-center text-sm bg-blue-500 text-neutral-900 peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
               >
                 Merlin *
               </div>
@@ -66,7 +66,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
                 type="checkbox"
               />
               <div
-                class="flex aspect-[3/4] w-[100px] items-center justify-center rounded-md p-4 text-center text-sm bg-blue-500/50 text-neutral-900/50 peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
+                class="flex aspect-[3/4] w-[82px] items-center justify-center rounded-md p-4 text-center text-sm bg-blue-500/50 text-neutral-900/50 peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
               >
                 Percival
               </div>
@@ -92,7 +92,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
                 type="checkbox"
               />
               <div
-                class="flex aspect-[3/4] w-[100px] items-center justify-center rounded-md p-4 text-center text-sm bg-blue-500 text-neutral-900 peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
+                class="flex aspect-[3/4] w-[82px] items-center justify-center rounded-md p-4 text-center text-sm bg-blue-500 text-neutral-900 peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
               >
                 Loyal Servant of Arthur
               </div>
@@ -118,7 +118,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
                 type="checkbox"
               />
               <div
-                class="flex aspect-[3/4] w-[100px] items-center justify-center rounded-md p-4 text-center text-sm bg-blue-500 text-neutral-900 peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
+                class="flex aspect-[3/4] w-[82px] items-center justify-center rounded-md p-4 text-center text-sm bg-blue-500 text-neutral-900 peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
               >
                 Loyal Servant of Arthur
               </div>
@@ -143,7 +143,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
                 type="checkbox"
               />
               <div
-                class="flex aspect-[3/4] w-[100px] items-center justify-center rounded-md p-4 text-center text-sm bg-blue-500/50 text-neutral-900/50 peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
+                class="flex aspect-[3/4] w-[82px] items-center justify-center rounded-md p-4 text-center text-sm bg-blue-500/50 text-neutral-900/50 peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
               >
                 Loyal Servant of Arthur
               </div>
@@ -168,7 +168,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
                 type="checkbox"
               />
               <div
-                class="flex aspect-[3/4] w-[100px] items-center justify-center rounded-md p-4 text-center text-sm bg-blue-500/50 text-neutral-900/50 peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
+                class="flex aspect-[3/4] w-[82px] items-center justify-center rounded-md p-4 text-center text-sm bg-blue-500/50 text-neutral-900/50 peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
               >
                 Loyal Servant of Arthur
               </div>
@@ -193,7 +193,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
                 type="checkbox"
               />
               <div
-                class="flex aspect-[3/4] w-[100px] items-center justify-center rounded-md p-4 text-center text-sm bg-blue-500/50 text-neutral-900/50 peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
+                class="flex aspect-[3/4] w-[82px] items-center justify-center rounded-md p-4 text-center text-sm bg-blue-500/50 text-neutral-900/50 peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
               >
                 Loyal Servant of Arthur
               </div>
@@ -216,7 +216,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
           Evil characters (2)
         </label>
         <div
-          class="flex flex-wrap gap-3"
+          class="flex flex-wrap gap-1"
         >
           <div
             class="flex items-center gap-2 space-y-0"
@@ -232,7 +232,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
                 type="checkbox"
               />
               <div
-                class="flex aspect-[3/4] w-[100px] items-center justify-center rounded-md p-4 text-center text-sm bg-red-500/50 text-slate-50/50 peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
+                class="flex aspect-[3/4] w-[82px] items-center justify-center rounded-md p-4 text-center text-sm bg-red-500/50 text-slate-50/50 peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
               >
                 Mordred
               </div>
@@ -257,7 +257,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
                 type="checkbox"
               />
               <div
-                class="flex aspect-[3/4] w-[100px] items-center justify-center rounded-md p-4 text-center text-sm bg-red-500/50 text-slate-50/50 peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
+                class="flex aspect-[3/4] w-[82px] items-center justify-center rounded-md p-4 text-center text-sm bg-red-500/50 text-slate-50/50 peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
               >
                 Morgana
               </div>
@@ -282,7 +282,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
                 type="checkbox"
               />
               <div
-                class="flex aspect-[3/4] w-[100px] items-center justify-center rounded-md p-4 text-center text-sm bg-red-500/50 text-slate-50/50 peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
+                class="flex aspect-[3/4] w-[82px] items-center justify-center rounded-md p-4 text-center text-sm bg-red-500/50 text-slate-50/50 peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
               >
                 Oberon
               </div>
@@ -309,7 +309,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
                 type="checkbox"
               />
               <div
-                class="flex aspect-[3/4] w-[100px] items-center justify-center rounded-md p-4 text-center text-sm bg-red-500 text-slate-50 peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
+                class="flex aspect-[3/4] w-[82px] items-center justify-center rounded-md p-4 text-center text-sm bg-red-500 text-slate-50 peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
               >
                 Assassin *
               </div>
@@ -335,7 +335,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
                 type="checkbox"
               />
               <div
-                class="flex aspect-[3/4] w-[100px] items-center justify-center rounded-md p-4 text-center text-sm bg-red-500 text-slate-50 peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
+                class="flex aspect-[3/4] w-[82px] items-center justify-center rounded-md p-4 text-center text-sm bg-red-500 text-slate-50 peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
               >
                 Minion of Mordred
               </div>
@@ -360,7 +360,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
                 type="checkbox"
               />
               <div
-                class="flex aspect-[3/4] w-[100px] items-center justify-center rounded-md p-4 text-center text-sm bg-red-500/50 text-slate-50/50 peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
+                class="flex aspect-[3/4] w-[82px] items-center justify-center rounded-md p-4 text-center text-sm bg-red-500/50 text-slate-50/50 peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
               >
                 Minion of Mordred
               </div>
@@ -385,7 +385,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
                 type="checkbox"
               />
               <div
-                class="flex aspect-[3/4] w-[100px] items-center justify-center rounded-md p-4 text-center text-sm bg-red-500/50 text-slate-50/50 peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
+                class="flex aspect-[3/4] w-[82px] items-center justify-center rounded-md p-4 text-center text-sm bg-red-500/50 text-slate-50/50 peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
               >
                 Minion of Mordred
               </div>
