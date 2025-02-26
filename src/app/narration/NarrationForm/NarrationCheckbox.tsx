@@ -30,7 +30,7 @@ export const NarrationCheckbox = ({
 
   return (
     <FormItem className={cn('flex items-center gap-2 space-y-0', className)}>
-      <label>
+      <label className="w-full">
         <FormControl>
           <input
             className="peer absolute m-0 appearance-none"
@@ -44,6 +44,7 @@ export const NarrationCheckbox = ({
         </FormControl>
         <CharacterCard
           classsName={cn(
+            'w-full',
             'peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300'
           )}
           name={isRequired ? `${label} *` : label}

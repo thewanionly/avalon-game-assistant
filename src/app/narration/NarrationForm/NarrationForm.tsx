@@ -71,7 +71,7 @@ export const NarrationForm = ({
                   { count: goodChars.length }
                 )}
               </FormLabel>
-              <div className="flex flex-wrap gap-1">
+              <div className="grid grid-cols-4 gap-1">
                 {GOOD_AVALON_CHARACTERS.map(({ id, name, uniqueLabel, isRequired }) => (
                   <FormField
                     key={id}
@@ -113,7 +113,7 @@ export const NarrationForm = ({
                   { count: evilChars.length }
                 )}
               </FormLabel>
-              <div className="flex flex-wrap gap-1">
+              <div className="grid grid-cols-4 gap-1">
                 {EVIL_AVALON_CHARACTERS.map(({ id, name, uniqueLabel, isRequired }) => (
                   <FormField
                     key={id}
@@ -145,7 +145,7 @@ export const NarrationForm = ({
         />
 
         <div>
-          <Button className="w-full md:w-max" type="submit" disabled={Boolean(hasError)}>
+          <Button className="w-full" type="submit" disabled={Boolean(hasError)}>
             {dynamicString(
               numberOfPlayers > 0 ? PLAY_BUTTON_LABEL : PLAY_BUTTON_NO_SELECTED_LABEL,
               { count: numberOfPlayers }
