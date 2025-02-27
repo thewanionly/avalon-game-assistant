@@ -45,9 +45,10 @@ export const NarrationCheckbox = ({
         <CharacterCard
           classsName={cn(
             'w-full',
-            'peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300'
+            'peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300',
+            isRequired && "after:ml-0.5 after:content-['*']"
           )}
-          name={isRequired ? `${label} *` : label}
+          name={label}
           isEvil={isEvil}
           isSelected={isChecked}
         />

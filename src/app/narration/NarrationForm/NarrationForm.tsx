@@ -71,7 +71,7 @@ export const NarrationForm = ({
                   { count: goodChars.length }
                 )}
               </FormLabel>
-              <div className="grid grid-cols-[repeat(auto-fit,_minmax(120px,_1fr))] gap-1">
+              <div className="grid grid-cols-[repeat(auto-fit,_minmax(80px,_1fr))] gap-1">
                 {GOOD_AVALON_CHARACTERS.map(({ id, name, uniqueLabel, isRequired }) => (
                   <FormField
                     key={id}
@@ -113,7 +113,7 @@ export const NarrationForm = ({
                   { count: evilChars.length }
                 )}
               </FormLabel>
-              <div className="grid grid-cols-[repeat(auto-fit,_minmax(120px,_1fr))] gap-1">
+              <div className="grid grid-cols-[repeat(auto-fit,_minmax(80px,_1fr))] gap-1">
                 {EVIL_AVALON_CHARACTERS.map(({ id, name, uniqueLabel, isRequired }) => (
                   <FormField
                     key={id}
