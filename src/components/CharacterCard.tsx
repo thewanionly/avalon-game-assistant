@@ -16,10 +16,9 @@ export const CharacterCard = ({
   return (
     <div
       className={cn(
-        'flex aspect-[3/4] w-[82px] items-center justify-center rounded-md p-4 text-center text-sm',
-        isEvil && (isSelected ? 'bg-red-500 text-slate-50' : 'bg-red-500/50 text-slate-50/50'),
-        !isEvil &&
-          (isSelected ? 'bg-blue-500 text-neutral-900' : 'bg-blue-500/50 text-neutral-900/50'),
+        'flex aspect-[3/4] w-[82px] items-center justify-center rounded-md border bg-background p-4 text-center text-sm',
+        isEvil && (isSelected ? 'border-red-500 text-red-500' : 'border-white/80 text-white/80'),
+        !isEvil && (isSelected ? 'border-blue-500 text-blue-500' : 'border-white/80 text-white/80'),
         classsName
       )}
     >
