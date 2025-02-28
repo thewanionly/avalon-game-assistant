@@ -144,7 +144,7 @@ export const NarrationForm = ({
           )}
         />
 
-        <div className="sticky bottom-0 bg-white pb-5 pt-7">
+        <div className="sticky bottom-0 bg-background pb-5 pt-7">
           <Button className="w-full" type="submit" disabled={Boolean(hasError)}>
             {dynamicString(
               numberOfPlayers > 0 ? PLAY_BUTTON_LABEL : PLAY_BUTTON_NO_SELECTED_LABEL,
