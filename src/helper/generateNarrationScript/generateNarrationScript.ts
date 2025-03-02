@@ -10,21 +10,15 @@ import {
   PERCIVAL_SCRIPT,
   PERCIVAL_WITH_MORGANA_SCRIPT,
 } from './generateNarrationScript.constants';
+import { OptionalCharacterFlags } from '@/constants/characters';
 
-type NarrationScriptOptions = {
-  hasMordred?: boolean;
-  hasOberon?: boolean;
-  hasPercival?: boolean;
-  hasMorgana?: boolean;
-};
-
-export const generateNarrationScript = (options?: NarrationScriptOptions): string => {
+export const generateNarrationScript = (flags?: OptionalCharacterFlags): string => {
   const {
     hasMordred = false,
     hasOberon = false,
     hasPercival = false,
     hasMorgana = false,
-  } = options ?? {};
+  } = flags ?? {};
 
   const narrationScript = arrayToString([
     INTRO,

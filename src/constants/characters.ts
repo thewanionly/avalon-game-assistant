@@ -16,6 +16,13 @@ export enum AvalonCharacterLoyalty {
   Evil = 'evil',
 }
 
+export interface OptionalCharacterFlags {
+  hasPercival?: boolean;
+  hasMordred?: boolean;
+  hasMorgana?: boolean;
+  hasOberon?: boolean;
+}
+
 interface AvalonCharacter {
   id: string;
   name: string;
