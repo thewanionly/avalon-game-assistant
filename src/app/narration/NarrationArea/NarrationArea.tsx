@@ -8,16 +8,28 @@ import { NarratorStatus } from '@/constants/narrator';
 import { NarrationFormValuesType } from '../NarrationForm/NarrationForm.schema';
 import { generateNarrationScript } from '@/helper/generateNarrationScript';
 import { AVALON_CHARACTERS, AvalonCharacterName } from '@/constants/characters';
+import { checkTeamBalance } from '@/helper/checkTeamBalance';
+import { TeamBalanceAlertDialog } from '@/components/TeamBalanceAlertDialog';
 
 enum NarrationStatus {
   SELECTION = 'selection',
   NARRATING = 'narrating',
 }
 export const NarrationArea = () => {
+  const [teamBalanceMessage, setTeamBalanceMessage] = useState('');
   const [narrationStatus, setNarrationStatus] = useState<NarrationStatus>(
     NarrationStatus.SELECTION
   );
   const [narrationScript, setNarrationScript] = useState('');
+
+  const handleCancel = () => {
+    setTeamBalanceMessage('');
+  };
+
+  const handleProcced = () => {
+    setTeamBalanceMessage('');
+    setNarrationStatus(NarrationStatus.NARRATING);
+  };
 
   const handleFormSubmit = ({
     goodCharacters = [],
@@ -37,7 +49,20 @@ export const NarrationArea = () => {
       (charId) => AVALON_CHARACTERS[charId].name === AvalonCharacterName.Oberon
     );
 
+    const { isBalanced, message } = checkTeamBalance({
+      hasMordred,
+      hasMorgana,
+      hasOberon,
+      hasPercival,
+    });
+
     setNarrationScript(generateNarrationScript({ hasMordred, hasMorgana, hasOberon, hasPercival }));
+
+    if (!isBalanced) {
+      setTeamBalanceMessage(message);
+      return;
+    }
+
     setNarrationStatus(NarrationStatus.NARRATING);
   };
 
@@ -59,6 +84,12 @@ export const NarrationArea = () => {
           onClose={handleNarrationPlayerClose}
         />
       )}
+      <TeamBalanceAlertDialog
+        open={Boolean(teamBalanceMessage)}
+        message={teamBalanceMessage}
+        onCancel={handleCancel}
+        onProceed={handleProcced}
+      />
     </>
   );
 };

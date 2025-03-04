@@ -18,7 +18,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
       >
         <label
           class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          for=":rg:-form-item"
+          for=":rj:-form-item"
         >
           Good characters (3)
         </label>
@@ -33,12 +33,12 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             >
               <input
                 aria-checked="true"
-                aria-describedby=":rh:-form-item-description"
+                aria-describedby=":rk:-form-item-description"
                 aria-invalid="false"
                 aria-label="Merlin"
                 checked=""
                 class="peer absolute m-0 appearance-none"
-                id=":rh:-form-item"
+                id=":rk:-form-item"
                 required=""
                 type="checkbox"
               />
@@ -62,92 +62,9 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             >
               <input
                 aria-checked="false"
-                aria-describedby=":ri:-form-item-description"
-                aria-invalid="false"
-                aria-label="Percival"
-                class="peer absolute m-0 appearance-none"
-                id=":ri:-form-item"
-                type="checkbox"
-              />
-              <div
-                class="flex aspect-[3/4] items-center justify-center rounded-md border bg-background p-4 text-center text-sm border-primary/80 text-primary/80 w-full peer-focus:outline peer-focus:outline-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
-              >
-                Percival
-              </div>
-              <span
-                class="sr-only text-sm font-normal"
-              >
-                Percival
-              </span>
-            </label>
-          </div>
-          <div
-            class="flex items-center gap-2 space-y-0"
-          >
-            <label
-              class="w-full"
-            >
-              <input
-                aria-checked="true"
-                aria-describedby=":rj:-form-item-description"
-                aria-invalid="false"
-                aria-label="1st Loyal Servant of Arthur"
-                checked=""
-                class="peer absolute m-0 appearance-none"
-                id=":rj:-form-item"
-                type="checkbox"
-              />
-              <div
-                class="flex aspect-[3/4] items-center justify-center rounded-md border bg-background p-4 text-center text-sm border-blue-500 text-blue-500 w-full peer-focus:outline peer-focus:outline-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
-              >
-                Loyal Servant of Arthur
-              </div>
-              <span
-                class="sr-only text-sm font-normal"
-              >
-                Loyal Servant of Arthur
-              </span>
-            </label>
-          </div>
-          <div
-            class="flex items-center gap-2 space-y-0"
-          >
-            <label
-              class="w-full"
-            >
-              <input
-                aria-checked="true"
-                aria-describedby=":rk:-form-item-description"
-                aria-invalid="false"
-                aria-label="2nd Loyal Servant of Arthur"
-                checked=""
-                class="peer absolute m-0 appearance-none"
-                id=":rk:-form-item"
-                type="checkbox"
-              />
-              <div
-                class="flex aspect-[3/4] items-center justify-center rounded-md border bg-background p-4 text-center text-sm border-blue-500 text-blue-500 w-full peer-focus:outline peer-focus:outline-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
-              >
-                Loyal Servant of Arthur
-              </div>
-              <span
-                class="sr-only text-sm font-normal"
-              >
-                Loyal Servant of Arthur
-              </span>
-            </label>
-          </div>
-          <div
-            class="flex items-center gap-2 space-y-0"
-          >
-            <label
-              class="w-full"
-            >
-              <input
-                aria-checked="false"
                 aria-describedby=":rl:-form-item-description"
                 aria-invalid="false"
-                aria-label="3rd Loyal Servant of Arthur"
+                aria-label="Percival"
                 class="peer absolute m-0 appearance-none"
                 id=":rl:-form-item"
                 type="checkbox"
@@ -155,6 +72,62 @@ exports[`Narration Page renders narration page unchanged 1`] = `
               <div
                 class="flex aspect-[3/4] items-center justify-center rounded-md border bg-background p-4 text-center text-sm border-primary/80 text-primary/80 w-full peer-focus:outline peer-focus:outline-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
               >
+                Percival
+              </div>
+              <span
+                class="sr-only text-sm font-normal"
+              >
+                Percival
+              </span>
+            </label>
+          </div>
+          <div
+            class="flex items-center gap-2 space-y-0"
+          >
+            <label
+              class="w-full"
+            >
+              <input
+                aria-checked="true"
+                aria-describedby=":rm:-form-item-description"
+                aria-invalid="false"
+                aria-label="1st Loyal Servant of Arthur"
+                checked=""
+                class="peer absolute m-0 appearance-none"
+                id=":rm:-form-item"
+                type="checkbox"
+              />
+              <div
+                class="flex aspect-[3/4] items-center justify-center rounded-md border bg-background p-4 text-center text-sm border-blue-500 text-blue-500 w-full peer-focus:outline peer-focus:outline-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
+              >
+                Loyal Servant of Arthur
+              </div>
+              <span
+                class="sr-only text-sm font-normal"
+              >
+                Loyal Servant of Arthur
+              </span>
+            </label>
+          </div>
+          <div
+            class="flex items-center gap-2 space-y-0"
+          >
+            <label
+              class="w-full"
+            >
+              <input
+                aria-checked="true"
+                aria-describedby=":rn:-form-item-description"
+                aria-invalid="false"
+                aria-label="2nd Loyal Servant of Arthur"
+                checked=""
+                class="peer absolute m-0 appearance-none"
+                id=":rn:-form-item"
+                type="checkbox"
+              />
+              <div
+                class="flex aspect-[3/4] items-center justify-center rounded-md border bg-background p-4 text-center text-sm border-blue-500 text-blue-500 w-full peer-focus:outline peer-focus:outline-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
+              >
                 Loyal Servant of Arthur
               </div>
               <span
@@ -172,11 +145,11 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             >
               <input
                 aria-checked="false"
-                aria-describedby=":rm:-form-item-description"
+                aria-describedby=":ro:-form-item-description"
                 aria-invalid="false"
-                aria-label="4th Loyal Servant of Arthur"
+                aria-label="3rd Loyal Servant of Arthur"
                 class="peer absolute m-0 appearance-none"
-                id=":rm:-form-item"
+                id=":ro:-form-item"
                 type="checkbox"
               />
               <div
@@ -199,11 +172,38 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             >
               <input
                 aria-checked="false"
-                aria-describedby=":rn:-form-item-description"
+                aria-describedby=":rp:-form-item-description"
+                aria-invalid="false"
+                aria-label="4th Loyal Servant of Arthur"
+                class="peer absolute m-0 appearance-none"
+                id=":rp:-form-item"
+                type="checkbox"
+              />
+              <div
+                class="flex aspect-[3/4] items-center justify-center rounded-md border bg-background p-4 text-center text-sm border-primary/80 text-primary/80 w-full peer-focus:outline peer-focus:outline-2 peer-focus:outline-gray-500 peer-focus:ring-2 peer-focus:ring-gray-300"
+              >
+                Loyal Servant of Arthur
+              </div>
+              <span
+                class="sr-only text-sm font-normal"
+              >
+                Loyal Servant of Arthur
+              </span>
+            </label>
+          </div>
+          <div
+            class="flex items-center gap-2 space-y-0"
+          >
+            <label
+              class="w-full"
+            >
+              <input
+                aria-checked="false"
+                aria-describedby=":rq:-form-item-description"
                 aria-invalid="false"
                 aria-label="5th Loyal Servant of Arthur"
                 class="peer absolute m-0 appearance-none"
-                id=":rn:-form-item"
+                id=":rq:-form-item"
                 type="checkbox"
               />
               <div
@@ -225,7 +225,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
       >
         <label
           class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          for=":ro:-form-item"
+          for=":rr:-form-item"
         >
           Evil characters (2)
         </label>
@@ -240,11 +240,11 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             >
               <input
                 aria-checked="false"
-                aria-describedby=":rp:-form-item-description"
+                aria-describedby=":rs:-form-item-description"
                 aria-invalid="false"
                 aria-label="Mordred"
                 class="peer absolute m-0 appearance-none"
-                id=":rp:-form-item"
+                id=":rs:-form-item"
                 type="checkbox"
               />
               <div
@@ -267,11 +267,11 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             >
               <input
                 aria-checked="false"
-                aria-describedby=":rq:-form-item-description"
+                aria-describedby=":rt:-form-item-description"
                 aria-invalid="false"
                 aria-label="Morgana"
                 class="peer absolute m-0 appearance-none"
-                id=":rq:-form-item"
+                id=":rt:-form-item"
                 type="checkbox"
               />
               <div
@@ -294,11 +294,11 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             >
               <input
                 aria-checked="false"
-                aria-describedby=":rr:-form-item-description"
+                aria-describedby=":ru:-form-item-description"
                 aria-invalid="false"
                 aria-label="Oberon"
                 class="peer absolute m-0 appearance-none"
-                id=":rr:-form-item"
+                id=":ru:-form-item"
                 type="checkbox"
               />
               <div
@@ -321,12 +321,12 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             >
               <input
                 aria-checked="true"
-                aria-describedby=":rs:-form-item-description"
+                aria-describedby=":rv:-form-item-description"
                 aria-invalid="false"
                 aria-label="Assassin"
                 checked=""
                 class="peer absolute m-0 appearance-none"
-                id=":rs:-form-item"
+                id=":rv:-form-item"
                 required=""
                 type="checkbox"
               />
@@ -350,12 +350,12 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             >
               <input
                 aria-checked="true"
-                aria-describedby=":rt:-form-item-description"
+                aria-describedby=":r10:-form-item-description"
                 aria-invalid="false"
                 aria-label="1st Minion of Mordred"
                 checked=""
                 class="peer absolute m-0 appearance-none"
-                id=":rt:-form-item"
+                id=":r10:-form-item"
                 type="checkbox"
               />
               <div
@@ -378,11 +378,11 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             >
               <input
                 aria-checked="false"
-                aria-describedby=":ru:-form-item-description"
+                aria-describedby=":r11:-form-item-description"
                 aria-invalid="false"
                 aria-label="2nd Minion of Mordred"
                 class="peer absolute m-0 appearance-none"
-                id=":ru:-form-item"
+                id=":r11:-form-item"
                 type="checkbox"
               />
               <div
@@ -405,11 +405,11 @@ exports[`Narration Page renders narration page unchanged 1`] = `
             >
               <input
                 aria-checked="false"
-                aria-describedby=":rv:-form-item-description"
+                aria-describedby=":r12:-form-item-description"
                 aria-invalid="false"
                 aria-label="3rd Minion of Mordred"
                 class="peer absolute m-0 appearance-none"
-                id=":rv:-form-item"
+                id=":r12:-form-item"
                 type="checkbox"
               />
               <div
