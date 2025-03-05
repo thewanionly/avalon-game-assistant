@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NarrationForm } from '../NarrationForm';
 import { DEFAULT_NARRATION_FORM_VALUES } from '../NarrationForm/NarrationForm.constants';
 import { NarrationPlayer } from '../NarrationPlayer';
@@ -69,6 +69,10 @@ export const NarrationArea = () => {
   const handleNarrationPlayerClose = () => {
     setNarrationStatus(NarrationStatus.SELECTION);
   };
+
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, [narrationStatus]);
 
   return (
     <>
