@@ -1,11 +1,8 @@
-import { NARRATION } from '@/constants/app';
-
 import { NarrationArea } from './NarrationArea';
 
 export default function Narration() {
   return (
-    <div className="mx-auto max-w-3xl px-4 pt-8 font-[family-name:var(--font-geist-sans)] sm:p-20">
-      <h1 className="mb-12 text-2xl">{NARRATION.pageTitle}</h1>
+    <div className="mx-auto max-w-3xl px-4 pt-6 font-[family-name:var(--font-geist-sans)] sm:p-20">
       <NarrationArea />
     </div>
   );

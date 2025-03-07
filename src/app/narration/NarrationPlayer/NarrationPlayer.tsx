@@ -42,12 +42,12 @@ export const NarrationPlayer = ({
 
   return (
     <>
-      <ol className="mt-8 flex flex-col gap-5">
+      <ol className="flex flex-col gap-5">
         {transformNarrationScript(narrationScript).map((line, index) => (
           <li key={index}>{line}</li>
         ))}
       </ol>
-      <div className="sticky bottom-0 mt-8 flex flex-wrap gap-4 bg-background pb-5 pt-7">
+      <div className="sticky bottom-0 mt-8 flex flex-wrap gap-4 bg-background pb-5 pt-5">
         {status === NarratorStatus.IDLE && <Button onClick={handlePlay}>Play</Button>}
         {[NarratorStatus.PLAYING, NarratorStatus.PAUSED].includes(status) && (
           <>
