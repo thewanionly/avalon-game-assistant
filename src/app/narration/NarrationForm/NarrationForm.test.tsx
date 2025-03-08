@@ -10,6 +10,7 @@ import {
   EVIL_REQUIRED_CHARACTERS,
   TEAM_DISTRIBUTION,
   AvalonCharacterLoyalty,
+  AvalonCharacter,
 } from '@/constants/characters';
 import { DEFAULT_NARRATION_FORM_VALUES, MAX_PLAYERS, MIN_PLAYERS } from './NarrationForm.constants';
 import {
@@ -232,8 +233,11 @@ describe('Narration Form', () => {
       expect(playBtn).toHaveTextContent(`${TOTAL_DEFAULT_CHECKED}`);
 
       // check an unchecked checkbox
+      const uncheckedEvilCharacter = EVIL_AVALON_CHARACTERS.find(
+        ({ isDefaultChecked }) => !isDefaultChecked
+      ) as AvalonCharacter;
       const checkboxEl = screen.getByRole('checkbox', {
-        name: EVIL_AVALON_CHARACTERS[0].uniqueLabel,
+        name: uncheckedEvilCharacter.uniqueLabel,
       });
       expect(checkboxEl).not.toBeChecked();
       await userEvent.click(checkboxEl);
@@ -380,8 +384,12 @@ describe('Narration Form', () => {
       await userEvent.click(
         screen.getByRole('checkbox', { name: DEFAULT_EVIL_CHARACTERS[1].uniqueLabel })
       );
+
+      const uncheckedGoodCharacter = GOOD_AVALON_CHARACTERS.find(
+        ({ isDefaultChecked }) => !isDefaultChecked
+      ) as AvalonCharacter;
       await userEvent.click(
-        screen.getByRole('checkbox', { name: GOOD_AVALON_CHARACTERS[1].uniqueLabel })
+        screen.getByRole('checkbox', { name: uncheckedGoodCharacter.uniqueLabel })
       );
 
       // assert error message is not shown
@@ -491,11 +499,18 @@ describe('Narration Form', () => {
       expect(playBtn).toBeDisabled();
 
       // uncheck two checkboxes - making it less than the max
+      const uncheckedGoodCharacter = GOOD_AVALON_CHARACTERS.find(
+        ({ isDefaultChecked }) => !isDefaultChecked
+      ) as AvalonCharacter;
       await userEvent.click(
-        screen.getByRole('checkbox', { name: GOOD_AVALON_CHARACTERS[2].uniqueLabel })
+        screen.getByRole('checkbox', { name: uncheckedGoodCharacter.uniqueLabel })
       );
+
+      const uncheckedEvilCharacter = EVIL_AVALON_CHARACTERS.find(
+        ({ isDefaultChecked }) => !isDefaultChecked
+      ) as AvalonCharacter;
       await userEvent.click(
-        screen.getByRole('checkbox', { name: EVIL_AVALON_CHARACTERS[0].uniqueLabel })
+        screen.getByRole('checkbox', { name: uncheckedEvilCharacter.uniqueLabel })
       );
 
       // assert error message is not shown

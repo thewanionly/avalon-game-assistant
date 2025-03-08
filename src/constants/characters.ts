@@ -23,7 +23,7 @@ export interface OptionalCharacterFlags {
   hasOberon?: boolean;
 }
 
-interface AvalonCharacter {
+export interface AvalonCharacter {
   id: string;
   name: string;
   uniqueLabel: string;
@@ -41,13 +41,6 @@ export const AVALON_CHARACTERS: Record<string, AvalonCharacter> = {
     loyalty: AvalonCharacterLoyalty.Good,
     isRequired: true,
     isDefaultChecked: true,
-  },
-  [idify(AvalonCharacterName.Percival)]: {
-    id: idify(AvalonCharacterName.Percival),
-    name: AvalonCharacterName.Percival,
-    uniqueLabel: AvalonCharacterName.Percival,
-    loyalty: AvalonCharacterLoyalty.Good,
-    isAdditional: true,
   },
   [idify(`${AvalonCharacterName.LoyalServantOfArthur} 1`)]: {
     id: idify(`${AvalonCharacterName.LoyalServantOfArthur} 1`),
@@ -81,25 +74,11 @@ export const AVALON_CHARACTERS: Record<string, AvalonCharacter> = {
     uniqueLabel: `5th ${AvalonCharacterName.LoyalServantOfArthur}`,
     loyalty: AvalonCharacterLoyalty.Good,
   },
-  [idify(AvalonCharacterName.Mordred)]: {
-    id: idify(AvalonCharacterName.Mordred),
-    name: AvalonCharacterName.Mordred,
-    uniqueLabel: AvalonCharacterName.Mordred,
-    loyalty: AvalonCharacterLoyalty.Evil,
-    isAdditional: true,
-  },
-  [idify(AvalonCharacterName.Morgana)]: {
-    id: idify(AvalonCharacterName.Morgana),
-    name: AvalonCharacterName.Morgana,
-    uniqueLabel: AvalonCharacterName.Morgana,
-    loyalty: AvalonCharacterLoyalty.Evil,
-    isAdditional: true,
-  },
-  [idify(AvalonCharacterName.Oberon)]: {
-    id: idify(AvalonCharacterName.Oberon),
-    name: AvalonCharacterName.Oberon,
-    uniqueLabel: AvalonCharacterName.Oberon,
-    loyalty: AvalonCharacterLoyalty.Evil,
+  [idify(AvalonCharacterName.Percival)]: {
+    id: idify(AvalonCharacterName.Percival),
+    name: AvalonCharacterName.Percival,
+    uniqueLabel: AvalonCharacterName.Percival,
+    loyalty: AvalonCharacterLoyalty.Good,
     isAdditional: true,
   },
   [idify(AvalonCharacterName.Assassin)]: {
@@ -128,6 +107,27 @@ export const AVALON_CHARACTERS: Record<string, AvalonCharacter> = {
     name: AvalonCharacterName.MinionOfMordred,
     uniqueLabel: `3rd ${AvalonCharacterName.MinionOfMordred}`,
     loyalty: AvalonCharacterLoyalty.Evil,
+  },
+  [idify(AvalonCharacterName.Mordred)]: {
+    id: idify(AvalonCharacterName.Mordred),
+    name: AvalonCharacterName.Mordred,
+    uniqueLabel: AvalonCharacterName.Mordred,
+    loyalty: AvalonCharacterLoyalty.Evil,
+    isAdditional: true,
+  },
+  [idify(AvalonCharacterName.Morgana)]: {
+    id: idify(AvalonCharacterName.Morgana),
+    name: AvalonCharacterName.Morgana,
+    uniqueLabel: AvalonCharacterName.Morgana,
+    loyalty: AvalonCharacterLoyalty.Evil,
+    isAdditional: true,
+  },
+  [idify(AvalonCharacterName.Oberon)]: {
+    id: idify(AvalonCharacterName.Oberon),
+    name: AvalonCharacterName.Oberon,
+    uniqueLabel: AvalonCharacterName.Oberon,
+    loyalty: AvalonCharacterLoyalty.Evil,
+    isAdditional: true,
   },
 };
 
