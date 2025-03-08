@@ -145,13 +145,13 @@ export const NarrationForm = ({
         />
 
         <div className="sticky bottom-0 bg-background pb-5 pt-5">
+          {rootError && <FormMessage className="mb-2">{rootError}</FormMessage>}
           <Button className="w-full" type="submit" disabled={Boolean(hasError)}>
             {dynamicString(
               numberOfPlayers > 0 ? PLAY_BUTTON_LABEL : PLAY_BUTTON_NO_SELECTED_LABEL,
               { count: numberOfPlayers }
             )}
           </Button>
-          {rootError && <FormMessage className="mt-2">{rootError}</FormMessage>}
         </div>
       </form>
     </Form>
