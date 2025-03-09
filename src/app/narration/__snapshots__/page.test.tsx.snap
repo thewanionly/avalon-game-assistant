@@ -12,7 +12,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
         class="space-y-3"
       >
         <label
-          class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           for=":r0:-form-item"
         >
           Good characters (3)
@@ -219,7 +219,7 @@ exports[`Narration Page renders narration page unchanged 1`] = `
         class="space-y-3"
       >
         <label
-          class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          class="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           for=":r8:-form-item"
         >
           Evil characters (2)
