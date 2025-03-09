@@ -8,6 +8,7 @@ interface UseNarratorParams {
 }
 
 interface UseNarratorReturnType {
+  currentSentence: string | null;
   status: NarratorStatus;
   speak: () => void;
   stop: () => void;
@@ -19,6 +20,7 @@ export const useNarrator = ({
   text,
   initialStatus = NarratorStatus.IDLE,
 }: UseNarratorParams): UseNarratorReturnType => {
+  const [currentSentence, setCurrentSentence] = useState<string | null>(null);
   const [status, setStatus] = useState<NarratorStatus>(initialStatus);
 
   const handleSpeak = useCallback(() => {
@@ -29,14 +31,39 @@ export const useNarrator = ({
       return;
     }
 
-    const utterance = new SpeechSynthesisUtterance(text);
+    const sentences = text
+      .split(/\. |\./)
+      .filter((v) => v)
+      .map((v) => `${v}.`);
+    let currSentenceIndex = 0;
 
-    // sync with the status state
-    utterance.onstart = () => setStatus(NarratorStatus.PLAYING);
-    utterance.onend = () => setStatus(NarratorStatus.END);
+    // speak the text one sentence at a time
+    const speakSentence = () => {
+      if (currSentenceIndex >= sentences.length) {
+        // all sentences have been spoken
+        setStatus(NarratorStatus.END);
+        setCurrentSentence(null);
+        return;
+      }
 
-    // speak the text
-    window.speechSynthesis.speak(utterance);
+      const utterance = new SpeechSynthesisUtterance(sentences[currSentenceIndex]);
+      setCurrentSentence(sentences[currSentenceIndex]);
+
+      // sync with the status state when sentence starts playing
+      utterance.onstart = () => setStatus(NarratorStatus.PLAYING);
+
+      // when the current sentence has been spoken, play the next sentence
+      utterance.onend = () => {
+        setCurrentSentence(null);
+        currSentenceIndex++;
+        speakSentence();
+      };
+
+      // speak the current sentence
+      window.speechSynthesis.speak(utterance);
+    };
+
+    speakSentence();
   }, [text]);
 
   const handleStop = useCallback(() => {
@@ -74,5 +101,12 @@ export const useNarrator = ({
     };
   }, [initialStatus, handleSpeak]);
 
-  return { status, speak: handleSpeak, stop: handleStop, pause: handlePause, resume: handleResume };
+  return {
+    currentSentence,
+    status,
+    speak: handleSpeak,
+    stop: handleStop,
+    pause: handlePause,
+    resume: handleResume,
+  };
 };
