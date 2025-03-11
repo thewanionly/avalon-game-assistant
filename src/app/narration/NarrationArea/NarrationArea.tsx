@@ -13,12 +13,19 @@ import { generateNarrationScript } from '@/helper/generateNarrationScript';
 import { AVALON_CHARACTERS, AvalonCharacterName } from '@/constants/characters';
 import { checkTeamBalance } from '@/helper/checkTeamBalance';
 import { TeamBalanceAlertDialog } from '@/components/TeamBalanceAlertDialog';
+import { SELECTED_CHARACTERS_COOKIE } from '@/constants/storage';
 
 enum NarrationStatus {
   SELECTION = 'selection',
   NARRATING = 'narrating',
 }
-export const NarrationArea = () => {
+
+type NarrationAreaProps = {
+  defaultSelectedCharacters?: NarrationFormValuesType;
+};
+export const NarrationArea = ({
+  defaultSelectedCharacters = DEFAULT_NARRATION_FORM_VALUES,
+}: NarrationAreaProps) => {
   const [teamBalanceMessage, setTeamBalanceMessage] = useState('');
   const [narrationStatus, setNarrationStatus] = useState<NarrationStatus>(
     NarrationStatus.SELECTION
@@ -38,7 +45,7 @@ export const NarrationArea = () => {
     const { goodCharacters = [], evilCharacters = [] } = values;
 
     // Save selected characters to a cookie
-    Cookie.set('selected-characters', JSON.stringify(values), {
+    Cookie.set(SELECTED_CHARACTERS_COOKIE, JSON.stringify(values), {
       expires: 1000,
     });
 
@@ -85,7 +92,7 @@ export const NarrationArea = () => {
     <>
       <NarrationForm
         className={narrationStatus === NarrationStatus.NARRATING ? 'hidden' : '*:'}
-        defaultValues={DEFAULT_NARRATION_FORM_VALUES}
+        defaultValues={defaultSelectedCharacters}
         onFormSubmit={handleFormSubmit}
       />
       {narrationStatus === NarrationStatus.NARRATING && (
