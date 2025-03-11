@@ -1,6 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+
+import Cookie from 'js-cookie';
+
 import { NarrationForm } from '../NarrationForm';
 import { DEFAULT_NARRATION_FORM_VALUES } from '../NarrationForm/NarrationForm.constants';
 import { NarrationPlayer } from '../NarrationPlayer';
@@ -31,10 +34,14 @@ export const NarrationArea = () => {
     setNarrationStatus(NarrationStatus.NARRATING);
   };
 
-  const handleFormSubmit = ({
-    goodCharacters = [],
-    evilCharacters = [],
-  }: NarrationFormValuesType) => {
+  const handleFormSubmit = (values: NarrationFormValuesType) => {
+    const { goodCharacters = [], evilCharacters = [] } = values;
+
+    // Save selected characters to a cookie
+    Cookie.set('selected-characters', JSON.stringify(values), {
+      expires: 1000,
+    });
+
     // check if any of the special characters are selected
     const hasPercival = goodCharacters.some(
       (charId) => AVALON_CHARACTERS[charId].name === AvalonCharacterName.Percival
