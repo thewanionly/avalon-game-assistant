@@ -5,6 +5,7 @@ import { NarratorStatus } from '@/constants/narrator';
 interface UseNarratorParams {
   text: string;
   initialStatus?: NarratorStatus;
+  rate: number[];
 }
 
 interface UseNarratorReturnType {
@@ -19,6 +20,7 @@ interface UseNarratorReturnType {
 export const useNarrator = ({
   text,
   initialStatus = NarratorStatus.IDLE,
+  rate,
 }: UseNarratorParams): UseNarratorReturnType => {
   const [currentSentence, setCurrentSentence] = useState<string | null>(null);
   const [status, setStatus] = useState<NarratorStatus>(initialStatus);
@@ -47,6 +49,7 @@ export const useNarrator = ({
       }
 
       const utterance = new SpeechSynthesisUtterance(sentences[currSentenceIndex]);
+      utterance.rate = rate[0];
       setCurrentSentence(sentences[currSentenceIndex]);
 
       // sync with the status state when sentence starts playing

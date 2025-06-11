@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { useNarrator } from '@/hooks/useNarrator';
 import { NarratorStatus } from '@/constants/narrator';
 import { transformNarrationScript } from './NarrationPlayer.utils';
+import { useVoiceSettingsStore } from '@/store/voiceSettingsStore';
 
 type NarrationPlayerProps = {
   narrationScript: string;
@@ -14,9 +15,11 @@ export const NarrationPlayer = ({
   initialStatus = NarratorStatus.IDLE,
   onClose,
 }: NarrationPlayerProps) => {
+  const rate = useVoiceSettingsStore((state) => state.rate);
   const { status, speak, stop, pause, resume } = useNarrator({
     text: narrationScript,
     initialStatus,
+    rate,
   });
 
   const handlePlay = () => {

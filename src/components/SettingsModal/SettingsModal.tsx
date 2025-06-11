@@ -9,10 +9,14 @@ import {
   DrawerTitle,
 } from '../ui/drawer';
 import { useSettingsModalStore } from './SettingsModal.store';
+import { Slider } from '../ui/slider';
+import { Label } from '../ui/label';
+import { useVoiceSettingsStore } from '@/store/voiceSettingsStore';
 
 export const SettingsModal = () => {
   const isOpen = useSettingsModalStore((state) => state.isOpen);
   const closeModal = useSettingsModalStore((state) => state.closeModal);
+  const { rate, setRate } = useVoiceSettingsStore();
 
   return (
     <Drawer open={isOpen} onOpenChange={closeModal}>
@@ -36,6 +40,13 @@ export const SettingsModal = () => {
             </Button>
           </DrawerClose>
         </DrawerHeader>
+        <div className="mt-4 p-4">
+          <div className="mb-4 flex justify-between">
+            <Label>Speed</Label>
+            <span className="text-sm text-gray-500">{rate[0].toFixed(2)}</span>
+          </div>
+          <Slider value={rate} onValueChange={setRate} max={2} min={0.25} step={0.25} />
+        </div>
       </DrawerContent>
     </Drawer>
   );
