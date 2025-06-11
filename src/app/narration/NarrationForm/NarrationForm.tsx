@@ -17,6 +17,7 @@ import {
   PLAY_BUTTON_NO_SELECTED_LABEL,
 } from '@/constants/labels';
 import { NarrationFormSchema, NarrationFormValuesType } from './NarrationForm.schema';
+import { SettingsModalButton } from '@/components/SettingsModal/SettingsModalButton';
 
 interface NarrationFormProps {
   className?: string;
@@ -144,7 +145,7 @@ export const NarrationForm = ({
           )}
         />
 
-        <div className="sticky bottom-0 bg-background pb-5 pt-5">
+        <div className="sticky bottom-0 flex justify-between gap-3 bg-background pb-5 pt-5">
           {rootError && <FormMessage className="mb-2">{rootError}</FormMessage>}
           <Button className="w-full" type="submit" disabled={Boolean(hasError)}>
             {dynamicString(
@@ -152,6 +153,7 @@ export const NarrationForm = ({
               { count: numberOfPlayers }
             )}
           </Button>
+          <SettingsModalButton />
         </div>
       </form>
     </Form>

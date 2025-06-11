@@ -14,6 +14,7 @@ import { AVALON_CHARACTERS, AvalonCharacterName } from '@/constants/characters';
 import { checkTeamBalance } from '@/helper/checkTeamBalance';
 import { TeamBalanceAlertDialog } from '@/components/TeamBalanceAlertDialog';
 import { SELECTED_CHARACTERS_COOKIE } from '@/constants/storage';
+import { SettingsModal } from '@/components/SettingsModal/SettingsModal';
 
 enum NarrationStatus {
   SELECTION = 'selection',
@@ -95,6 +96,7 @@ export const NarrationArea = ({
         defaultValues={defaultSelectedCharacters}
         onFormSubmit={handleFormSubmit}
       />
+      {narrationStatus === NarrationStatus.SELECTION && <SettingsModal />}
       {narrationStatus === NarrationStatus.NARRATING && (
         <NarrationPlayer
           narrationScript={narrationScript}
