@@ -1,4 +1,4 @@
-import { X } from 'lucide-react';
+import { Settings, X } from 'lucide-react';
 import { Button } from '../ui/button';
 import {
   Drawer,
@@ -20,9 +20,11 @@ export const SettingsModal = () => {
 
   return (
     <Drawer open={isOpen} onOpenChange={closeModal}>
-      <DrawerContent className="min-h-[80dvh]">
-        <DrawerHeader className="flex items-center justify-between text-left">
-          <DrawerTitle>Settings</DrawerTitle>
+      <DrawerContent className="min-h-[40dvh] p-6 pt-0">
+        <DrawerHeader className="flex items-center justify-between px-0 text-left">
+          <DrawerTitle className="flex items-center gap-2">
+            <Settings /> <span className="mt-1">Settings</span>
+          </DrawerTitle>
           {/* Screen-reader-only description */}
           <DrawerDescription className="sr-only">
             Change various app settings here.
@@ -40,7 +42,7 @@ export const SettingsModal = () => {
             </Button>
           </DrawerClose>
         </DrawerHeader>
-        <div className="mt-4 p-4">
+        <div className="mt-8">
           <div className="mb-4 flex justify-between">
             <Label>Speed</Label>
             <span className="text-sm text-gray-500">{rate[0].toFixed(2)}</span>
