@@ -1,5 +1,6 @@
+import { VOICE_RATE } from '@/constants/storage';
 import { create } from 'zustand';
-import { devtools } from 'zustand/middleware';
+import { devtools, persist } from 'zustand/middleware';
 
 interface VoiceSettingsStore {
   rate: number[];
@@ -9,10 +10,20 @@ interface VoiceSettingsStore {
 }
 
 export const useVoiceSettingsStore = create<VoiceSettingsStore>()(
-  devtools((set) => ({
-    rate: [1],
-    setRate: (newRate) => set({ rate: newRate }),
-    incrementRate: () => set((state) => ({ rate: [state.rate[0] + 0.1] })),
-    decrementRate: () => set((state) => ({ rate: [state.rate[0] - 0.1] })),
-  }))
+  devtools(
+    persist(
+      (set) => ({
+        rate: [1],
+        setRate: (newRate) => set({ rate: newRate }),
+        incrementRate: () => set((state) => ({ rate: [state.rate[0] + 0.1] })),
+        decrementRate: () => set((state) => ({ rate: [state.rate[0] - 0.1] })),
+      }),
+      {
+        name: VOICE_RATE,
+      }
+    ),
+    {
+      name: 'VoiceSettingsStore',
+    }
+  )
 );
