@@ -23,7 +23,7 @@ export const SettingsModal = () => {
       <DrawerContent className="min-h-[40dvh] p-6 pt-0">
         <DrawerHeader className="flex items-center justify-between px-0 text-left">
           <DrawerTitle className="flex items-center gap-2">
-            <Settings /> <span className="mt-1">Settings</span>
+            <Settings /> <span>Settings</span>
           </DrawerTitle>
           {/* Screen-reader-only description */}
           <DrawerDescription className="sr-only">
