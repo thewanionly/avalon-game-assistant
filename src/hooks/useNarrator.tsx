@@ -59,7 +59,15 @@ export const useNarrator = ({
       utterance.onend = () => {
         setCurrentSentence(null);
         currSentenceIndex++;
-        speakSentence();
+
+        // Insert a dummy pause utterance
+        if (currSentenceIndex > 0) {
+          const pauseUtterance = new SpeechSynthesisUtterance('...');
+          pauseUtterance.volume = 0; // Silent
+          pauseUtterance.rate = 1; // Very slow = fake pause
+          pauseUtterance.onend = speakSentence;
+          window.speechSynthesis.speak(pauseUtterance);
+        }
       };
 
       // speak the current sentence
