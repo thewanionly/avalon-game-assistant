@@ -19,3 +19,8 @@ Object.defineProperty(window, 'speechSynthesis', {
 });
 
 global.SpeechSynthesisUtterance = jest.fn();
+
+Object.defineProperty(window, 'scrollTo', {
+  value: () => {},
+  writable: true,
+});
