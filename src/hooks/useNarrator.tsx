@@ -63,7 +63,7 @@ export const useNarrator = ({
         // Insert a dummy pause utterance
         if (currSentenceIndex > 0) {
           const pauseUtterance = new SpeechSynthesisUtterance('pause. pause. pause. pause.');
-          pauseUtterance.volume = 100; // Silent
+          pauseUtterance.volume = 0; // Silent
           pauseUtterance.rate = 0.1; // Very slow = fake pause
           pauseUtterance.onend = speakSentence;
           window.speechSynthesis.speak(pauseUtterance);
